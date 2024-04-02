@@ -1,0 +1,6 @@
+/.spyproject/*
+/myvenv/*
+/.pytest_cache/*
+/combat/__pycache__/*
+/test/__pycache__/*
+test11.txt
