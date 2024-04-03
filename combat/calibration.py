@@ -5,15 +5,11 @@ Created on Tue Mar 19 14:48:56 2024
 @author: bidzh
 """
 
-from combat.models import LogitModel
 from combat.short_list import *
 from combat.combat import *
 
 import pandas as pd
 import numpy as np
-from tqdm import tqdm
-
-from itertools import combinations
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (roc_auc_score
@@ -29,6 +25,8 @@ from sklearn.metrics import (roc_auc_score
 from sklearn.calibration import calibration_curve
 
 import matplotlib.pyplot as plt
+from typing import Optional
+
 
 
 def ExpectedCalibrationError(true_labels: pd.Series
@@ -47,7 +45,7 @@ def ExpectedCalibrationError(true_labels: pd.Series
         probabilities: np.ndarray
             probabilities of each object in the dataset
             
-        n_bins: int
+        n_bins: int,  default = 20
             number of bins
             
     Returns:
@@ -64,11 +62,8 @@ def ExpectedCalibrationError(true_labels: pd.Series
     if not isinstance(probabilities, np.ndarray):
         raise TypeError("The 'probabilities' parameter must be pd.Series")
         
-    if not isinstance(n_bins, int):
-        raise TypeError("The 'n_bins' parameter must be an integer")
-        
-    if n_bins <= 0:
-        raise ValueError("""The 'n_bins' parameter must be positive integer""")
+    if not isinstance(n_bins, int) or n_bins <= 0:
+        raise ValueError("""The 'n_bins' parameter must be positive integer; got {}""".format(n_bins))
 
     # =============================================================================
     # Calculating ECE
@@ -98,7 +93,7 @@ def ExpectedCalibrationError(true_labels: pd.Series
 def CalibrationModel(
         x_data: pd.DataFrame
         , y_data: pd.Series
-        , penalty: float = None
+        , penalty: Optional[float] = None
         , alpha: float = 0.5
         , fit_intercept: bool = True
         ):
@@ -114,13 +109,13 @@ def CalibrationModel(
         y_data: pd.Series
             a pandas Series with discrete dependent variable
             
-        penalty: str {'None', 'l1', 'l2'}, default = None
+        penalty: str optional, {None, 'l1', 'l2'}, default = None
             a regularization for Logistic Regression model
             
-        alpha: float, default = 0.5
+        alpha: float optional, default = 0.5
             a float variable for regularization
             
-        fit_intercept: bool, {'True', 'False'}, default = 'True'
+        fit_intercept: bool optional, {'True', 'False'}, default = 'True'
             a bool variable whether to fit intercept in the Logistic Regression or not         
 
     Returns:
@@ -141,13 +136,10 @@ def CalibrationModel(
         raise ValueError("""The length of 'x_data' and 'y_data' must be identical""")
 
     if penalty not in [None, 'l1', 'l2']:
-        raise ValueError("""The 'penalty' parameter must be in ['None', 'l1', 'l2']""")
+        raise ValueError("""The 'penalty' parameter must be in [None, 'l1', 'l2']; got {}""".format(penalty))
     
-    if not isinstance(alpha, float):
-        raise TypeError("""The 'alpha' parameter must be float""")
-    
-    if not 0 < alpha < 1:
-        raise ValueError("""The 'alpha' parameter must be between 0 and 1""")
+    if not isinstance(alpha, float) or not 0 < alpha < 1:
+        raise ValueError("""The 'alpha' parameter must be float from 0 to 1; got {}""".format(alpha))
         
     if not isinstance(fit_intercept, bool):
         raise TypeError("""The 'fit_intercept' must be logical""")
@@ -178,7 +170,7 @@ def PredictionCalibration(
         x_data: pd.DataFrame
             a series of predictions of the raw models
             
-        model: CalibrationModel
+        model: LogisticRegression
             a Logistic Regression Model for calibration
             
         logrob: bool
@@ -243,11 +235,8 @@ def CalibrationCurve(
     if not isinstance(probabilities, np.ndarray):
         raise TypeError("""The 'probabilities' parameter must be a pandas Series""")
         
-    if not isinstance(n_bins, int):
-        raise TypeError("""The 'n_bins' parameter must be an integer""")
-    
-    if n_bins <= 0:
-        raise ValueError("""The 'n_bins' parameter must be positive integer""")
+    if not isinstance(n_bins, int) or n_bins <= 0:
+        raise ValueError("""The 'n_bins' parameter must be positive integer; got {}""".format(n_bins))
     
     if not isinstance(label, str):
         raise ValueError("""The 'label' parameter must be string""")

@@ -97,7 +97,7 @@ class Test_Calibration():
         , [
             (y_test, proba, 20,  does_not_raise())
             , (y_test, proba, -2,  pytest.raises(ValueError))
-            , (y_test, proba, '20',  pytest.raises(TypeError))
+            , (y_test, proba, '20',  pytest.raises(ValueError))
         ]
     )
     def test_ExpectedCalibrationError(self, true_labels, probabilities, n_bins,  expectation):
@@ -113,7 +113,7 @@ class Test_Calibration():
                 , (x_test, y_test, 'l2', 0.5, True, does_not_raise())
                 , (x_test, y_test, 'l1', 0.5, False, does_not_raise())
                 , (x_test, y_test, 'l2', 0.5, False, does_not_raise())
-                , (x_test, y_test, 'l1', '0.5', False, pytest.raises(TypeError))
+                , (x_test, y_test, 'l1', '0.5', False, pytest.raises(ValueError))
                 , (x_test, y_test, 'l1', 1.5, False, pytest.raises(ValueError))
                 , (x_test, y_test, 'l1', -1.5, False, pytest.raises(ValueError))
                 , (x_test, y_test, 'l113', 0.5, False, pytest.raises(ValueError))
@@ -142,7 +142,7 @@ class Test_Calibration():
             , [
                 (y_test, proba[:,1], 20, 'aaa', does_not_raise())
                 , (y_test, proba[:,1], -20, 'aaa', pytest.raises(ValueError))
-                , (y_test, proba[:,1], '-20', 'aaa', pytest.raises(TypeError))
+                , (y_test, proba[:,1], '-20', 'aaa', pytest.raises(ValueError))
                 , (y_test, proba[:,1], 0, 'aaa', pytest.raises(ValueError))
                 , (y_test, proba[:,1], 10, 12, pytest.raises(ValueError))
             ]

@@ -27,6 +27,7 @@ import statsmodels.api as sm
 from statsmodels.tools.tools import add_constant
 
 import matplotlib.pyplot as plt
+from typing import Optional, Union
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -42,9 +43,8 @@ class LogitModel:
                 , x_test: pd.DataFrame
                 , y_test: pd.Series
                 , intercept: bool = True
-                , penalty: str = None
+                , penalty: Optional[str] = None
                 , alpha: float = 0.1
-                # , solver: str = 'lbfgs'
                 ):
         
         # =============================================================================
@@ -76,13 +76,10 @@ class LogitModel:
             raise ValueError("""The 'intercept' parameter must be logical""")
             
         if penalty not in [None, 'l1']:
-            raise ValueError("""The 'penalty' parameter must be iether None or 'l1'""")
+            raise ValueError("""The 'penalty' parameter must be iether None or 'l1'; got {}""".format(penalty))
             
-        if not isinstance(alpha, float):
-            raise TypeError("""The 'alpha' parameter must float""")
-        
-        if not 0 < alpha < 1:
-            raise ValueError("""The 'alpha' parameter must be float from 0 to 1""")
+        if not isinstance(alpha, float) or not 0 < alpha < 1:
+            raise ValueError("""The 'alpha' parameter must be float from 0 to 1; got {}""".format(alpha))
                         
         # =============================================================================
         # initializing    
@@ -93,9 +90,7 @@ class LogitModel:
         self.y_test = y_test
         self.penalty = penalty
         self.intercept = intercept
-        self.alpha = alpha
-        # self.solver = solver
-        
+        self.alpha = alpha       
     
     def Model_SK(self):
         if self.sk_model is None:
@@ -156,11 +151,8 @@ class LogitModel:
         # =============================================================================
         # validating input        
         # =============================================================================
-        if not isinstance(cutoff, float):
-            raise TypeError("""The 'cutoff' parameter must be float""")
-        
-        if not 0 < cutoff < 1:
-            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1""")
+        if not isinstance(cutoff, float) or not 0 < cutoff < 1:
+            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1; got {}""".format(cutoff))
                         
         # =============================================================================
         # Calculating accuracy      
@@ -204,11 +196,8 @@ class LogitModel:
         # =============================================================================
         # validating input        
         # =============================================================================
-        if not isinstance(cutoff, float):
-            raise TypeError("""The 'cutoff' parameter must be float""")
-        
-        if not 0 < cutoff < 1:
-            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1""")
+        if not isinstance(cutoff, float) or not 0 < cutoff < 1:
+            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1; got {}""".format(cutoff))
             
         # =============================================================================
         # Calculating labels      
@@ -244,11 +233,8 @@ class LogitModel:
         # =============================================================================
         # validating input        
         # =============================================================================
-        if not isinstance(cutoff, float):
-            raise TypeError("""The 'cutoff' parameter must be float""")
-        
-        if not 0 < cutoff < 1:
-            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1""")
+        if not isinstance(cutoff, float) or not 0 < cutoff < 1:
+            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1; got {}""".format(cutoff))
             
         # =============================================================================
         # Calculating recall      
@@ -266,16 +252,12 @@ class LogitModel:
         # =============================================================================
         # validating input        
         # =============================================================================
-        if not isinstance(cutoff, float):
-            raise TypeError("""The 'cutoff' parameter must be float""")
-        
-        if not 0 < cutoff < 1:
-            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1""")
+        if not isinstance(cutoff, float) or not 0 < cutoff < 1:
+            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1; got {}""".format(cutoff))
             
         # =============================================================================
         # Calculating precision      
         # =============================================================================
-
         precision = precision_score(y_true = self.y_train, y_pred = self.PredictLabel_Train(cutoff))
         precision = float("{:.3f}".format(precision))        
         return precision
@@ -287,8 +269,8 @@ class LogitModel:
         # =============================================================================
         # validating input        
         # =============================================================================
-        if not isinstance(cutoff, float) and not 0 < cutoff < 1:
-            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1""")
+        if not isinstance(cutoff, float) or not 0 < cutoff < 1:
+            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1; got {}""".format(cutoff))
             
         # =============================================================================
         # Calculating confusion matrix      
@@ -344,8 +326,7 @@ class LogitModel:
         gini = 2 * self.AUC_Test() - 1
         gini = float("{:.3f}".format(gini))
         return gini
-    
-    
+       
     def Accuracy_Test(self
                       , cutoff: float
                       )-> float:
@@ -355,11 +336,8 @@ class LogitModel:
         # =============================================================================
         # validating input        
         # =============================================================================
-        if not isinstance(cutoff, float):
-            raise TypeError("""The 'cutoff' parameter must be float""")
-        
-        if not 0 < cutoff < 1:
-            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1""")
+        if not isinstance(cutoff, float) or not 0 < cutoff < 1:
+            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1; got {}""".format(cutoff))
             
         # =============================================================================
         # Calculating accuracy      
@@ -386,15 +364,13 @@ class LogitModel:
         Calculates the Probabilities on the Test Set
         """
         return self.sk_model.predict_proba(self.x_test)
-    
-    
+       
     def Predict_LogProba_Test(self) -> np.ndarray:
         """
         Calculates the Logarithm of Probabilities on the Test Set
         """
         return self.sk_model.predict_log_proba(self.x_test)
-    
-    
+       
     def PredictLabel_Test(self
                      , cutoff: float
                      ) -> list:
@@ -405,11 +381,8 @@ class LogitModel:
         # =============================================================================
         # validating input        
         # =============================================================================
-        if not isinstance(cutoff, float):
-            raise TypeError("""The 'cutoff' parameter must be float""")
-        
-        if not 0 < cutoff < 1:
-            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1""")
+        if not isinstance(cutoff, float) or not 0 < cutoff < 1:
+            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1; got {}""".format(cutoff))
             
         # =============================================================================
         # Calculating labels      
@@ -445,11 +418,8 @@ class LogitModel:
         # =============================================================================
         # validating input        
         # =============================================================================
-        if not isinstance(cutoff, float):
-            raise TypeError("""The 'cutoff' parameter must be float""")
-        
-        if not 0 < cutoff < 1:
-            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1""")
+        if not isinstance(cutoff, float) or not 0 < cutoff < 1:
+            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1; got {}""".format(cutoff))
             
         # =============================================================================
         # Calculating recall      
@@ -466,11 +436,8 @@ class LogitModel:
         # =============================================================================
         # validating input        
         # =============================================================================
-        if not isinstance(cutoff, float):
-            raise TypeError("""The 'cutoff' parameter must be float""")
-        
-        if not 0 < cutoff < 1:
-            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1""")
+        if not isinstance(cutoff, float) or not 0 < cutoff < 1:
+            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1; got {}""".format(cutoff))
             
         # =============================================================================
         # Calculating Precision      
@@ -487,11 +454,8 @@ class LogitModel:
         # =============================================================================
         # validating input        
         # =============================================================================
-        if not isinstance(cutoff, float):
-            raise TypeError("""The 'cutoff' parameter must be float""")
-        
-        if not 0 < cutoff < 1:
-            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1""")
+        if not isinstance(cutoff, float) or not 0 < cutoff < 1:
+            raise ValueError("""The 'cutoff' parameter must be float from 0 to 1; got {}""".format(cutoff))
             
         # =============================================================================
         # Calculating confusion matrix      

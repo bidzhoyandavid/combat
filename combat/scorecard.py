@@ -55,24 +55,14 @@ def ScoreCard(y_proba: np.ndarray
     if not isinstance(log, bool):
         raise TypeError("""The 'log' parameter must be logical""")
     
-    if not isinstance(target_score, int):
-        raise TypeError("""The 'target_score' must be integer""")
-    
-    if target_score <= 0:
-        raise ValueError("""The 'target_score' must be positive integer""")
+    if not isinstance(target_score, int) or target_score <= 0:
+        raise ValueError("""The 'target_score' must be positive integer; got {}""".format(target_score))
 
-    if not isinstance(target_odds, int):
-        raise TypeError("""The 'target_odds' must be integer""")
-    
-    if target_odds <= 0:
-        raise ValueError("""The 'target_odds' must be positive integer""")
+    if not isinstance(target_odds, int) or target_odds <= 0:
+        raise ValueError("""The 'target_odds' must be positive integer; got {}""".format(target_odds))
 
-    if not isinstance(pdo, int):
-        raise TypeError("""The 'pdo' must be integer""")
-    
-    if pdo <= 0:
-        raise ValueError("""The 'pdo' must be positive integer""")
-
+    if not isinstance(pdo, int) or pdo <= 0:
+        raise ValueError("""The 'pdo' must be positive integer; got {}""".format(pdo))
 
     # =============================================================================
     # Calculating Score    

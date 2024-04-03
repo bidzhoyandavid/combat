@@ -61,7 +61,7 @@ def IsModelValid(
         check_sample: str {'test', 'train'}, default = 'test'
             the sample to perform test
                         
-        metric: str {'gini', 'auc'} default: 'gini' 
+        metric: str {'gini', 'auc'} default = 'gini' 
             a metric used to measure the model accuracy
                 
         gini_cutoff: float, default = 0.4
@@ -86,28 +86,19 @@ def IsModelValid(
         raise TypeError("""The 'coef_expectation' parameter must be a pandas DataFrame""")
            
     if check_sample not in ['train', 'test']:
-        raise ValueError("There is no {} 'check_sample' dataset". format(check_sample))
+        raise ValueError("""The 'check_sample' parameter must be in ['train', 'test']; got {}""". format(check_sample))
         
     if metric not in ['gini', 'auc']:
-        raise ValueError("There is no {} 'metric'".format(metric))
+        raise ValueError("""The 'metric' parameter must be in ['gini', 'auc']; got {}""".format(metric))
         
-    if not isinstance(p_value, float):
-        raise TypeError("""The 'p_value' parameter must be float""")
+    if not isinstance(p_value, float) or not 0 < p_value < 0.5:
+        raise ValueError("""The 'p_value' parameter must be float from 0 to 0.5; got {}""".format(p_value))
 
-    if not 0 < p_value < 0.5:
-        raise ValueError("""The 'p_value' parameter must be float from 0 to 0.5""")
+    if not isinstance(gini_cutoff, float) or not 0 < gini_cutoff < 1:
+        raise ValueError("""The 'gini_cutoff' parameter must be float from 0 to 1; got {}""".format(gini_cutoff))
 
-    if not isinstance(gini_cutoff, float):
-        raise TypeError("""The 'gini_cutoff' parameter must be float""")
-
-    if not 0 < gini_cutoff < 1:
-        raise ValueError("""The 'gini_cutoff' parameter must be from 0 to 1""")
-
-    if not isinstance(auc_cutoff, float):
-        raise TypeError("""The 'auc_cutoff' parameter must be float""")  
-        
-    if not 0 < auc_cutoff < 1:
-        raise ValueError("""The 'auc_cutoff' parameter must be from 0 to 1""")
+    if not isinstance(auc_cutoff, float) or  not 0 < auc_cutoff < 1:
+        raise ValueError("""The 'auc_cutoff' parameter must be from float 0 to 1; got {}""".format(auc_cutoff))
         
     # =============================================================================
     # Accuracy Check        
@@ -165,7 +156,7 @@ def ModelCombination(
             , dependent_number: int
             , coef_expectation: pd.DataFrame
             , intercept: bool = True
-            , penalty: str = None
+            , penalty: Optional[str] = None
             , alpha: float = 0.5
             , p_value: float = 0.05
             , check_sample: str = 'test'
@@ -266,37 +257,25 @@ def ModelCombination(
         raise ValueError("""The 'intercept' parameter must be logical""")
             
     if penalty not in [None, 'l1']:
-        raise ValueError("""The 'penalty' parameter must be iether None or 'l1'""")
+        raise ValueError("""The 'penalty' parameter must be iether None or 'l1'; got {}""".format(penalty))
         
-    if not isinstance(alpha, float):
-        raise TypeError("""The 'alpha' parameter must float""")
-    
-    if not 0 < alpha < 1:
-        raise ValueError("""The 'alpha' parameter must be float from 0 to 1""")
-     
+    if not isinstance(alpha, float) or not 0 < alpha < 1:
+        raise ValueError("""The 'alpha' parameter must be float from 0 to 1; got {}""".format(alpha))
+
     if check_sample not in ['train', 'test']:
-        raise ValueError("There is no {} 'check_sample' dataset". format(check_sample))
+        raise ValueError("""The 'check_sample' parameter must be in ['train', 'test']; got {}""". format(check_sample))
         
     if metric not in ['gini', 'auc']:
-        raise ValueError("There is no {} 'metric'".format(metric))
+        raise ValueError("""The 'metric' parameter must be in ['gini', 'auc']; got {}""".format(metric))
 
-    if not isinstance(p_value, float):
-        raise TypeError("""The 'p_value' parameter must be float""")
+    if not isinstance(p_value, float) or not 0 < p_value < 0.5:
+        raise ValueError("""The 'p_value' parameter must be float from 0 to 0.5; got {}""".format(p_value))
 
-    if not 0 < p_value < 0.5:
-        raise ValueError("""The 'p_value' parameter must be float from 0 to 0.5""")
+    if not isinstance(gini_cutoff, float) or not 0 < gini_cutoff < 1:
+        raise ValueError("""The 'gini_cutoff' parameter must be from 0 to 1; got {}""".format(gini_cutoff))
 
-    if not isinstance(gini_cutoff, float):
-        raise TypeError("""The 'gini_cutoff' parameter must be float""")
-
-    if not 0 < gini_cutoff < 1:
-        raise ValueError("""The 'gini_cutoff' parameter must be from 0 to 1""")
-
-    if not isinstance(auc_cutoff, float):
-        raise TypeError("""The 'auc_cutoff' parameter must be float""")  
-        
-    if not 0 < auc_cutoff < 1:
-        raise ValueError("""The 'auc_cutoff' parameter must be from 0 to 1""")
+    if not isinstance(auc_cutoff, float) or not 0 < auc_cutoff < 1:
+        raise ValueError("""The 'auc_cutoff' parameter must be from 0 to 1; got {}""".format(auc_cutoff))
         
     # =============================================================================
     # Generating models
@@ -376,9 +355,8 @@ def ModelMetaInfo(
                        , 'auc_test', 'auc_train'
                        , 'Brier_test', 'Brier_train'
                        , 'F1_test', 'F1_train']:
-        raise ValueError("There is no {} sort parameter. Consider revising".format(sort_by))
-    
-    
+        raise ValueError("""The 'sort_by' parameter must be in  ['gini_test', 'gini_train', 'auc_test', 'auc_train', 'Brier_test', 'Brier_train', 'F1_test', 'F1_train']; got {}""".format(sort_by))
+      
     # =============================================================================
     # Generating Meta Information
     # =============================================================================
@@ -439,10 +417,10 @@ def ModelAggregation(
         raise TypeError("""The 'model_dict' parameter must a dictionary""")
     
     if check_sample not in ['train', 'test']:
-        raise ValueError("There is no {} 'check_sample' dataset". format(check_sample))
+        raise ValueError("""The 'check_sample' parameter must be in ['train', 'test']; got {}""".format(check_sample))
         
     if metric not in ['gini', 'auc', 'f1', 'brier']:
-        raise ValueError("There is no {} 'metric'".format(metric))
+        raise ValueError("""The 'metric' parameter must be in ['gini', 'auc', 'f1', 'brier']; got {}""".format(metric))
         
     # =============================================================================
     # Accuracy summation    
@@ -493,8 +471,8 @@ def PredictionAggregation(
             
     Output:
     -------
-        pred: [pd.Series, float]
-            a pandas Series in case of multiple clients or float in case of one client with PD's
+        pred: pd.DataFrame
+            a pandas DataFrame with clients  PD's
     """      
 
     # =============================================================================
@@ -524,7 +502,7 @@ def ModelStacking(
         models_dict: dict
         , x_data: pd.DataFrame
         , y_data: pd.Series
-        , penalty: float = None
+        , penalty: Optional[float] = None
         , alpha: float = 0.5
         , fit_intercept: bool = True
         ) -> LogisticRegression:
@@ -534,7 +512,6 @@ def ModelStacking(
     
     Parameters:
     -----------
-        
         models_dict: dict
             a dictionary with LogitModel instances
             
@@ -544,7 +521,7 @@ def ModelStacking(
         y_data: pd.Series
             a pandas Series with discrete dependent variable
             
-        penalty: str {'None', 'l1', 'l2'}, default = None
+        penalty: str optional {'None', 'l1', 'l2'}, default = None
             a regularization for Logistic Regression model
             
         alpha: float, default = 0.5
@@ -575,13 +552,10 @@ def ModelStacking(
         raise ValueError("""The length of x_data and y_data must be identical""")
         
     if penalty not in [None, 'l1', 'l2']:
-        raise ValueError("""The 'penalty' parameter must be in [None, 'l1', 'l2']""")
+        raise ValueError("""The 'penalty' parameter must be in [None, 'l1', 'l2']; got {}""".format(penalty))
     
-    if not isinstance(alpha, float):
-        raise TypeError("""The 'alpha' parameter must float""")
-    
-    if not 0 < alpha < 1:
-        raise ValueError("""The 'alpha' parameter must be between 0 and 1 or None""")
+    if not isinstance(alpha, float) or not 0 < alpha < 1:
+        raise ValueError("""The 'alpha' parameter must be float from 0 to 1; got {}""".format(alpha))
             
     if not isinstance(fit_intercept, bool):
         raise TypeError("""The 'fit_intercept' parameter must be logical""")
@@ -664,9 +638,7 @@ def PredictionStacking(
     pred.index = x_data.index
     
     return pred
-      
-
-    
+          
 
 def AggregationMetaInfo(models_dict: dict
                         , x_train: pd.DataFrame

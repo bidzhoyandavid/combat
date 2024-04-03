@@ -70,7 +70,7 @@ def MeanComparison(
         raise TypeError("""The 'equal_var' parameter must be logical""")
     
     if alternative not in ('two-sided', 'less', 'greater'):
-        raise ValueError("""The 'alternative' parameter must be in ('two-sided', 'less', 'greater')""")
+        raise ValueError("""The 'alternative' parameter must be in ('two-sided', 'less', 'greater'); got {}""".format(alternative))
     
     # =============================================================================
     # Mean comparison            
@@ -102,7 +102,6 @@ def VarExpPower(
             , vif: bool = True
             , individual_accuracy: str = 'gini'
             , check_sample: str = 'test'
-            # , woe: bool = True
         ) -> pd.DataFrame:
     
     """
@@ -160,19 +159,16 @@ def VarExpPower(
         raise TypeError("""The 'y_test' parameter must be a pandas Series""")        
 
     if discriminatory not in ('ttest', 'kruskal'):
-        raise ValueError("""The 'discriminatory' parameter must be in ('ttest', 'kruskal')""")
+        raise ValueError("""The 'discriminatory' parameter must be in ('ttest', 'kruskal'); got {}""".format(discriminatory))
         
     if not isinstance(vif, bool):
         raise TypeError("""The 'vif' parameter must be logical""")
         
     if individual_accuracy not in ('gini', 'auc', 'f1_score'):
-        raise ValueError("""The 'individual_accuracy' must be in ('gini', 'auc', 'f1_score')""")
+        raise ValueError("""The 'individual_accuracy' must be in ('gini', 'auc', 'f1_score'); got {}""".format(individual_accuracy))
 
     if check_sample not in ['train', 'test']:
-        raise ValueError("There is no {} 'check_sample' dataset". format(check_sample))
-    
-    # if not isinstance(woe, bool):
-    #     raise TypeError("""The 'woe' parameter must be logical""")
+        raise ValueError("""The 'check_sample' parameter must be in ['train', 'test']; got {}""".format(check_sample))
         
     # =============================================================================
     # Conducting mean comparison tests     
@@ -221,7 +217,6 @@ def VarExpPower(
             
             gini.append(model.Gini_Test())
             auc.append(model.AUC_Test())
-            # accur.append(model.Accuracy_Test(cutoff=cutoff))
             f1_score.append(model.F1_Test())
     else:
         for col in x_train.columns:
@@ -235,7 +230,6 @@ def VarExpPower(
             
             gini.append(model.Gini_Train())
             auc.append(model.AUC_Train())
-            # accur.append(model.Accuracy_Train(cutoff=cutoff))
             f1_score.append(model.F1_Train())
             
     # =============================================================================
@@ -271,13 +265,7 @@ def VarExpPower(
 
     # vifs ----------------------------------
     if vif:
-        final_data['vif'] = vif_dict['vif']
-        
-    # =============================================================================
-    # WoE transformed         
-    # =============================================================================
- 
-        
+        final_data['vif'] = vif_dict['vif']      
     
     return final_data
         
