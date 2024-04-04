@@ -194,8 +194,8 @@ class Test_Combat():
                 , (model_comb_1, x_test, y_test, None, 1.4, True, pytest.raises(ValueError))
                 , (model_comb_1, x_test, y_test, None, '1.5', True, pytest.raises(ValueError))
                 , (model_comb_1, x_test, y_test, 'l3', None, True, pytest.raises(ValueError))
-                , (model_comb_1, x_test, y_test, 'l1', None, 'True', pytest.raises(TypeError))
-                , (model_comb_1, x_test, y_test, 'l1', None, [True], pytest.raises(TypeError))
+                , (model_comb_1, x_test, y_test, 'l1', None, 'True', pytest.raises(ValueError))
+                , (model_comb_1, x_test, y_test, 'l1', None, [True], pytest.raises(ValueError))
             ]
     )
     def test_ModelStacking(self, models_dict, x_data, y_data, penalty, alpha, fit_intercept, expectation):

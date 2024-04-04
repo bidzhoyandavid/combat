@@ -41,7 +41,7 @@ final_data = WoEDataPreparation(x_data = x
                                 , df_sign = df_sign
                                 , special_codes = special_codes
                                 , metric = 'woe'
-                                , min_n_bins=1
+                                
                                 )
     
 x_train, x_test, y_train, y_test = train_test_split(final_data['x_woe'], y, test_size=0.2, random_state=42, shuffle=True)
@@ -74,7 +74,7 @@ class TestLogitModel:
                 , (x_train, y_train, x_test, y_test, True, 'l1', 0.5, does_not_raise())
                 , (x_train, y_train, x_test, y_test, 'True', 'l1', 0.5, pytest.raises(ValueError))
                 , (x_train, y_train, x_test, y_test, True, 'l2', 0.5, pytest.raises(ValueError))
-                , (x_train, y_train, x_test, y_test, True, 'l1', '0.5', pytest.raises(TypeError))
+                , (x_train, y_train, x_test, y_test, True, 'l1', '0.5', pytest.raises(ValueError))
                 , (x_train, y_train, x_test, y_test, True, 0.8, 0.5, pytest.raises(ValueError))
                 , (x_train, y_train, x_test, y_test, True, None, 1.5, pytest.raises(ValueError))
                 , (x_train_1, y_train, x_test, y_test, True, None, 0.5, pytest.raises(ValueError))
@@ -118,8 +118,8 @@ class TestLogitModel:
                 (x_train, y_train, x_test, y_test, 0.1, does_not_raise())
                 , (x_train, y_train, x_test, y_test, 1.1, pytest.raises(ValueError))
                 , (x_train, y_train, x_test, y_test, -0.1, pytest.raises(ValueError))
-                , (x_train, y_train, x_test, y_test, '0.1', pytest.raises(TypeError))
-                , (x_train, y_train, x_test, y_test, None, pytest.raises(TypeError))
+                , (x_train, y_train, x_test, y_test, '0.1', pytest.raises(ValueError))
+                , (x_train, y_train, x_test, y_test, None, pytest.raises(ValueError))
             ]
     )
     def test_coefs_cutoff(self, x_train , y_train, x_test, y_test, cutoff, expectation):

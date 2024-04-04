@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Mar 19 15:36:39 2024
+The Scorecard module in this COMBAT package offers a specialized function, ScoreCard, tailored for constructing and managing scorecards, a common tool used in credit risk assessment. 
+By providing a streamlined approach to scorecard development, this module empowers users to create transparent and interpretable models for credit scoring and risk assessment applications.
 
-@author: bidzh
+Key Fucntion of the Scorecard Module:
+
+1. `ScoreCard(y_proba, log, target_score, target_odds, pdo)` -  serves as the centerpiece of the module, offering a user-friendly interface for building scorecards from predictive models
+
+The Scorecard module provides a valuable resource for organizations seeking to implement transparent and interpretable models for credit scoring, risk assessment, and related applications
 """
 
 import pandas as pd
 import numpy as np
-
-import matplotlib.pyplot as plt
-
 
         
 def ScoreCard(y_proba: np.ndarray

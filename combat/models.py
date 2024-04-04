@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-The module Models initiates the LogitModel class
+The Models module within this COMBAT package encapsulates a versatile class designed to streamline the process of building predictive models and evaluating their performance across training and test datasets. 
+This module serves as a comprehensive toolkit for model development, offering an array of functionalities for model training, evaluation, and metric computation.
+
+1. `LogitModel(x_train, y_train, x_test, y_test, intercept, penalty, alpha)` - generate a Logistic Regression Model with functionalities for evaluation and metric computation
+
+The Models module serves as a comprehensive toolkit for predictive modeling, providing users with the tools and functionalities needed to develop, evaluate, and interpret predictive models effectively. 
+By encapsulating model-building logic and evaluation metrics within a single class, this module streamlines the model development process and empowers users to make informed decisions when designing and deploying predictive models in real-world applications.
 """
-
-
 
 
 
 import pandas as pd
 import numpy as np
-from typing import Union, Optional
+from typing import  Optional
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (roc_auc_score
@@ -27,7 +31,6 @@ import statsmodels.api as sm
 from statsmodels.tools.tools import add_constant
 
 import matplotlib.pyplot as plt
-from typing import Optional, Union
 
 import warnings
 warnings.filterwarnings("ignore")

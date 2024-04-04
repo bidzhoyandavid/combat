@@ -1,8 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Mar 20 12:56:01 2024
+The Transform module is a vital component of this COMBAT package, providing essential functionalities for data transformation and preparation, with a particular focus on Weight of Evidence (WoE) encoding techniques. 
+Equipped with two key functions, WoETransform and WoEDataPreparation, this module empowers users to preprocess and encode categorical variables effectively, enhancing the performance and interpretability of predictive models.
 
-@author: bidzh
+Functions within the Transform module:
+
+1. `WoETransform(x, y, mon_constraint, var_name, var_type ...)` - facilitates the transformation of categorical variables using Weight of Evidence (WoE) encoding.
+
+2. `WoEDataPreparation(x_data, y_data, df_sign, metric, ...)` - streamlines the data preparation process by applying WoE encoding to categorical and numerical variables and preparing the dataset for model training
+
+
+The Transform module serves as a valuable resource for users seeking to preprocess and encode categorical variables effectively, particularly in the context of credit scoring, risk modeling, and other predictive modeling tasks. 
+With its robust functionalities for WoE encoding and data preparation, this module facilitates the creation of informative and reliable predictive models, ultimately enhancing decision-making processes in various domains.
 """
 
 import optbinning as ob
@@ -22,27 +31,27 @@ def WoETransform(
             , divergence: str = 'iv' 
             , prebinning_method: str = 'cart'
             , max_n_prebins: int = 20
-            , min_prebin_size: float = 0.5
-            , min_n_bins: Optional[int] = None
-            , max_n_bins: Optional[int] = None
-            , min_bin_size: Optional[float] = None
-            , max_bin_size: Optional[float] = None 
-            , min_bin_n_nonevent: Optional[int] = None 
-            , max_bin_n_nonevent: Optional[int] = None
-            , min_bin_n_event: Optional[int] = None 
-            , max_bin_n_event: Optional[int] = None 
+            , min_prebin_size: float = 0.05
+            , min_n_bins: int = None
+            , max_n_bins: int = None
+            , min_bin_size: float = None
+            , max_bin_size: float = None 
+            , min_bin_n_nonevent: int = None 
+            , max_bin_n_nonevent: int = None
+            , min_bin_n_event: int = None 
+            , max_bin_n_event: int = None 
             , min_event_rate_diff: float = 0.0 
-            , max_pvalue: Optional[float] = None
+            , max_pvalue: float = None
             , max_pvalue_policy: str = 'consecutive'
             , gamma: float = 0.0
-            , outlier_detector: Optional[str] = None
-            , outlier_params: Optional[dict] = None
-            , class_weight: Optional[Union[dict, str]] = None
-            , cat_cutoff: Optional[float] = None
-            , cat_unknown: Optional[Union[float, str]] = None
-            , user_splits: Optional[list] = None
-            , user_splits_fixed: Optional[list] = None
-            , special_codes: Optional[list] = None
+            , outlier_detector: str = None
+            , outlier_params: dict = None
+            , class_weight: Union[dict, str] = None
+            , cat_cutoff: float = None
+            , cat_unknown: Union[float, str] = None
+            , user_splits: list = None
+            , user_splits_fixed: list = None
+            , special_codes: list = None
             , split_digits: int = None
             , mip_solver: str = 'bop'
             , time_limit: int = 100
@@ -405,7 +414,7 @@ def WoETransform(
     
     x_transform = optb.transform(x, metric = metric)
     x_transform = pd.DataFrame(x_transform)
-    x_transform.columns = ['woe_'+var_name]
+    x_transform.columns = [metric+"_"+var_name]
     
     final_data = {
         "status": optb.status
@@ -426,7 +435,7 @@ def WoEDataPreparation(
         , divergence: str = 'iv' 
         , prebinning_method: str = 'cart'
         , max_n_prebins: int = 20
-        , min_prebin_size: float = 0.5
+        , min_prebin_size: float = 0.05
         , min_n_bins: Optional[int] = None
         , max_n_bins: Optional[int] = None
         , min_bin_size: Optional[float] = None
@@ -840,7 +849,7 @@ def WoEDataPreparation(
         status = pd.concat([status, temp_status], axis = 0)           
         x_woe = pd.concat([x_woe, temp['woe_transform']], axis = 1)
         
-    status['name'] = status['name'].apply(lambda x: 'woe_' + x)
+    status['name'] = status['name'].apply(lambda x: metric+'_' + x)
         
     final_data['status'] = status
     final_data['x_woe'] = x_woe

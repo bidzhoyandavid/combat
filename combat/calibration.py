@@ -1,8 +1,22 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Mar 19 14:48:56 2024
+The Calibration module within this COMBAT package provides essential functionalities for evaluating and refining the calibration of predictive models. 
+With a focus on ensuring model reliability and accuracy, this module equips users with tools to assess calibration curves,
+Expected Calibration Error (ECE), and perform model calibration adjustments as necessary. 
+The functionalities within this module empower users to fine-tune their predictive models, enhancing their performance across various domains.
 
-@author: bidzh
+Functions within the Calibration module:
+
+1. `ExpectedCalibrationError(true_labels, probabilities, n_bins)` - calculate the Expected Calibration Error (ECE), a metric used to quantify the calibration performance of a probabilistic classification model.
+
+2. `CalibrationModel(x_data, y_data, penalty, alpha, fit_intercept)` - implement a calibration model to adjust the calibration of predictive models. 
+
+3. `PredictionCalibration(x_data, model, log_prob)` - perform prediction calibration by applying calibration techniques to predicted probabilities
+
+4. `CalibrationCurve(y_data, probabilities, n_bins, label)` - generate a calibration curve to visually assess the calibration performance of a predictive model.
+
+The Calibration module serves as a crucial component in the toolkit for model evaluation and refinement, 
+enabling users to enhance the reliability and accuracy of their predictive models through comprehensive calibration analysis and adjustment.
 """
 
 from combat.short_list import *
@@ -12,16 +26,6 @@ import pandas as pd
 import numpy as np
 
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import (roc_auc_score
-                            , precision_recall_curve
-                            , f1_score
-                            , auc
-                            , roc_curve
-                            , accuracy_score
-                            , brier_score_loss
-                            , RocCurveDisplay
-                            , confusion_matrix
-                            )
 from sklearn.calibration import calibration_curve
 
 import matplotlib.pyplot as plt
@@ -29,10 +33,11 @@ from typing import Optional
 
 
 
-def ExpectedCalibrationError(true_labels: pd.Series
-                             , probabilities: np.ndarray
-                             , n_bins: int = 20
-                             ) -> float:
+def ExpectedCalibrationError(
+        true_labels: pd.Series
+        , probabilities: np.ndarray
+        , n_bins: int = 20
+        ) -> float:
     
     """
     The function calculates the Expected Calibration Error
@@ -257,21 +262,6 @@ def CalibrationCurve(
     plt.ylabel('Ratio of positives')
     plt.show(block=False)
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

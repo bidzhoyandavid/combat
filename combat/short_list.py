@@ -1,8 +1,16 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Mar 20 12:52:33 2024
+The Short_List module is a powerful component of this COMBAT package, designed to streamline data exploration and analysis tasks with its efficient functionalities. 
+This module is tailored to provide concise yet robust tools for comparing means across different groups and exploring the variance explained by various factors within datasets.
 
-@author: bidzh
+Functions within the Short_List module:
+
+1. `MeanComparison(x_train_0, x_train_1, equal_var, alternative)` - offers a straightforward solution for comparing means across different groups or categories within datasets
+
+2. `VarExpPower(y_train, x_train, y_test, x_test, discriminatory, vif, individual_accuracy, check_sample)` -  enables users to explore the variables explanatory power 
+
+The Short_List module empowers users to conduct efficient data exploration and analysis tasks by offering concise yet powerful functionalities for comparing means and exploring variance explained within datasets. 
+With these tools, users can quickly gain insights into their data, identify patterns, and make informed decisions, ultimately enhancing their analytical workflows.
 """
 
 import pandas as pd
@@ -10,7 +18,6 @@ import numpy as np
 
 from scipy.stats import (ttest_ind
                          , kruskal                         
-                         , mannwhitneyu
                          )
 
 from statsmodels.stats.outliers_influence import variance_inflation_factor
