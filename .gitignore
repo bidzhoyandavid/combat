@@ -3,3 +3,6 @@
 /.pytest_cache/*
 /combat/__pycache__/*
 /test/__pycache__/*
+/docs/*
+mkdocs.yml
+/site/*

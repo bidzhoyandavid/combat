@@ -16,6 +16,8 @@ from typing import Union
 from combat.short_list import *
 from combat.transform import *
 from combat.models import LogitModel 
+from combat.utilities import *
+
 from contextlib import nullcontext as does_not_raise
 
 
@@ -49,16 +51,19 @@ x_train, x_test, y_train, y_test = train_test_split(final_data['x_woe'], y, test
 # x_train, x_valid, y_train, y_valid = train_test_split(x_train, y_train, test_size=0.2, random_state=42, shuffle=True)
  
 
-df_expec = df_sign.reset_index().drop(columns = 'dtype')
-df_expec['Variable'] = df_expec['Variable'].apply(lambda x: "woe_" + x)
-df_expec['Expec'] = 0
+vars_to_remove = ['NumTrades60Ever2DerogPubRec', 'NumTrades90Ever2DerogPubRec', 'NumInqLast6M', 'NumInqLast6Mexcl7days']
 
+del_data = DeleteVars(
+    x_train = x_train
+    , x_test = x_test
+    , df_sign = df_sign
+    , vars_to_remove = vars_to_remove
+)
 
-x_train = x_train.drop(columns = ['woe_NumTrades60Ever2DerogPubRec', 'woe_NumTrades90Ever2DerogPubRec', 'woe_NumInqLast6M', 'woe_NumInqLast6Mexcl7days'])
-x_test = x_test.drop(columns = ['woe_NumTrades60Ever2DerogPubRec', 'woe_NumTrades90Ever2DerogPubRec', 'woe_NumInqLast6M', 'woe_NumInqLast6Mexcl7days'])
-# x_valid = x_valid.drop(columns = ['woe_NumTrades60Ever2DerogPubRec', 'woe_NumTrades90Ever2DerogPubRec', 'woe_NumInqLast6M', 'woe_NumInqLast6Mexcl7days'])
+x_train = del_data['x_train_new']
+x_test = del_data['x_test_new']
+df_sign = del_data['df_sign_new']
 
-df_expec = df_expec.drop([5, 6, 15, 16])
 
 x_train_1 = pd.DataFrame({'A': [1, 2, 3], 'B': [4, 5, 6], "C": [6, 7, 8]})
 y_train_1 = np.array([0, 1, 0])

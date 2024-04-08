@@ -14,6 +14,9 @@ import pytest
 from combat.short_list import *
 from combat.transform import *
 from combat.models import LogitModel 
+from combat.utilities import *
+
+
 from contextlib import nullcontext as does_not_raise
 
 from sklearn.model_selection import train_test_split
@@ -46,16 +49,19 @@ final_data = WoEDataPreparation(x_data = x
 x_train, x_test, y_train, y_test = train_test_split(final_data['x_woe'], y, test_size=0.2, random_state=42, shuffle=True)
 
 
-df_expec = df_sign.reset_index().drop(columns = 'dtype')
-df_expec['Variable'] = df_expec['Variable'].apply(lambda x: "woe_" + x)
-df_expec['Expec'] = 0
+vars_to_remove = ['NumTrades60Ever2DerogPubRec', 'NumTrades90Ever2DerogPubRec', 'NumInqLast6M', 'NumInqLast6Mexcl7days']
 
+del_data = DeleteVars(
+    x_train = x_train
+    , x_test = x_test
+    , df_sign = df_sign
+    , vars_to_remove = vars_to_remove
+)
 
-x_train = x_train.drop(columns = ['woe_NumTrades60Ever2DerogPubRec', 'woe_NumTrades90Ever2DerogPubRec', 'woe_NumInqLast6M', 'woe_NumInqLast6Mexcl7days'])
-x_test = x_test.drop(columns = ['woe_NumTrades60Ever2DerogPubRec', 'woe_NumTrades90Ever2DerogPubRec', 'woe_NumInqLast6M', 'woe_NumInqLast6Mexcl7days'])
+x_train = del_data['x_train_new']
+x_test = del_data['x_test_new']
+df_sign = del_data['df_sign_new']
 
-df_expec_1 = df_expec.copy()
-df_expec = df_expec.drop([5, 6, 15, 16])
 
 model_comb_1 = ModelCombination(y_train = y_train
                               , x_train = x_train
@@ -63,7 +69,7 @@ model_comb_1 = ModelCombination(y_train = y_train
                               , x_test = x_test
                               , max_model_number = 1000
                               , dependent_number = 5
-                              , coef_expectation = df_expec
+                              , coef_expectation = df_sign
                               , gini_cutoff=0.4
                               , p_value = 0.1
                               , intercept = True
@@ -86,19 +92,19 @@ class Test_Combat():
     @pytest.mark.parametrize(
         "coef_exp, p_value, check_sample, metric, gini_cutoff, auc_cutoff, expectation"
         , [
-            (df_expec, 0.05, 'test', 'gini', 0.5, 0.75,  does_not_raise())
-            , (df_expec, 0.05, 'train', 'gini', 0.5, 0.75,  does_not_raise())
-            , (df_expec, 0.05, 'test', 'auc', 0.5, 0.75,  does_not_raise())
-            , (df_expec, 0.05, 'train', 'auc', 0.6, 0.75,  does_not_raise()) 
-            , (df_expec, 0.05, 'test', 'ginii', 0.5, 0.75,  pytest.raises(ValueError))
-            , (df_expec, 0.05, 'testt', 'auc', 0.5, 0.75,  pytest.raises(ValueError))
-            , (df_expec, 0.05, 'test', 'auc', '0.5', 0.75,  pytest.raises(ValueError))
-            , (df_expec, 0.05, 'test', 'auc', 0.5, '0.75',  pytest.raises(ValueError))
-            , (df_expec, 0.05, 'test', 'auc', 1.5, 0.75,  pytest.raises(ValueError))
-            , (df_expec, 0.05, 'test', 'auc', 0.5, 1.75,  pytest.raises(ValueError))
-            , (df_expec, '0.05', 'test', 'auc', 0.5, 0.75,  pytest.raises(ValueError))
-            , (df_expec, 1.05, 'test', 'auc', 0.5, 0.75,  pytest.raises(ValueError))
-            , (df_expec.to_numpy(), 0.05, 'test', 'auc', 0.5, 0.75,  pytest.raises(TypeError))
+            (df_sign, 0.05, 'test', 'gini', 0.5, 0.75,  does_not_raise())
+            , (df_sign, 0.05, 'train', 'gini', 0.5, 0.75,  does_not_raise())
+            , (df_sign, 0.05, 'test', 'auc', 0.5, 0.75,  does_not_raise())
+            , (df_sign, 0.05, 'train', 'auc', 0.6, 0.75,  does_not_raise()) 
+            , (df_sign, 0.05, 'test', 'ginii', 0.5, 0.75,  pytest.raises(ValueError))
+            , (df_sign, 0.05, 'testt', 'auc', 0.5, 0.75,  pytest.raises(ValueError))
+            , (df_sign, 0.05, 'test', 'auc', '0.5', 0.75,  pytest.raises(ValueError))
+            , (df_sign, 0.05, 'test', 'auc', 0.5, '0.75',  pytest.raises(ValueError))
+            , (df_sign, 0.05, 'test', 'auc', 1.5, 0.75,  pytest.raises(ValueError))
+            , (df_sign, 0.05, 'test', 'auc', 0.5, 1.75,  pytest.raises(ValueError))
+            , (df_sign, '0.05', 'test', 'auc', 0.5, 0.75,  pytest.raises(ValueError))
+            , (df_sign, 1.05, 'test', 'auc', 0.5, 0.75,  pytest.raises(ValueError))
+            , (df_sign.to_numpy(), 0.05, 'test', 'auc', 0.5, 0.75,  pytest.raises(TypeError))
         ]
     )
     def test_IsModelValid(self, coef_exp, p_value, check_sample, metric, gini_cutoff, auc_cutoff, expectation):
@@ -112,24 +118,24 @@ class Test_Combat():
     @pytest.mark.parametrize(
         "y_train, x_train, y_test, x_test, max_model_number, dependent_number, coef_expectation, intercept, penalty, alpha, p_value, check_sample, metric, gini_cutoff, auc_cutoff, expectation"
         , [
-            ( y_train, x_train, y_test, x_test, 100, 12, df_expec, True, None, 0.5, 0.05, 'test', 'gini', 0.5, 0.75, does_not_raise())
-            , ( y_train, x_train, y_test, x_test, 100, 12, df_expec, False, None, 0.5, 0.05, 'test', 'gini', 0.5, 0.75, does_not_raise())
-            , ( y_train, x_train, y_test, x_test, 100, 12, df_expec, False, 'l1', 0.5, 0.05, 'test', 'gini', 0.5, 0.75, does_not_raise())
-            , ( y_train, x_train, y_test, x_test, 100, 12, df_expec, True, None, 0.5, 0.05, 'train', 'gini', 0.5, 0.75, does_not_raise())
-            , ( y_train, x_train, y_test, x_test, 100, 12, df_expec, False, None, 0.5, 0.1, 'test', 'auc', 0.5, 0.75, does_not_raise())
+            ( y_train, x_train, y_test, x_test, 100, 12, df_sign, True, None, 0.5, 0.05, 'test', 'gini', 0.5, 0.75, does_not_raise())
+            , ( y_train, x_train, y_test, x_test, 100, 12, df_sign, False, None, 0.5, 0.05, 'test', 'gini', 0.5, 0.75, does_not_raise())
+            , ( y_train, x_train, y_test, x_test, 100, 12, df_sign, False, 'l1', 0.5, 0.05, 'test', 'gini', 0.5, 0.75, does_not_raise())
+            , ( y_train, x_train, y_test, x_test, 100, 12, df_sign, True, None, 0.5, 0.05, 'train', 'gini', 0.5, 0.75, does_not_raise())
+            , ( y_train, x_train, y_test, x_test, 100, 12, df_sign, False, None, 0.5, 0.1, 'test', 'auc', 0.5, 0.75, does_not_raise())
 
-            , ( y_train, x_train, y_test, x_test, 100, 35, df_expec, True, None, 0.5, 0.05, 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
-            , ( y_train, x_train, y_test, x_test, 100, 12, df_expec, True, 'l2', 0.5, 0.05, 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
-            , ( y_train, x_train, y_test, x_test, 100, 12, df_expec, 'True', 'l1', 0.5, 0.05, 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
-            , ( y_train, x_train, y_test, x_test, 100, 12, df_expec, [True], 'l1', 0.5, 0.05, 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
-            , ( y_train, x_train, y_test, x_test, 100, 12, df_expec, True, None, 1.5, 0.05, 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
-            , ( y_train, x_train, y_test, x_test, 100, 12, df_expec, True, None, '1.5', 0.05, 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
-            , ( y_train, x_train, y_test, x_test, 100, 12, df_expec, True, None, 0.5, 1.05, 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
-            , ( y_train, x_train, y_test, x_test, 100, 12, df_expec, True, None, 0.5, '0.05', 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
-            , ( y_train, x_train, y_test, x_test, 100, 12, df_expec, True, None, 0.5, 0.05, 'test', 'gini', '0.5', 0.75, pytest.raises(ValueError))
-            , ( y_train, x_train, y_test, x_test, 100, 12, df_expec, True, None, 0.5, 0.05, 'test', 'gini', 0.5, '0.75', pytest.raises(ValueError))
-            , ( y_train, x_train, y_test, x_test, 100, 12, df_expec, True, None, 0.5, 0.05, 'testt', 'gini', 0.5, 0.75, pytest.raises(ValueError))
-            , ( y_train, x_train, y_test, x_test, 100, 12, df_expec, True, None, 0.5, 0.05, 'test', 'sdgini', 0.5, 0.75, pytest.raises(ValueError))
+            , ( y_train, x_train, y_test, x_test, 100, 35, df_sign, True, None, 0.5, 0.05, 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
+            , ( y_train, x_train, y_test, x_test, 100, 12, df_sign, True, 'l2', 0.5, 0.05, 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
+            , ( y_train, x_train, y_test, x_test, 100, 12, df_sign, 'True', 'l1', 0.5, 0.05, 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
+            , ( y_train, x_train, y_test, x_test, 100, 12, df_sign, [True], 'l1', 0.5, 0.05, 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
+            , ( y_train, x_train, y_test, x_test, 100, 12, df_sign, True, None, 1.5, 0.05, 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
+            , ( y_train, x_train, y_test, x_test, 100, 12, df_sign, True, None, '1.5', 0.05, 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
+            , ( y_train, x_train, y_test, x_test, 100, 12, df_sign, True, None, 0.5, 1.05, 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
+            , ( y_train, x_train, y_test, x_test, 100, 12, df_sign, True, None, 0.5, '0.05', 'test', 'gini', 0.5, 0.75, pytest.raises(ValueError))
+            , ( y_train, x_train, y_test, x_test, 100, 12, df_sign, True, None, 0.5, 0.05, 'test', 'gini', '0.5', 0.75, pytest.raises(ValueError))
+            , ( y_train, x_train, y_test, x_test, 100, 12, df_sign, True, None, 0.5, 0.05, 'test', 'gini', 0.5, '0.75', pytest.raises(ValueError))
+            , ( y_train, x_train, y_test, x_test, 100, 12, df_sign, True, None, 0.5, 0.05, 'testt', 'gini', 0.5, 0.75, pytest.raises(ValueError))
+            , ( y_train, x_train, y_test, x_test, 100, 12, df_sign, True, None, 0.5, 0.05, 'test', 'sdgini', 0.5, 0.75, pytest.raises(ValueError))
         ]
     )
     def test_ModelCombination(self, y_train, x_train, y_test, x_test, max_model_number, dependent_number, coef_expectation, intercept, penalty, alpha, p_value, check_sample, metric, gini_cutoff, auc_cutoff, expectation):

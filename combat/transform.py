@@ -414,7 +414,8 @@ def WoETransform(
     
     x_transform = optb.transform(x, metric = metric)
     x_transform = pd.DataFrame(x_transform)
-    x_transform.columns = [metric+"_"+var_name]
+    # x_transform.columns = [metric+"_"+var_name]
+    x_transform.columns = [var_name]
     
     final_data = {
         "status": optb.status
@@ -849,7 +850,7 @@ def WoEDataPreparation(
         status = pd.concat([status, temp_status], axis = 0)           
         x_woe = pd.concat([x_woe, temp['woe_transform']], axis = 1)
         
-    status['name'] = status['name'].apply(lambda x: metric+'_' + x)
+    # status['name'] = status['name'].apply(lambda x: metric+'_' + x)
         
     final_data['status'] = status
     final_data['x_woe'] = x_woe

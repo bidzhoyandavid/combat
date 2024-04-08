@@ -4,7 +4,46 @@ The Models module within this COMBAT package encapsulates a versatile class desi
 This module serves as a comprehensive toolkit for model development, offering an array of functionalities for model training, evaluation, and metric computation.
 
 1. `LogitModel(x_train, y_train, x_test, y_test, intercept, penalty, alpha)` - generate a Logistic Regression Model with functionalities for evaluation and metric computation
+    LogitModel has the following methods:
+    1.1 `Model_SK` - build a Logistic Regression Model using `sklearn` package
+    1.2 `Model_SM` - build a Logistic Regression Model using `statsmodels` package
 
+    1.3 `Gini_Train` - calculate the Gini coefficient on the training set
+    1.4 `Accuracy_Train(cutoff)` - calculate the Accuracy Ratio on the training set given predefined `cutoff`
+    1.5 `AUC_Train` - calculate AUC on the training set
+    1.6 `Predict_Proba_Train` - calculate probabilities on the training set
+    1.7 `Predict_LogProba_Train` - calculate the logarithm of probabilities on the training set
+    1.8 `PredictLabel_Train(cutoff)` - calculate the labels (0, 1) on the training set given predefined `cutoff`
+    1.9 `Brier_Train` - calculate Brier Score on the training set
+    1.10 `F1_Train` - calculate F1 Score on the training set
+    1.11 `Recall_Train(cutoff)` - calculate Recall Score on the training set given predefined `cutoff`
+    1.12 `Precision_Train(cutoff)` - calculate Precision Score on the training set given predefined `cutoff`
+    1.13 `Confusion_Matrix_Train(cutoff)` - calculate Confusion Matrix on the training set given predefined `cutoff`
+    1.14 `FPR_Train` - calculate False Positive Ratio on the training set
+    1.15 `TPR_Train` - calculate True Positive Ratio on the training set
+    1.16 `ROC_Curve_Train` - plot the ROC Curve on the training set
+
+    1.17 `Gini_Test` - calculate the Gini coefficient on the testing set
+    1.18 `Accuracy_Test(cutoff)` - calculate the Accuracy Ratio on the testing set given predefined `cutoff`
+    1.19 `AUC_Test` - calculate AUC on the testing set
+    1.20 `Predict_Proba_Test` - calculate probabilities on the testing set
+    1.21 `Predict_LogProba_Test` - calculate the logarithm of probabilities on the testing set
+    1.22 `PredictLabel_Test(cutoff)` - calculate the labels (0, 1) on the testing set given predefined `cutoff`
+    1.23 `Brier_Test` - calculate Brier Score on the testing set
+    1.24 `F1_Test` - calculate F1 Score on the testing set
+    1.25 `Recall_Test(cutoff)` - calculate Recall Score on the testing set given predefined `cutoff`
+    1.26 `Precision_Test(cutoff)` - calculate Precision Score on the testing set given predefined `cutoff`
+    1.27 `Confusion_Matrix_Test(cutoff)` - calculate Confusion Matrix on the testing set given predefined `cutoff`
+    1.28 `FPR_Test` - calculate False Positive Ratio on the testing set
+    1.29 `TPR_Test` - calculate True Positive Ratio on the testing set
+    1.30 `ROC_Curve_Test` - plot the ROC Curve on the testing set
+
+    1.31 `GetCoefficients_SK` - return coefficients of `sklearn` model obtained
+    1.32 `GetIntercept_SK` - return intercept of `sklearn` model obtained
+    1.33 `Summary` - return summary of the model
+    1.34 `GetCoefficients_SM` - return coefficients of `statsmodel` model obtained
+    1.35 `Prediction(x_data, logprob)` - return probabilities (or logarithm of probabilities) given `x_data`
+    
 The Models module serves as a comprehensive toolkit for predictive modeling, providing users with the tools and functionalities needed to develop, evaluate, and interpret predictive models effectively. 
 By encapsulating model-building logic and evaluation metrics within a single class, this module streamlines the model development process and empowers users to make informed decisions when designing and deploying predictive models in real-world applications.
 """

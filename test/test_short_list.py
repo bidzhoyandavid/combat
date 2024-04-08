@@ -14,6 +14,8 @@ import pytest
 from combat.short_list import *
 from combat.transform import *
 from combat.models import LogitModel 
+from combat.utilities import *
+
 from contextlib import nullcontext as does_not_raise
 
 from sklearn.model_selection import train_test_split
@@ -45,17 +47,20 @@ final_data = WoEDataPreparation(x_data = x
     
 x_train, x_test, y_train, y_test = train_test_split(final_data['x_woe'], y, test_size=0.2, random_state=42, shuffle=True)
 
+vars_to_remove = ['NumTrades60Ever2DerogPubRec', 'NumTrades90Ever2DerogPubRec', 'NumInqLast6M', 'NumInqLast6Mexcl7days']
 
-df_expec = df_sign.reset_index().drop(columns = 'dtype')
-df_expec['Variable'] = df_expec['Variable'].apply(lambda x: "woe_" + x)
-df_expec['Expec'] = 0
+del_data = DeleteVars(
+    x_train = x_train
+    , x_test = x_test
+    , df_sign = df_sign
+    , vars_to_remove = vars_to_remove
+)
+
+x_train = del_data['x_train_new']
+x_test = del_data['x_test_new']
+df_sign = del_data['df_sign_new']
 
 
-x_train = x_train.drop(columns = ['woe_NumTrades60Ever2DerogPubRec', 'woe_NumTrades90Ever2DerogPubRec', 'woe_NumInqLast6M', 'woe_NumInqLast6Mexcl7days'])
-x_test = x_test.drop(columns = ['woe_NumTrades60Ever2DerogPubRec', 'woe_NumTrades90Ever2DerogPubRec', 'woe_NumInqLast6M', 'woe_NumInqLast6Mexcl7days'])
-
-df_expec_1 = df_expec.copy()
-df_expec = df_expec.drop([5, 6, 15, 16])
 y_train= y_train.rename('reference')
 x_all = pd.concat([y_train, x_train], axis = 1, ignore_index=False)
 data_train_1 = x_all[x_all.reference == 1]
@@ -66,7 +71,9 @@ class Test_Short_List():
     @pytest.mark.parametrize(
             "x_train_0, x_train1, equal_var, alternative, expectation"
             , [
-                (data_train_1['woe_ExternalRiskEstimate'], data_train_0['woe_ExternalRiskEstimate'], True, 'two-sided', does_not_raise())
+                (data_train_1['ExternalRiskEstimate'], data_train_0['ExternalRiskEstimate'], True, 'two-sided', does_not_raise())
+                , (data_train_1['ExternalRiskEstimate'], data_train_0['ExternalRiskEstimate'], True, 'less', does_not_raise())
+                , (data_train_1['ExternalRiskEstimate'], data_train_0['ExternalRiskEstimate'], True, 'greater', does_not_raise())
                 
             ]
     )

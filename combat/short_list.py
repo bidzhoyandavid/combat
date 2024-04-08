@@ -14,7 +14,6 @@ With these tools, users can quickly gain insights into their data, identify patt
 """
 
 import pandas as pd
-import numpy as np
 
 from scipy.stats import (ttest_ind
                          , kruskal                         

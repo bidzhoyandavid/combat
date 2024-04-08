@@ -12,4 +12,5 @@ Modules of COMBAT:
 4. `scoreacrd` - a module to convert PD obtained to the score
 5. `short_list` - a module to explore variables explanatory power
 6. `transform` - a module provied the functions for WoE transformation
+7. `utilities` - a module with auxiliary functions
 """

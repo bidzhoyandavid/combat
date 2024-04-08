@@ -125,11 +125,12 @@ def IsModelValid(
         result = accuracy_result > auc_cutoff
         
     # economic constraint ---------------------------------
-    coef_expectation.columns = ['variable', 'sign_expectation']
+    # coef_expectation.columns = ['variable', 'sign_expectation']
     coefs = model.GetCoefficients_SM()
     coefs = coefs.merge(coef_expectation
                         , how = 'inner'
-                        , on = 'variable'
+                        , left_on = coefs['variable']
+                        , right_index=True
                         )
     coefs['check'] = coefs['coefficient'] * coefs['sign_expectation']
     coefs_check = coefs[coefs['check'] < 0]
@@ -241,11 +242,11 @@ def ModelCombination(
     # =============================================================================
     # Validating parameters    
     # =============================================================================
-    if len(coef_expectation.columns) != 2:
-        coef_expectation = coef_expectation.reset_index()
-    coef_expectation.columns = ['variable', 'sign_expectation']
+    # if len(coef_expectation.columns) != 2:
+    #     coef_expectation = coef_expectation.reset_index()
+    coef_expectation.columns = ['dtype', 'sign_expectation']
 
-    if not set(x_train.columns) == set(coef_expectation['variable']): 
+    if not set(x_train.columns) == set(coef_expectation.index): 
         raise ValueError("""The 'x_train' columns are not identical with 'coef_expectation'""")
       
     if len(x_train.columns) < dependent_number:

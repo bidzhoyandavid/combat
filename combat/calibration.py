@@ -7,7 +7,7 @@ The functionalities within this module empower users to fine-tune their predicti
 
 Functions within the Calibration module:
 
-1. `ExpectedCalibrationError(true_labels, probabilities, n_bins)` - calculate the Expected Calibration Error (ECE), a metric used to quantify the calibration performance of a probabilistic classification model.
+1. `ExpectedCalibrationError(y_data, probabilities, n_bins)` - calculate the Expected Calibration Error (ECE), a metric used to quantify the calibration performance of a probabilistic classification model.
 
 2. `CalibrationModel(x_data, y_data, penalty, alpha, fit_intercept)` - implement a calibration model to adjust the calibration of predictive models. 
 
@@ -34,7 +34,7 @@ from typing import Optional
 
 
 def ExpectedCalibrationError(
-        true_labels: pd.Series
+        y_data: pd.Series
         , probabilities: np.ndarray
         , n_bins: int = 20
         ) -> float:
@@ -44,7 +44,7 @@ def ExpectedCalibrationError(
     
     Parameters:
     ----------
-        true_labels: pd.Series
+        y_data: pd.Series
             true labels
             
         probabilities: np.ndarray
@@ -61,11 +61,11 @@ def ExpectedCalibrationError(
     # =============================================================================
     # Validating parameters
     # =============================================================================
-    if not isinstance(true_labels, pd.Series):
-        raise TypeError("The 'labels' parameter must be pd.Series")
+    if not isinstance(y_data, pd.Series):
+        raise TypeError("The 'y_data' parameter must be a pandas Series")
         
     if not isinstance(probabilities, np.ndarray):
-        raise TypeError("The 'probabilities' parameter must be pd.Series")
+        raise TypeError("The 'probabilities' parameter must be np.ndarray")
         
     if not isinstance(n_bins, int) or n_bins <= 0:
         raise ValueError("""The 'n_bins' parameter must be positive integer; got {}""".format(n_bins))
@@ -81,7 +81,7 @@ def ExpectedCalibrationError(
     confidences = np.max(probabilities, axis=1)
     predicted_label = np.argmax(probabilities, axis=1)
 
-    accuracies = predicted_label == true_labels.values
+    accuracies = predicted_label == y_data.values
 
     ece = np.zeros(1)
     for bin_lower, bin_upper in zip(bin_lowers, bin_uppers):
@@ -238,7 +238,7 @@ def CalibrationCurve(
         raise TypeError("""The 'y_data' parameter must be a pandas Series""")
     
     if not isinstance(probabilities, np.ndarray):
-        raise TypeError("""The 'probabilities' parameter must be a pandas Series""")
+        raise TypeError("""The 'probabilities' parameter must be a np.ndarray""")
         
     if not isinstance(n_bins, int) or n_bins <= 0:
         raise ValueError("""The 'n_bins' parameter must be positive integer; got {}""".format(n_bins))
