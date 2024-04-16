@@ -12,9 +12,9 @@ The Scorecard module provides a valuable resource for organizations seeking to i
 
 import pandas as pd
 import numpy as np
-
+from typing import Union
         
-def ScoreCard(y_proba: np.ndarray
+def ScoreCard(y_proba: Union[np.ndarray, pd.Series]
               , log: bool
               , target_score: int = 600
               , target_odds: int = 30
@@ -27,7 +27,7 @@ def ScoreCard(y_proba: np.ndarray
     Parameters:
     -----------
         
-        y_proba: np.ndarray
+        y_proba: np.ndarray or pd.Series
             a numpy ndarray with probabilities of default. If log == True then ln(probabilities)
             
         log: bool
@@ -51,8 +51,11 @@ def ScoreCard(y_proba: np.ndarray
     # Validating parameters    
     # =============================================================================
    
-    if not isinstance(y_proba, np.ndarray):
-        raise ValueError("""The 'y_prob' parameter must be np.ndarray""")
+    if not isinstance(y_proba, (np.ndarray, pd.Series)):
+        raise ValueError("""The 'y_prob' parameter must be np.ndarray or pd.Series""")
+
+    if isinstance(y_proba, np.ndarray) and len(y_proba.shape) != 1:
+        raise ValueError("""The 'probabilities' parameter must have 1 column; got {}""".format(y_proba.shape))
 
     if not isinstance(log, bool):
         raise TypeError("""The 'log' parameter must be logical""")
@@ -69,6 +72,8 @@ def ScoreCard(y_proba: np.ndarray
     # =============================================================================
     # Calculating Score    
     # =============================================================================
+    
+    y_proba = np.array(y_proba)
     
     if not log:
         y_logproba = np.log(y_proba)

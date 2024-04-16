@@ -96,6 +96,33 @@ x_proba = pd.DataFrame(proba[:,1])
 
 calib_model = CalibrationModel(x_proba, y_test)
 
+model_comb_1 = ModelCombination(y_train = y_train
+                              , x_train = x_train
+                              , y_test = y_test
+                              , x_test = x_test
+                              , max_model_number = 1000
+                              , dependent_number = 5
+                              , coef_expectation = df_sign
+                              , gini_cutoff=0.4
+                              , p_value = 0.1
+                              , intercept = True
+                              , penalty = None
+                              )
+
+
+
+aggr_weight = ModelAggregation(models_dict=model_comb_1, check_sample='test', metric='gini')
+
+aggr_pred = PredictionAggregation(models_dict=model_comb_1, weights_dict=aggr_weight, x_data = x_test)
+
+stack_model = ModelStacking(model_comb_1, x_test, y_test)
+
+stack_pred = PredictionStacking(
+    models_dict = model_comb_1
+    , x_data=x_test
+    , model = stack_model
+)
+
 
 
 class Test_Calibration():
@@ -104,6 +131,8 @@ class Test_Calibration():
         "true_labels, probabilities, n_bins, expectation"
         , [
             (y_test, proba, 20,  does_not_raise())
+            , (y_test, aggr_pred, 20, does_not_raise())
+            , (y_test, stack_pred, 20, does_not_raise())
             , (y_test, proba, -2,  pytest.raises(ValueError))
             , (y_test, proba, '20',  pytest.raises(ValueError))
         ]
@@ -143,16 +172,20 @@ class Test_Calibration():
     )
     def test_PredictionCalibration(self, x_data, model, logprob, expectation):
         with expectation:
-            assert isinstance(PredictionCalibration(x_data, model, logprob), pd.Series)
+            assert isinstance(PredictionCalibration(x_data, model, logprob), np.ndarray)
 
     @pytest.mark.parametrize(
             "y_data, probabilities, n_bins, label, expectation"
             , [
                 (y_test, proba[:,1], 20, 'aaa', does_not_raise())
                 , (y_test, proba[:,1], -20, 'aaa', pytest.raises(ValueError))
+                , (y_test, pd.Series(aggr_pred[:,1]), 20, 'aaa', does_not_raise())
                 , (y_test, proba[:,1], '-20', 'aaa', pytest.raises(ValueError))
+                , (y_test, stack_pred[:,1], 20, 'aaa', does_not_raise())
                 , (y_test, proba[:,1], 0, 'aaa', pytest.raises(ValueError))
                 , (y_test, proba[:,1], 10, 12, pytest.raises(ValueError))
+                , (y_test, pd.Series(proba[:,1]), 20, 'aaa', does_not_raise())
+                , (y_test, proba, 10, '12', pytest.raises(ValueError))
             ]
     )
     def test_CalibrationCurve(self, y_data, probabilities, n_bins, label, expectation):

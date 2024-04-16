@@ -29,13 +29,13 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.calibration import calibration_curve
 
 import matplotlib.pyplot as plt
-from typing import Optional
+from typing import Optional, Union
 
 
 
 def ExpectedCalibrationError(
         y_data: pd.Series
-        , probabilities: np.ndarray
+        , probabilities: Union[np.ndarray, pd.Series]
         , n_bins: int = 20
         ) -> float:
     
@@ -65,7 +65,7 @@ def ExpectedCalibrationError(
         raise TypeError("The 'y_data' parameter must be a pandas Series")
         
     if not isinstance(probabilities, np.ndarray):
-        raise TypeError("The 'probabilities' parameter must be np.ndarray")
+        raise TypeError("""The 'probabilities' parameter must be np.ndarray""")
         
     if not isinstance(n_bins, int) or n_bins <= 0:
         raise ValueError("""The 'n_bins' parameter must be positive integer; got {}""".format(n_bins))
@@ -73,6 +73,7 @@ def ExpectedCalibrationError(
     # =============================================================================
     # Calculating ECE
     # =============================================================================
+    
     
     bin_boundaries = np.linspace(0, 1, n_bins + 1)
     bin_lowers = bin_boundaries[:-1]
@@ -165,7 +166,7 @@ def PredictionCalibration(
         x_data: pd.DataFrame
         , model: LogisticRegression 
         , logprob: bool = False
-        ) -> pd.Series:
+        ) -> np.ndarray:
     
     """
     The function predicts the Probability based on the calibration model
@@ -200,17 +201,15 @@ def PredictionCalibration(
     # Calculating prediction    
     # =============================================================================
     if logprob:
-        pred = model.predict_log_proba(x_data)[:,1]
+        pred = model.predict_log_proba(x_data)
     else:
-        pred = model.predict_proba(x_data)[:,1]
-        
-    pred = pd.Series(pred).round(4)
-    
+        pred = model.predict_proba(x_data)
+            
     return pred
     
 def CalibrationCurve(
         y_data: pd.Series
-        , probabilities: pd.Series
+        , probabilities: Union[pd.Series, np.ndarray]
         , n_bins: int
         , label: str
         ):
@@ -222,7 +221,7 @@ def CalibrationCurve(
         y_data: pd.Series
             a pandas Series with discrete dependent variable
          
-        probabilities: np.ndarray
+        probabilities: np.ndarray or pd.Series
             a numpy ndarray with estimated probabilities of default
             
         n_bins: int
@@ -237,8 +236,11 @@ def CalibrationCurve(
     if not isinstance(y_data, pd.Series):
         raise TypeError("""The 'y_data' parameter must be a pandas Series""")
     
-    if not isinstance(probabilities, np.ndarray):
+    if not isinstance(probabilities, (np.ndarray, pd.Series)):
         raise TypeError("""The 'probabilities' parameter must be a np.ndarray""")
+
+    if isinstance(probabilities, np.ndarray) and len(probabilities.shape) != 1:
+        raise ValueError("""The 'probabilities' parameter must have 1 column; got {}""".format(probabilities.shape))
         
     if not isinstance(n_bins, int) or n_bins <= 0:
         raise ValueError("""The 'n_bins' parameter must be positive integer; got {}""".format(n_bins))
@@ -249,6 +251,8 @@ def CalibrationCurve(
     # =============================================================================
     # Plot Calibration Curve   
     # =============================================================================
+
+    probabilities = np.array(probabilities)    
 
     x, y = calibration_curve(y_data, probabilities, n_bins=10)
 

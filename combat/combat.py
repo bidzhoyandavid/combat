@@ -463,7 +463,8 @@ def PredictionAggregation(
             models_dict: dict
             , weights_dict: dict
             , x_data: pd.DataFrame
-        )  ->   pd.DataFrame:
+            , logprob: bool = False
+        )  ->   np.ndarray:
     
     """
     The Function calculates the PD using aggregation scheme. 
@@ -479,7 +480,10 @@ def PredictionAggregation(
             
         x_data: pd.DataFrame
             a pandas DataFrame with the explanatory variable to predict the PD
-            
+         
+         logprob: bool, default = False
+             an indicator of calculating the logarithm of probabilities
+         
     Output:
     -------
         pred: pd.DataFrame
@@ -498,16 +502,16 @@ def PredictionAggregation(
     # =============================================================================
     # Generating prediction
     # =============================================================================
-    y_proba_final = pd.Series()
+    
+    expample = models_dict[list(models_dict.keys())[0]].Prediction(x_data, logprob = logprob)
+    probabilities = np.zeros_like(expample)
     
     for key in models_dict.keys():
-        temp_proba = pd.Series(models_dict[key].Prediction(x_data, logprob = False)) * weights_dict[key]        
-        y_proba_final = pd.concat([y_proba_final, temp_proba], axis = 1)
-        
-    pred = y_proba_final.sum(axis = 1)
-           
-    return pred 
-   
+        temp_proba = models_dict[key].Prediction(x_data, logprob = logprob) * weights_dict[key]        
+        probabilities += temp_proba
+
+    return probabilities
+    
     
 def ModelStacking(
         models_dict: dict
@@ -516,6 +520,7 @@ def ModelStacking(
         , penalty: Optional[float] = None
         , alpha: float = 0.5
         , fit_intercept: bool = True
+        , logprob: bool = False
         ) -> LogisticRegression:
     
     """
@@ -539,7 +544,10 @@ def ModelStacking(
             a float variable for the regularization
             
         fit_intercept: bool, {'True', 'False'}, default = 'True'
-            a bool variable whether to fit intercept in the Logistic Regression or not         
+            a bool variable whether to fit intercept in the Logistic Regression or not 
+
+        logprob: bool
+            an indicator to calculate the logarithm of probabilities        
     
     Returns:
     --------
@@ -570,6 +578,9 @@ def ModelStacking(
             
     if not isinstance(fit_intercept, bool):
         raise TypeError("""The 'fit_intercept' parameter must be logical""")
+    
+    if not isinstance(logprob, bool):
+        raise TypeError("""The 'logprob' must be logical""")
               
     # =============================================================================
     # Stacking model    
@@ -577,7 +588,7 @@ def ModelStacking(
     y_proba = pd.Series()
     
     for key in models_dict.keys():
-        temp_proba = pd.Series(models_dict[key].Prediction(x_data = x_data, logprob = False))
+        temp_proba = pd.Series(models_dict[key].Prediction(x_data = x_data, logprob = logprob)[:,1])
         y_proba = pd.concat([y_proba, temp_proba], axis = 1)
         
     y_proba.columns = [i for i in range(len(y_proba.columns))]
@@ -597,6 +608,7 @@ def PredictionStacking(
         models_dict: dict
         , x_data: pd.DataFrame
         , model: ModelStacking
+        , logprob: bool = False
         ) -> pd.Series:
     
     """
@@ -613,7 +625,10 @@ def PredictionStacking(
             
         model: ModelStacking
             a Logistec Regression model obtain using ModelStacking function
-            
+
+        logprob: bool
+            an indicator to calculate the logarithm of probabilities        
+     
     Returns:
     --------
         pred: pd.Series
@@ -631,6 +646,9 @@ def PredictionStacking(
     if not isinstance(model, LogisticRegression):
         raise TypeError("""The 'model' parameter must be a Logistic object""")
     
+    if not isinstance(logprob, bool):
+        raise TypeError("""The 'logprob' must be logical""")
+    
     # =============================================================================
     # Stacking Prediction    
     # =============================================================================
@@ -638,16 +656,17 @@ def PredictionStacking(
     
     for key in models_dict.keys():
         
-        temp_proba = pd.Series(models_dict[key].Prediction(x_data, logprob = False))
+        temp_proba = pd.Series(models_dict[key].Prediction(x_data, logprob = logprob)[:,1])
         y_proba = pd.concat([y_proba, temp_proba], axis = 1)
     
     y_proba.columns = [i for i in range(len(y_proba.columns))]
     y_proba = y_proba.drop(columns = [0])
     
-    pred = pd.Series(model.predict_proba(y_proba)[:,1]).round(4)
-    
-    pred.index = x_data.index
-    
+    if logprob:
+        pred = model.predict_log_proba(y_proba)
+    else:
+        pred = model.predict_proba(y_proba)
+        
     return pred
           
 
@@ -730,7 +749,7 @@ def AggregationMetaInfo(
                                          , weights_dict = weights
                                          , x_data = x_data
                                          )
-            auc = roc_auc_score(y_true = y_data, y_score = pred)
+            auc = roc_auc_score(y_true = y_data, y_score = pred[:,1])
             auc = float("{:.3f}".format(auc))  
             
             gini = 2 * auc -1
@@ -764,7 +783,7 @@ def AggregationMetaInfo(
                                         , x_data = x_data
                                         , model = model_stack) 
     
-        auc_stack = roc_auc_score(y_true = y_data, y_score = pred_stack)
+        auc_stack = roc_auc_score(y_true = y_data, y_score = pred_stack[:,1])
         auc_stack = float("{:.3f}".format(auc_stack))  
         
         gini_stack = 2 * auc_stack -1

@@ -216,7 +216,7 @@ class Test_Combat():
     )
     def test_PredictionStacking(self, models_dict, x_data, model, expectation):
         with expectation:
-            assert isinstance(PredictionStacking(models_dict, x_data, model), pd.Series)
+            assert isinstance(PredictionStacking(models_dict, x_data, model), np.ndarray)
             assert len(PredictionStacking(models_dict, x_data, model)) == len(x_test)
 
     @pytest.mark.parametrize(

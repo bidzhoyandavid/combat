@@ -588,7 +588,7 @@ class LogitModel:
     def Prediction(self
                    , x_data: pd.DataFrame
                    , logprob: bool = False
-                   ) -> pd.Series:
+                   ) -> np.ndarray:
         """
         The method makes prediction based on the external dataset
         """
@@ -610,12 +610,9 @@ class LogitModel:
         x_data = x_data[self.x_test.columns.tolist()]
         
         if logprob:
-            pred = self.sk_model.predict_log_proba(x_data)[:, 1]
+            pred = self.sk_model.predict_log_proba(x_data)
         else:
-            pred = self.sk_model.predict_proba(x_data)[:, 1]
-            
-        pred = pd.Series(pred)
-        pred.index = x_data.index
+            pred = self.sk_model.predict_proba(x_data)
         
         return pred
     

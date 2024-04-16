@@ -100,6 +100,7 @@ class Test_ScoreCard():
             "y_proba, log, target_score, target_odds, pdo, expectation"
             , [
                 (proba[:,1], True, 600, 30, 20, does_not_raise())
+                , (pd.Series(proba[:,1]), True, 600, 30, 20, does_not_raise())
                 , (proba[:,1], False, 600, 30, 20, does_not_raise())
                 , (proba[:,1], True, 200, 30, 20, does_not_raise())
                 , (proba[:,1], True, 600, 50, 20, does_not_raise())
@@ -111,6 +112,7 @@ class Test_ScoreCard():
                 , (proba[:,1], True, -600, 30, 20, pytest.raises(ValueError))
                 , (proba[:,1], True, 600, -30, 20, pytest.raises(ValueError))
                 , (proba[:,1], True, 600, 30, -20, pytest.raises(ValueError))
+                , (proba, True, 600, 30, 20, pytest.raises(ValueError))
             ]
     )
     def test_Scorescrd(self, y_proba, log, target_score, target_odds, pdo, expectation):

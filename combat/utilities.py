@@ -14,16 +14,17 @@ Functions within the Utilities module:
 
 import pandas as pd
 import numpy as np
+from typing import Union
 
 from sklearn.metrics import (roc_auc_score
-                            , precision_score
-                            , recall_score
-                            , f1_score
-                            , auc
-                            , roc_curve
-                            , accuracy_score
-                            , brier_score_loss
-                            , confusion_matrix
+                            # , precision_score
+                            # , recall_score
+                            # , f1_score
+                            # , auc
+                            # , roc_curve
+                            # , accuracy_score
+                            # , brier_score_loss
+                            # , confusion_matrix
                             , classification_report
                             )
 
@@ -182,7 +183,7 @@ def SelectModels(
     
 def PredictionResults(
         y_data: pd.Series
-        , probabilities: pd.Series
+        , probabilities: Union[pd.Series, np.ndarray]
         , cutoff: float
         ) -> dict:
     """
@@ -193,7 +194,7 @@ def PredictionResults(
         y_data: pd.Series
             a pandas Series with true labels
             
-        probabilities: pd.Series
+        probabilities: pd.Series or np.ndarray
             a pandas Series with predicted probabilities
             
         cutoff: float
@@ -206,11 +207,14 @@ def PredictionResults(
     # =============================================================================
 
     if not isinstance(y_data, pd.Series):
-        raise TypeError("""The 'y_data' must be a pandas Series""")
+        raise TypeError("""The 'y_data' parameter must be a pandas Series""")
         
-    if not isinstance(probabilities, pd.Series):
-        raise TypeError("""The 'probabilities' must be a pandas Series""")
-        
+    if not isinstance(probabilities, (pd.Series, np.ndarray)):
+        raise TypeError("""The 'probabilities' parameter must be a pandas Series""")
+      
+    if isinstance(probabilities, np.ndarray) and len(probabilities.shape) != 1:
+        raise ValueError("""The 'probabilities' parameter must have 1 column; got {}""".format(probabilities.shape))
+      
     if len(y_data) != len(probabilities):
         raise ValueError("""The length of 'y_data' and 'probabilities' parameters must be identitcal""")
         
@@ -220,6 +224,8 @@ def PredictionResults(
     # =============================================================================
     # Printing results    
     # =============================================================================
+
+    probabilities = pd.Series(probabilities)    
 
     auc_score = roc_auc_score(y_data, probabilities)
     auc_score =  float("{:.3f}".format(auc_score))
