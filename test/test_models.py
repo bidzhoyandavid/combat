@@ -178,6 +178,6 @@ class TestLogitModel:
             model = LogitModel(x_train, y_train, x_test, y_test)
             model.Model_SK()
             model.Model_SM()
-            assert isinstance(model.Prediction(x_data, logprob=logrob), pd.Series)
+            assert isinstance(model.Prediction(x_data, logprob=logrob), np.ndarray)
 
             

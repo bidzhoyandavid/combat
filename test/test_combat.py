@@ -187,7 +187,7 @@ class Test_Combat():
     )
     def test_PredictionAggregation(self, models_dict, weights_dict, x_data, expectation):
         with expectation:
-            assert isinstance(PredictionAggregation(models_dict, weights_dict, x_data), pd.Series)
+            assert isinstance(PredictionAggregation(models_dict, weights_dict, x_data), np.ndarray)
 
     @pytest.mark.parametrize(
             "models_dict, x_data, y_data, penalty, alpha, fit_intercept, expectation"
