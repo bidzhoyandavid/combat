@@ -436,7 +436,7 @@ The functionalities within this module empower users to fine-tune their predicti
 <p>Functions within the Calibration module:</p>
 <ol>
 <li>
-<p><code>ExpectedCalibrationError(true_labels, probabilities, n_bins)</code> - calculate the Expected Calibration Error (ECE), a metric used to quantify the calibration performance of a probabilistic classification model.</p>
+<p><code>ExpectedCalibrationError(y_data, probabilities, n_bins)</code> - calculate the Expected Calibration Error (ECE), a metric used to quantify the calibration performance of a probabilistic classification model.</p>
 </li>
 <li>
 <p><code>CalibrationModel(x_data, y_data, penalty, alpha, fit_intercept)</code> - implement a calibration model to adjust the calibration of predictive models. </p>
@@ -481,7 +481,7 @@ enabling users to enhance the reliability and accuracy of their predictive model
 <pre><code>y_data: pd.Series
     a pandas Series with discrete dependent variable
 
-probabilities: np.ndarray
+probabilities: np.ndarray or pd.Series
     a numpy ndarray with estimated probabilities of default
 
 n_bins: int
@@ -493,7 +493,8 @@ label: str
 
           <details class="quote">
             <summary>Source code in <code>combat\calibration.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">211</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">210</span>
+<span class="normal">211</span>
 <span class="normal">212</span>
 <span class="normal">213</span>
 <span class="normal">214</span>
@@ -545,9 +546,13 @@ label: str
 <span class="normal">260</span>
 <span class="normal">261</span>
 <span class="normal">262</span>
-<span class="normal">263</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">CalibrationCurve</span><span class="p">(</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">CalibrationCurve</span><span class="p">(</span>
         <span class="n">y_data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span>
-        <span class="p">,</span> <span class="n">probabilities</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span>
+        <span class="p">,</span> <span class="n">probabilities</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
         <span class="p">,</span> <span class="n">n_bins</span><span class="p">:</span> <span class="nb">int</span>
         <span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span>
         <span class="p">):</span>
@@ -559,7 +564,7 @@ label: str
 <span class="sd">        y_data: pd.Series</span>
 <span class="sd">            a pandas Series with discrete dependent variable</span>
 
-<span class="sd">        probabilities: np.ndarray</span>
+<span class="sd">        probabilities: np.ndarray or pd.Series</span>
 <span class="sd">            a numpy ndarray with estimated probabilities of default</span>
 
 <span class="sd">        n_bins: int</span>
@@ -574,8 +579,11 @@ label: str
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y_data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;The &#39;y_data&#39; parameter must be a pandas Series&quot;&quot;&quot;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;The &#39;probabilities&#39; parameter must be a pandas Series&quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;The &#39;probabilities&#39; parameter must be a np.ndarray&quot;&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">probabilities</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;The &#39;probabilities&#39; parameter must have 1 column; got </span><span class="si">{}</span><span class="s2">&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">probabilities</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_bins</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="n">n_bins</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;The &#39;n_bins&#39; parameter must be positive integer; got </span><span class="si">{}</span><span class="s2">&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_bins</span><span class="p">))</span>
@@ -586,6 +594,8 @@ label: str
     <span class="c1"># =============================================================================</span>
     <span class="c1"># Plot Calibration Curve   </span>
     <span class="c1"># =============================================================================</span>
+
+    <span class="n">probabilities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">probabilities</span><span class="p">)</span>    
 
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_data</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
@@ -640,8 +650,7 @@ fit_intercept: bool optional, {'True', 'False'}, default = 'True'
 
           <details class="quote">
             <summary>Source code in <code>combat\calibration.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 98</span>
-<span class="normal"> 99</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 99</span>
 <span class="normal">100</span>
 <span class="normal">101</span>
 <span class="normal">102</span>
@@ -704,7 +713,8 @@ fit_intercept: bool optional, {'True', 'False'}, default = 'True'
 <span class="normal">159</span>
 <span class="normal">160</span>
 <span class="normal">161</span>
-<span class="normal">162</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">CalibrationModel</span><span class="p">(</span>
+<span class="normal">162</span>
+<span class="normal">163</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">CalibrationModel</span><span class="p">(</span>
         <span class="n">x_data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
         <span class="p">,</span> <span class="n">y_data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span>
         <span class="p">,</span> <span class="n">penalty</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -781,7 +791,7 @@ fit_intercept: bool optional, {'True', 'False'}, default = 'True'
 
 
 <h2 id="combat.calibration.ExpectedCalibrationError" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">ExpectedCalibrationError</span><span class="p">(</span><span class="n">true_labels</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">ExpectedCalibrationError</span><span class="p">(</span><span class="n">y_data</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span></code>
 
 </h2>
 
@@ -790,7 +800,7 @@ fit_intercept: bool optional, {'True', 'False'}, default = 'True'
   
       <p>The function calculates the Expected Calibration Error</p>
       <hr />
-<pre><code>true_labels: pd.Series
+<pre><code>y_data: pd.Series
     true labels
 
 probabilities: np.ndarray
@@ -865,9 +875,10 @@ n_bins: int,  default = 20
 <span class="normal">92</span>
 <span class="normal">93</span>
 <span class="normal">94</span>
-<span class="normal">95</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">ExpectedCalibrationError</span><span class="p">(</span>
-        <span class="n">true_labels</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span>
-        <span class="p">,</span> <span class="n">probabilities</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+<span class="normal">95</span>
+<span class="normal">96</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">ExpectedCalibrationError</span><span class="p">(</span>
+        <span class="n">y_data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span>
+        <span class="p">,</span> <span class="n">probabilities</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]</span>
         <span class="p">,</span> <span class="n">n_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 
@@ -876,7 +887,7 @@ n_bins: int,  default = 20
 
 <span class="sd">    Parameters:</span>
 <span class="sd">    ----------</span>
-<span class="sd">        true_labels: pd.Series</span>
+<span class="sd">        y_data: pd.Series</span>
 <span class="sd">            true labels</span>
 
 <span class="sd">        probabilities: np.ndarray</span>
@@ -893,11 +904,11 @@ n_bins: int,  default = 20
     <span class="c1"># =============================================================================</span>
     <span class="c1"># Validating parameters</span>
     <span class="c1"># =============================================================================</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">true_labels</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The &#39;labels&#39; parameter must be pd.Series&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y_data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The &#39;y_data&#39; parameter must be a pandas Series&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The &#39;probabilities&#39; parameter must be pd.Series&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;The &#39;probabilities&#39; parameter must be np.ndarray&quot;&quot;&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n_bins</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="n">n_bins</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;The &#39;n_bins&#39; parameter must be positive integer; got </span><span class="si">{}</span><span class="s2">&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_bins</span><span class="p">))</span>
@@ -906,6 +917,7 @@ n_bins: int,  default = 20
     <span class="c1"># Calculating ECE</span>
     <span class="c1"># =============================================================================</span>
 
+
     <span class="n">bin_boundaries</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_bins</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">bin_lowers</span> <span class="o">=</span> <span class="n">bin_boundaries</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">bin_uppers</span> <span class="o">=</span> <span class="n">bin_boundaries</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
@@ -913,7 +925,7 @@ n_bins: int,  default = 20
     <span class="n">confidences</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">predicted_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-    <span class="n">accuracies</span> <span class="o">=</span> <span class="n">predicted_label</span> <span class="o">==</span> <span class="n">true_labels</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">accuracies</span> <span class="o">=</span> <span class="n">predicted_label</span> <span class="o">==</span> <span class="n">y_data</span><span class="o">.</span><span class="n">values</span>
 
     <span class="n">ece</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">bin_lower</span><span class="p">,</span> <span class="n">bin_upper</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bin_lowers</span><span class="p">,</span> <span class="n">bin_uppers</span><span class="p">):</span>
@@ -962,8 +974,7 @@ logrob: bool
 
           <details class="quote">
             <summary>Source code in <code>combat\calibration.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">164</span>
-<span class="normal">165</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">165</span>
 <span class="normal">166</span>
 <span class="normal">167</span>
 <span class="normal">168</span>
@@ -1006,12 +1017,11 @@ logrob: bool
 <span class="normal">205</span>
 <span class="normal">206</span>
 <span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">PredictionCalibration</span><span class="p">(</span>
+<span class="normal">208</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">PredictionCalibration</span><span class="p">(</span>
         <span class="n">x_data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
         <span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">LogisticRegression</span> 
         <span class="p">,</span> <span class="n">logprob</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The function predicts the Probability based on the calibration model</span>
@@ -1046,11 +1056,9 @@ logrob: bool
     <span class="c1"># Calculating prediction    </span>
     <span class="c1"># =============================================================================</span>
     <span class="k">if</span> <span class="n">logprob</span><span class="p">:</span>
-        <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_log_proba</span><span class="p">(</span><span class="n">x_data</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_log_proba</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">x_data</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="n">pred</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pred</span>
 </code></pre></div></td></tr></table></div>

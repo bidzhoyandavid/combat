@@ -1,0 +1,825 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>LogitModel Class - COMBAT Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bcfcd587.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#logitmodel-class" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="COMBAT Docs" class="md-header__button md-logo" aria-label="COMBAT Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            COMBAT Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LogitModel Class
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="COMBAT Docs" class="md-nav__button md-logo" aria-label="COMBAT Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    COMBAT Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    COMBAT Docs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How-To Guides
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../explanation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Explanation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attributes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#__init__self-x_train-y_train-x_test-y_test-intercepttrue-penaltynone-alpha01" class="md-nav__link">
+    <span class="md-ellipsis">
+      __init__(self, x_train, y_train, x_test, y_test, intercept=True, penalty=None, alpha=0.1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model_skself" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model_SK(self)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model_smself" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model_SM(self)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gini_trainself-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gini_Train(self) -&gt; float
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accuracy_trainself-cutoff-float-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accuracy_Train(self, cutoff: float) -&gt; float
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auc_trainself-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      AUC_Train(self) -&gt; float
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#predict_proba_trainself-npndarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      Predict_Proba_Train(self) -&gt; np.ndarray
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#predict_logproba_trainself-npndarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      Predict_LogProba_Train(self) -&gt; np.ndarray
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#predictlabel_trainself-cutoff-float-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      PredictLabel_Train(self, cutoff: float) -&gt; list
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brier_trainself-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      Brier_Train(self) -&gt; float
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1_trainself-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      F1_Train(self) -&gt; float
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recall_trainself-cutoff-float-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recall_Train(self, cutoff: float) -&gt; float
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precision_trainself-cutoff-float-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      Precision_Train(self, cutoff: float) -&gt; float
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confusion_matrix_trainself-cutoff-float-npndarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      Confusion_Matrix_Train(self, cutoff: float) -&gt; np.ndarray
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fpr_trainself-npndarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      FPR_Train(self) -&gt; np.ndarray
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tpr_trainself-npndarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      TPR_Train(self) -&gt; np.ndarray
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roc_curve_trainself" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROC_Curve_Train(self)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gini_testself-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gini_Test(self) -&gt; float
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accuracy_testself-cutoff-float-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accuracy_Test(self, cutoff: float) -&gt; float
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auc_testself-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      AUC_Test(self) -&gt; float
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#predict_proba_testself-npndarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      Predict_Proba_Test(self) -&gt; np.ndarray
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#predict_logproba_testself-npndarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      Predict_LogProba_Test(self) -&gt; np.ndarray
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#predictlabel_testself-cutoff-float-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      PredictLabel_Test(self, cutoff: float) -&gt; list
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#brier_testself-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      Brier_Test(self) -&gt; float
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1_testself-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      F1_Test(self) -&gt; float
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recall_testself-cutoff-float-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recall_Test(self, cutoff: float) -&gt; float
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#precision_testself-cutoff-float-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      Precision_Test(self, cutoff: float) -&gt; float
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confusion_matrix_testself-cutoff-float-npndarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      Confusion_Matrix_Test(self, cutoff: float) -&gt; np.ndarray
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fpr_testself-npndarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      FPR_Test(self) -&gt; np.ndarray
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tpr_testself-npndarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      TPR_Test(self) -&gt; np.ndarray
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roc_curve_testself" class="md-nav__link">
+    <span class="md-ellipsis">
+      ROC_Curve_Test(self)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getcoefficients_skself-npndarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetCoefficients_SK(self) -&gt; np.ndarray
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getintercept_skself-npndarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetIntercept_SK(self) -&gt; np.ndarray
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summaryself" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary(self)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getcoefficients_smself-pddataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      GetCoefficients_SM(self) -&gt; pd.DataFrame
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#predictionself-x_data-pddataframe-logprob-bool-false-npndarray" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prediction(self, x_data: pd.DataFrame, logprob: bool = False) -&gt; np.ndarray
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Usage
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="logitmodel-class">LogitModel Class</h1>
+<p>The <code>LogitModel</code> class provides functionality for logistic regression modeling, performance evaluation, and prediction. It encapsulates implementations from both the sklearn and statsmodels libraries, allowing users to choose based on their preference or requirements.</p>
+<h2 id="attributes">Attributes</h2>
+<ul>
+<li><code>sk_model</code>: The trained scikit-learn logistic regression model.</li>
+<li><code>sm_model</code>: The trained statsmodels logistic regression model.</li>
+<li><code>x_train</code>: The training data features (DataFrame).</li>
+<li><code>y_train</code>: The training data labels (Series).</li>
+<li><code>x_test</code>: The test data features (DataFrame).</li>
+<li><code>y_test</code>: The test data labels (Series).</li>
+<li><code>intercept</code>: Whether to fit an intercept term (default True).</li>
+<li><code>penalty</code>: The penalty term for regularization (default None).</li>
+<li><code>alpha</code>: The regularization strength (default 0.1).</li>
+</ul>
+<h2 id="methods">Methods</h2>
+<h3 id="__init__self-x_train-y_train-x_test-y_test-intercepttrue-penaltynone-alpha01"><code>__init__(self, x_train, y_train, x_test, y_test, intercept=True, penalty=None, alpha=0.1)</code></h3>
+<p>Initialize the logistic regression model with training and test data.</p>
+<h3 id="model_skself"><code>Model_SK(self)</code></h3>
+<p>Train and return the scikit-learn logistic regression model.</p>
+<h3 id="model_smself"><code>Model_SM(self)</code></h3>
+<p>Train and return the statsmodels logistic regression model.</p>
+<h3 id="gini_trainself-float"><code>Gini_Train(self) -&gt; float</code></h3>
+<p>Calculate and return the Gini coefficient on the training set.</p>
+<h3 id="accuracy_trainself-cutoff-float-float"><code>Accuracy_Train(self, cutoff: float) -&gt; float</code></h3>
+<p>Calculate and return the accuracy ratio on the training set given a cutoff value.</p>
+<h3 id="auc_trainself-float"><code>AUC_Train(self) -&gt; float</code></h3>
+<p>Calculate and return the AUC (Area Under the Curve) on the training set.</p>
+<h3 id="predict_proba_trainself-npndarray"><code>Predict_Proba_Train(self) -&gt; np.ndarray</code></h3>
+<p>Calculate and return the predicted probabilities on the training set.</p>
+<h3 id="predict_logproba_trainself-npndarray"><code>Predict_LogProba_Train(self) -&gt; np.ndarray</code></h3>
+<p>Calculate and return the logarithm of predicted probabilities on the training set.</p>
+<h3 id="predictlabel_trainself-cutoff-float-list"><code>PredictLabel_Train(self, cutoff: float) -&gt; list</code></h3>
+<p>Calculate and return the predicted labels on the training set given a cutoff value.</p>
+<h3 id="brier_trainself-float"><code>Brier_Train(self) -&gt; float</code></h3>
+<p>Calculate and return the Brier score on the training set.</p>
+<h3 id="f1_trainself-float"><code>F1_Train(self) -&gt; float</code></h3>
+<p>Calculate and return the F1 score on the training set.</p>
+<h3 id="recall_trainself-cutoff-float-float"><code>Recall_Train(self, cutoff: float) -&gt; float</code></h3>
+<p>Calculate and return the recall on the training set given a cutoff value.</p>
+<h3 id="precision_trainself-cutoff-float-float"><code>Precision_Train(self, cutoff: float) -&gt; float</code></h3>
+<p>Calculate and return the precision on the training set given a cutoff value.</p>
+<h3 id="confusion_matrix_trainself-cutoff-float-npndarray"><code>Confusion_Matrix_Train(self, cutoff: float) -&gt; np.ndarray</code></h3>
+<p>Calculate and return the confusion matrix on the training set given a cutoff value.</p>
+<h3 id="fpr_trainself-npndarray"><code>FPR_Train(self) -&gt; np.ndarray</code></h3>
+<p>Calculate and return the false positive rate on the training set.</p>
+<h3 id="tpr_trainself-npndarray"><code>TPR_Train(self) -&gt; np.ndarray</code></h3>
+<p>Calculate and return the true positive rate on the training set.</p>
+<h3 id="roc_curve_trainself"><code>ROC_Curve_Train(self)</code></h3>
+<p>Plot the ROC (Receiver Operating Characteristic) curve for the training set.</p>
+<h3 id="gini_testself-float"><code>Gini_Test(self) -&gt; float</code></h3>
+<p>Calculate and return the Gini coefficient on the test set.</p>
+<h3 id="accuracy_testself-cutoff-float-float"><code>Accuracy_Test(self, cutoff: float) -&gt; float</code></h3>
+<p>Calculate and return the accuracy ratio on the test set given a cutoff value.</p>
+<h3 id="auc_testself-float"><code>AUC_Test(self) -&gt; float</code></h3>
+<p>Calculate and return the AUC (Area Under the Curve) on the test set.</p>
+<h3 id="predict_proba_testself-npndarray"><code>Predict_Proba_Test(self) -&gt; np.ndarray</code></h3>
+<p>Calculate and return the predicted probabilities on the test set.</p>
+<h3 id="predict_logproba_testself-npndarray"><code>Predict_LogProba_Test(self) -&gt; np.ndarray</code></h3>
+<p>Calculate and return the logarithm of predicted probabilities on the test set.</p>
+<h3 id="predictlabel_testself-cutoff-float-list"><code>PredictLabel_Test(self, cutoff: float) -&gt; list</code></h3>
+<p>Calculate and return the predicted labels on the test set given a cutoff value.</p>
+<h3 id="brier_testself-float"><code>Brier_Test(self) -&gt; float</code></h3>
+<p>Calculate and return the Brier score on the test set.</p>
+<h3 id="f1_testself-float"><code>F1_Test(self) -&gt; float</code></h3>
+<p>Calculate and return the F1 score on the test set.</p>
+<h3 id="recall_testself-cutoff-float-float"><code>Recall_Test(self, cutoff: float) -&gt; float</code></h3>
+<p>Calculate and return the recall on the test set given a cutoff value.</p>
+<h3 id="precision_testself-cutoff-float-float"><code>Precision_Test(self, cutoff: float) -&gt; float</code></h3>
+<p>Calculate and return the precision on the test set given a cutoff value.</p>
+<h3 id="confusion_matrix_testself-cutoff-float-npndarray"><code>Confusion_Matrix_Test(self, cutoff: float) -&gt; np.ndarray</code></h3>
+<p>Calculate and return the confusion matrix on the test set given a cutoff value.</p>
+<h3 id="fpr_testself-npndarray"><code>FPR_Test(self) -&gt; np.ndarray</code></h3>
+<p>Calculate and return the false positive rate on the test set.</p>
+<h3 id="tpr_testself-npndarray"><code>TPR_Test(self) -&gt; np.ndarray</code></h3>
+<p>Calculate and return the true positive rate on the test set.</p>
+<h3 id="roc_curve_testself"><code>ROC_Curve_Test(self)</code></h3>
+<p>Plot the ROC (Receiver Operating Characteristic) curve for the test set.</p>
+<h3 id="getcoefficients_skself-npndarray"><code>GetCoefficients_SK(self) -&gt; np.ndarray</code></h3>
+<p>Return an array of coefficients from the scikit-learn model.</p>
+<h3 id="getintercept_skself-npndarray"><code>GetIntercept_SK(self) -&gt; np.ndarray</code></h3>
+<p>Return the intercept from the scikit-learn model.</p>
+<h3 id="summaryself"><code>Summary(self)</code></h3>
+<p>Return a summary of the statsmodels model.</p>
+<h3 id="getcoefficients_smself-pddataframe"><code>GetCoefficients_SM(self) -&gt; pd.DataFrame</code></h3>
+<p>Return a DataFrame of coefficients from the statsmodels model.</p>
+<h3 id="predictionself-x_data-pddataframe-logprob-bool-false-npndarray"><code>Prediction(self, x_data: pd.DataFrame, logprob: bool = False) -&gt; np.ndarray</code></h3>
+<p>Make predictions on external data.</p>
+<h2 id="example-usage">Example Usage</h2>
+<pre><code class="language-python">from combat.models import LogitModel
+import pandas as pd
+import numoy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import (roc_auc_score
+                            , precision_score
+                            , recall_score
+                            , f1_score
+                            , auc
+                            , roc_curve
+                            , accuracy_score
+                            , brier_score_loss
+                            , confusion_matrix
+                            )
+
+import statsmodels.api as sm
+from statsmodels.tools.tools import add_constant
+
+# Initialize LogitModel
+model = LogitModel(x_train, y_train, x_test, y_test)
+
+# Train scikit-learn model
+model.Model_SK()
+
+# Train statsmodels model
+model.Model_SM()
+
+# Evaluate model accuracy on training and testing sets
+print(&quot;Accuracy on training set: &quot;, model.Accuracy_Train(cutoff=0.5))
+print(&quot;Accuracy on test set: &quot;, model.Accuracy_Test(cutoff=0.5))
+
+print(&quot;Gini on training set: &quot;, model.Gini_Train())
+print(&quot;Gini on testing set: &quot;, model.Gini_Test())
+
+# Make predictions on external data
+predictions = model.Prediction(external_data)
+
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+    
+  </body>
+</html>

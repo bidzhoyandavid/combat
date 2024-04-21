@@ -9,10 +9,6 @@
       
       
       
-        <link rel="prev" href="..">
-      
-      
-        <link rel="next" href="../how-to-guides/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -20,7 +16,7 @@
     
     
       
-        <title>Tutorials - COMBAT Docs</title>
+        <title>IsModelValid - COMBAT Docs</title>
       
     
     
@@ -63,6 +59,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#ismodelvalid" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -95,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tutorials
+              IsModelValid
             
           </span>
         </div>
@@ -168,17 +169,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../tutorials/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -187,7 +181,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -270,6 +263,56 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ismodelvalid" class="md-nav__link">
+    <span class="md-ellipsis">
+      IsModelValid
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IsModelValid">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exceptions:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -283,218 +326,64 @@
                   
 
 
-  <h1>Tutorials</h1>
+  <h1>IsModelValid</h1>
 
-<p>This part of the project documentation focuses on a
-<strong>learning-oriented</strong> approach. You'll learn how to
-get started with the code in this project.</p>
-<blockquote>
-<p><strong>Note:</strong> Expand this section by considering the
-following points:</p>
-</blockquote>
+<h2 id="ismodelvalid">IsModelValid</h2>
+<p>The function calculates whether the model meets prespecified requirements.</p>
+<h3 id="parameters">Parameters:</h3>
 <ul>
-<li>Help newcomers with getting started</li>
-<li>Teach readers about your library by making them
-  write code</li>
-<li>Inspire confidence through examples that work for
-  everyone, repeatably</li>
-<li>Give readers an immediate sense of achievement</li>
-<li>Show concrete examples, no abstractions</li>
-<li>Provide the minimum necessary explanation</li>
-<li>Avoid any distractions</li>
+<li><strong>model</strong>: <code>LogitModel</code></li>
+<li>An object of LogitModel class.</li>
+<li><strong>coef_expectation</strong>: <code>pd.DataFrame</code></li>
+<li>A pandas DataFrame object containing variable names and their sign expectations.</li>
+<li><strong>p_value</strong>: <code>float</code>, default = 0.05</li>
+<li>Variable significance level.</li>
+<li><strong>check_sample</strong>: <code>str</code>, {'test', 'train'}, default = 'test'</li>
+<li>The sample to perform the test.</li>
+<li><strong>metric</strong>: <code>str</code>, {'gini', 'auc'}, default = 'gini'</li>
+<li>A metric used to measure the model accuracy.</li>
+<li><strong>gini_cutoff</strong>: <code>float</code>, default = 0.4</li>
+<li>A cutoff value for Gini.</li>
+<li><strong>auc_cutoff</strong>: <code>float</code>, default = 0.7</li>
+<li>A cutoff value for AUC.</li>
 </ul>
-<p>Install <code>combat</code> if it not installed yet</p>
-<pre><code class="language-python">pip install combat
-</code></pre>
-<p>Import all necessary packages</p>
+<h3 id="exceptions">Exceptions:</h3>
+<ul>
+<li>
+<p><strong>TypeError</strong>:</p>
+</li>
+<li>
+<p>Raised if the <code>model</code> parameter is not of type LogitModel.</p>
+</li>
+<li>
+<p>Raised if the <code>coef_expectation</code> parameter is not a pandas DataFrame.</p>
+</li>
+<li>
+<p><strong>ValueError</strong>:</p>
+</li>
+<li>Raised if the <code>check_sample</code> parameter is not in ['train', 'test'].</li>
+<li>Raised if the <code>metric</code> parameter is not in ['gini', 'auc'].</li>
+<li>Raised if the <code>p_value</code> parameter is not a float from 0 to 0.5.</li>
+<li>Raised if the <code>gini_cutoff</code> parameter is not a float from 0 to 1.</li>
+<li>Raised if the <code>auc_cutoff</code> parameter is not a float from 0 to 1.</li>
+</ul>
+<h3 id="example">Example:</h3>
 <pre><code class="language-python">from combat.models import LogitModel
-from combat.short_list import *
-from combat.combat import *
-from combat.transform import *
-from combat.calibration import *
-from combat.scorecard import *
-
-import warnings
-warnings.filterwarnings(&quot;ignore&quot;)
+from combat.combat import IsModelValid
 import pandas as pd
-import numpy as np
 
-from sklearn.model_selection import train_test_split
+# Sample input data
+model = LogitModel()
+coef_expectation = pd.DataFrame({'variable': ['var1', 'var2'], 'sign_expectation': [1, -1]})
+p_value = 0.05
+check_sample = 'test'
+metric = 'gini'
+gini_cutoff = 0.4
+auc_cutoff = 0.7
 
-</code></pre>
-<p>Upload raw data for modelling.</p>
-<pre><code class="language-python">
-data = pd.read_excel('test_data.xlsx') # upload raw data
-
-y = data['target']
-x = data.drop(columns = ['target'])
-
-</code></pre>
-<pre><code class="language-python">df_sign = pd.read_excel('df_sign.xlsx', index_col = 'variable') # upload data with coefficients sign expectations
-
-</code></pre>
-<p><code>df_sign.xlsx</code> must contain 3 columns:</p>
-<ul>
-<li><code>variable</code> - exact the same names as columns of <code>x.columns</code></li>
-<li><code>dtype</code> - type of the columns (either <code>numerical</code> or <code>categorical</code>)</li>
-<li><code>expec</code> - coefficinets sign expectations ('-1' - in case of negative sign expectation, '1' - positive sign expectation, '0' - ambigious)</li>
-</ul>
-<p>Perform WoE Transformation.
-Split data into training and testing sets.</p>
-<pre><code class="language-python">final_data = WoEDataPreparation(
-  x_data = x
-  , y_data = y
-  , df_sign = df_sign
-  , special_codes = None
-  , metric = 'woe'
-)
-
-# split data into training and testing set
-x_train, x_test, y_train, y_test = train_test_split(final_data['x_woe'], y, test_size=0.2, random_state=42, shuffle=True)
-
-</code></pre>
-<p>Perform Explanatory Data Analysis with <code>VarExpPower</code> function</p>
-<pre><code class="language-python">
-var_exp =VarExpPower(
-  y_train = y_train
-  , x_train = x_train
-  , y_test = y_test
-  , x_test = x_test
-  )
-
-</code></pre>
-<p>Drop some features if needed.</p>
-<p>Create a Logit Model and check for adequacy</p>
-<pre><code class="language-python">model = LogitModel(
-  y_train = y_train
-  , x_train = x_train
-  , y_test = y_test
-  , x_test = x_test
-)
-model.Model_SK() # initialize sklearn logit model
-model.Model_SM() # initialize statsmodels logit model
-
-print(model.Gini_Train()) # Calculate Gini on the Training Set
-print(model.Gini_Test() # Calculate Gini on the Testing Set
-
-IsModelValid(
-    model = model
-    , coef_expectation = df_expec
-    , gini_cutoff=0.5
-    , p_value = 0.1
-    )
-</code></pre>
-<p>Use <code>IsModelValid</code> functions to figure out whether model meets all the specified requirements or not.</p>
-<p>Create an ensembles of models</p>
-<pre><code class="language-python">model_comb = ModelCombination(
-      y_train = y_train
-      , x_train = x_train
-      , y_test = y_test
-      , x_test = x_test
-      , max_model_number = 1000
-      , dependent_number = 5 # number of dependent variables must be less than number of all features
-      , coef_expectation = df_expec
-      , gini_cutoff=0.4
-      , p_value = 0.1
-      , intercept = True
-      , penalty = None
-)
-
-# get Meta information about created ensemble
-meta = ModelMetaInfo(
-    models_dict = model_comb_1
-    , sort_by = 'gini_test'
-)
-
-# If necessary the user can filter models. For example Gini_Train() &gt; 0.5
-
-</code></pre>
-<p>The next step is to aggregate models into final model.
-But first it worth to check the best aggregation scheme in terms of accuracy</p>
-<pre><code class="language-python">meta_aggr = AggregationMetaInfo(
-  models_dict = model_comb
-  , x_train = x_train
-  , y_train = y_train
-  , x_test = x_test
-  , y_test = y_test
-  )
-
-</code></pre>
-<p>Once meta information about aggregaton schemes are obtained, the user should choose the aggregation scheme to apply.</p>
-<p>If the user opts for <code>stacking</code> scheme</p>
-<pre><code class="language-python">
-# create stacking model
-model_st = ModelStacking(
-  models_dict = model_comb
-  , x_data = x_test
-  , y_data = y_test
-  )
-
-# predict once stacking model is obtained
-pred_stack = PredictionStacking(
-  models_dict = model_comb
-  , x_data = x_test
-  , model = model_st
-)
-
-auc_st = roc_auc_score(
-  y_true = y_test
-  , y_score = pred_stack_test
-  )
-print(auc_st)
-</code></pre>
-<p>If the user opts for aggregation scheme, which assume to calculate weighted average score of all models in the ensembles.</p>
-<pre><code class="language-python">
-# obtain weight of each model in the ensemble
-weight_aggr = ModelAggregation(
-  models_dict = model_comb
-  , metric = 'gini'
-  , check_sample = 'train'
-  )
-
-# calculate the score given obtained models weights
-pred_aggr = PredictionAggregation(
-  models_dict = model_comb
-  , weights_dict = weight_aggr
-  , x_data = x_test
-  )
-</code></pre>
-<p>Once aggregation scheme was chosen and aggreagation was completed the calibration is needed</p>
-<pre><code class="language-python"># calculate expected calibration error
-ece = ExpectedCalibrationError(
-  labels = np.array([1 if i &gt; y_test.mean() else 0 for i in pred_stack_test])
-  , probabilities = np.array(pred_stack_test)
-  , n_bins = 20
-  )
-
-# plot Calibration curve
-CalibrationCurve(
-  y_data = y_test
-  , probabilities = pred_stack
-  , n_bins = 20
-  , label = 'Cuurent Curve'
-  )
-
-# if ece too big the calibration must be applied
-calib_model = CalibrationModel(
-  x_data = x_test
-  , y_data = y_test
-  )
-
-# predict final PD given calibration model
-cal_prediction = PredictionCalibration(
-  x_data = x_test,
-   model = calib_model
-   )
-
-</code></pre>
-<p>It's time to convert the final PD into score</p>
-<pre><code class="language-python">
-score = ScoreCard(
-  y_proba = cal_prediction
-  , log = False
-)
-
+# Check if the model is valid
+validity = IsModelValid(model, coef_expectation, p_value, check_sample, metric, gini_cutoff, auc_cutoff)
+print(&quot;Is the model valid?&quot;, validity)
 </code></pre>
 
 

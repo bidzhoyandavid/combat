@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-to-add-two-numbers" class="md-skip">
+        <a href="#table-of-contents" class="md-skip">
           Skip to content
         </a>
       
@@ -202,6 +202,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -230,6 +232,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -238,9 +242,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-to-add-two-numbers" class="md-nav__link">
+  <a href="#how-to-perform-woe-tramsformation" class="md-nav__link">
     <span class="md-ellipsis">
-      How To Add Two Numbers?
+      How To Perform WoE Tramsformation?
     </span>
   </a>
   
@@ -311,6 +315,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -319,9 +325,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-to-add-two-numbers" class="md-nav__link">
+  <a href="#how-to-perform-woe-tramsformation" class="md-nav__link">
     <span class="md-ellipsis">
-      How To Add Two Numbers?
+      How To Perform WoE Tramsformation?
     </span>
   </a>
   
@@ -342,42 +348,47 @@
                   
 
 
-  <h1>How-To Guides</h1>
-
 <p>This part of the project documentation focuses on a
 <strong>problem-oriented</strong> approach. You'll tackle common
 tasks that you might have, with the help of the code
 provided in this project.</p>
-<h2 id="how-to-add-two-numbers">How To Add Two Numbers?</h2>
-<p>You have two numbers and you need to add them together.
-You're in luck! The <code>calculator</code> package can help you
-get this done.</p>
-<p>Download the code from this GitHub repository and place
-the <code>calculator/</code> folder in the same directory as your
-Python script:</p>
-<pre><code>your_project/
-│
-├── calculator/
-│   ├── __init__.py
-│   └── calculations.py
-│
-└── your_script.py
-</code></pre>
-<p>Inside of <code>your_script.py</code> you can now import the
-<code>add()</code> function from the <code>calculator.calculations</code>
-module:</p>
-<pre><code># your_script.py
-from calculator.calculations import add
-</code></pre>
-<p>After you've imported the function, you can use it
-to add any two numbers that you need to add:</p>
-<pre><code># your_script.py
-from calculator.calculations import add
+<h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+<li><a href="#how-to-perform-woe-tramsformation">How To Perform WoE Transformation</a></li>
+<li><a href="#how-to-create-a-logit-model">How To Create a Logit Model</a></li>
+<li><a href="#how-to-build-models-ensemble">How To Build Models Ensembles</a></li>
+</ol>
+<h2 id="how-to-perform-woe-tramsformation">How To Perform WoE Tramsformation? <a name='how-to-perform-woe-tramsformation'></a></h2>
+<p>To perform WoE transformation of all the dataset, you need to utilize <code>WoEDataPreparation</code> function within the <code>transform</code> module. For the demostration puprposes we used the <code>HELOC</code> dataset from the <a href="https://www.kaggle.com/datasets/averkiyoliabev/home-equity-line-of-creditheloc">kaggle</a>.</p>
+<p>We recommend to download data for further training.</p>
+<pre><code class="language-python">from combat.transform import *
 
-print(add(20, 22))  # OUTPUT: 42.0
+import pandas as pd
+import numpy as np
+
+data  = pd.read_excel('heloc_dataset.xlsx')
+data['default'] = data['RiskPerformance'].apply(lambda x: 1 if x in ['Bad'] else 0 )
+data = data.drop(columns = ['RiskPerformance'])
+
+# split data into training and testing sets
+y = data['default']
+x = data.drop(columns = ['default'])
+
+# specify special codes if necessary
+special_codes = [-9, -8, -7]
 </code></pre>
-<p>You're now able to add any two numbers, and you'll
-always get a <code>float</code> as a result.</p>
+<p>Before we move to WoE Transformation procedure we need prepare meta information about the data utilized first. That means prepare an <code>.xlsx</code> file with 3 columns:</p>
+<ol>
+<li>Variable - name of variables as in the <code>heloc</code> data</li>
+<li>dtype - either <code>numerical</code> or <code>categorical</code></li>
+<li>Expec - <code>-1</code> if you expect negative coefficient for the Variable, <code>+1</code> - if positive and <code>0</code> - if ambigious</li>
+</ol>
+<p>Once the meta data is prepared, upload it.
+<strong>Specify <code>Variable</code> columns as <code>index_col</code></strong></p>
+<pre><code class="language-python">df_sign = pd.read_excel(&quot;Sign Expec.xlsx&quot;,  index_col='Variable')
+
+</code></pre>
+<p>The <code>transform</code> module provides with a rich functionalilty for WoE transofrmation.</p>
 
 
 
