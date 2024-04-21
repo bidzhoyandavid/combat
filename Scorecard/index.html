@@ -341,32 +341,36 @@
 <p>The function calculates the scorecard based on the log odds.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
-<li><strong>y_proba</strong>: <code>np.ndarray</code> or <code>pd.Series</code></li>
-<li>A numpy ndarray with probabilities of default. If <code>log == True</code>, then <code>ln(probabilities)</code>.</li>
-<li><strong>log</strong>: <code>bool</code></li>
-<li>Whether <code>y_proba</code> is <code>ln(probabilities)</code> or not.</li>
-<li><strong>target_score</strong>: <code>int</code>, default = 600</li>
-<li>A baseline score.</li>
-<li><strong>target_odds</strong>: <code>int</code>, default = 30</li>
-<li>The corresponding odds for the <code>target_score</code>.</li>
-<li><strong>pdo</strong>: <code>int</code>, default = 20</li>
-<li>Points to double odds.</li>
+<li><strong>y_proba</strong>: <code>np.ndarray</code> or <code>pd.Series</code><br />
+  A numpy ndarray with probabilities of default. If <code>log == True</code>, then <code>ln(probabilities)</code>.</li>
+<li><strong>log</strong>: <code>bool</code><br />
+  Whether <code>y_proba</code> is <code>ln(probabilities)</code> or not.</li>
+<li><strong>target_score</strong>: <code>int</code>, default = 600<br />
+  A baseline score.</li>
+<li><strong>target_odds</strong>: <code>int</code>, default = 30<br />
+  The corresponding odds for the <code>target_score</code>.</li>
+<li><strong>pdo</strong>: <code>int</code>, default = 20<br />
+  Points to double odds.</li>
 </ul>
 <h3 id="returns">Returns:</h3>
 <ul>
-<li><strong>pred</strong>: <code>pd.DataFrame</code></li>
-<li>A pandas DataFrame with probability and the corresponding Score.</li>
+<li><strong>pred</strong>: <code>pd.DataFrame</code><br />
+  A pandas DataFrame with probability and the corresponding Score.</li>
 </ul>
 <h3 id="exceptions">Exceptions:</h3>
 <ul>
-<li><strong>ValueError</strong>:</li>
-<li>Raised if <code>y_proba</code> parameter is not <code>np.ndarray</code> or <code>pd.Series</code>.</li>
-<li>Raised if <code>probabilities</code> parameter does not have 1 column.</li>
-<li>Raised if <code>target_score</code> is not a positive integer.</li>
-<li>Raised if <code>target_odds</code> is not a positive integer.</li>
-<li>Raised if <code>pdo</code> is not a positive integer.</li>
-<li><strong>TypeError</strong>:</li>
-<li>Raised if <code>log</code> parameter is not logical.</li>
+<li>
+<p><strong>TypeError</strong>:
+  Raised if <code>log</code> parameter is not logical.</p>
+</li>
+<li>
+<p><strong>ValueError</strong>:
+  Raised if <code>y_proba</code> parameter is not <code>np.ndarray</code> or <code>pd.Series</code>.<br />
+  Raised if <code>probabilities</code> parameter does not have 1 column.<br />
+  Raised if <code>target_score</code> is not a positive integer.<br />
+  Raised if <code>target_odds</code> is not a positive integer.<br />
+  Raised if <code>pdo</code> is not a positive integer.<br /></p>
+</li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">import numpy as np

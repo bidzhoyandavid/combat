@@ -332,19 +332,19 @@
 <p>The function calculates the final PD based on the models obtained with a stacking scheme.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
-<li><strong>models_dict</strong>: <code>dict</code></li>
-<li>A dictionary with LogitModel instances.</li>
-<li><strong>x_data</strong>: <code>pd.DataFrame</code></li>
-<li>A pandas DataFrame with data of clients to calculate PD.</li>
-<li><strong>model</strong>: <code>ModelStacking</code></li>
-<li>A Logistic Regression model obtained using the <code>ModelStacking</code> function.</li>
-<li><strong>logprob</strong>: <code>bool</code></li>
-<li>An indicator to calculate the logarithm of probabilities.</li>
+<li><strong>models_dict</strong>: <code>dict</code><br />
+  A dictionary with LogitModel instances.</li>
+<li><strong>x_data</strong>: <code>pd.DataFrame</code><br />
+  A pandas DataFrame with data of clients to calculate PD.</li>
+<li><strong>model</strong>: <code>ModelStacking</code><br />
+  A Logistic Regression model obtained using the <code>ModelStacking</code> function.</li>
+<li><strong>logprob</strong>: <code>bool</code><br />
+  An indicator to calculate the logarithm of probabilities.</li>
 </ul>
 <h3 id="returns">Returns:</h3>
 <ul>
-<li><strong>pred</strong>: <code>pd.Series</code></li>
-<li>A predicted PD for a client using <code>x_data</code> and the stacking model.</li>
+<li><strong>pred</strong>: <code>pd.Series</code><br />
+  A predicted PD for a client using <code>x_data</code> and the stacking model.</li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">from combat.combat import PredictionStacking

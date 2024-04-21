@@ -341,36 +341,34 @@
 <p>The function removes variables to be deleted from training and testing sets and removes from the dataframe of sign expectation.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
-<li><strong>x_train</strong>: <code>pd.DataFrame</code></li>
-<li>A pandas DataFrame with training data set.</li>
-<li><strong>x_test</strong>: <code>pd.DataFrame</code></li>
-<li>A pandas DataFrame with testing data set.</li>
-<li><strong>df_sign</strong>: <code>pd.DataFrame</code></li>
-<li>A pandas DataFrame with coefficients expectation.</li>
-<li><strong>vars_to_remove</strong>: <code>list</code></li>
-<li>A list of variables to be removed.</li>
+<li><strong>x_train</strong>: <code>pd.DataFrame</code><br />
+  A pandas DataFrame with training data set.</li>
+<li><strong>x_test</strong>: <code>pd.DataFrame</code><br />
+  A pandas DataFrame with testing data set.</li>
+<li><strong>df_sign</strong>: <code>pd.DataFrame</code><br />
+  A pandas DataFrame with coefficients expectation.</li>
+<li><strong>vars_to_remove</strong>: <code>list</code><br />
+  A list of variables to be removed.</li>
 </ul>
 <h3 id="returns">Returns:</h3>
 <ul>
 <li><strong>final_data</strong>: <code>dict</code></li>
-<li>Keys:<ul>
-<li><code>x_train_new</code></li>
-<li><code>x_test_new</code></li>
-<li><code>df_sign_new</code></li>
-</ul>
-</li>
+<li>Keys:
+    <code>x_train_new</code><br />
+    <code>x_test_new</code><br />
+    <code>df_sign_new</code><br /></li>
 </ul>
 <h3 id="exceptions">Exceptions:</h3>
 <ul>
-<li><strong>ValueError</strong>:</li>
-<li>Raised if the columns of <code>x_test</code> and <code>x_train</code> are not identical.</li>
-<li>Raised if <code>x_train</code> parameter is not a pandas DataFrame.</li>
-<li>Raised if the number of columns in <code>x_train</code> and <code>x_test</code> are not identical.</li>
-<li>Raised if <code>x_test</code> parameter is not a pandas DataFrame.</li>
-<li>Raised if <code>df_sign</code> parameter is not a pandas DataFrame.</li>
-<li>Raised if <code>vars_to_remove</code> parameter is not a list.</li>
-<li>Raised if the number of <code>x_train</code> columns is not identical with the length of <code>df_sign</code>.</li>
-<li>Raised if any item in <code>vars_to_remove</code> is not in <code>x_train.columns</code>.</li>
+<li><strong>ValueError</strong>:
+  Raised if the columns of <code>x_test</code> and <code>x_train</code> are not identical.<br />
+  Raised if <code>x_train</code> parameter is not a pandas DataFrame.<br />
+  Raised if the number of columns in <code>x_train</code> and <code>x_test</code> are not identical.<br />
+  Raised if <code>x_test</code> parameter is not a pandas DataFrame. <br />
+  Raised if <code>df_sign</code> parameter is not a pandas DataFrame.<br />
+  Raised if <code>vars_to_remove</code> parameter is not a list.<br />
+  Raised if the number of <code>x_train</code> columns is not identical with the length of <code>df_sign</code>.<br />
+  Raised if any item in <code>vars_to_remove</code> is not in <code>x_train.columns</code>.<br /></li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">import pandas as pd

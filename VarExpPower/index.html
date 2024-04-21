@@ -341,48 +341,44 @@
 <p>The function describes the data in terms of explanatory power.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
-<li><strong>y_train</strong>: <code>pd.Series()</code></li>
-<li>The series of binary dependent variable of train set.</li>
-<li><strong>x_train</strong>: <code>pd.DataFrame()</code></li>
-<li>The dataframe of all independent variables of train set.</li>
-<li><strong>y_test</strong>: <code>pd.Series()</code></li>
-<li>The series of binary dependent variable of test set.</li>
-<li><strong>x_test</strong>: <code>pd.DataFrame()</code></li>
-<li>The dataframe of all independent variables of test set.</li>
-<li><strong>discriminatory</strong>: <code>str {'ttest', 'kruskal'}</code>, default = 'ttest'</li>
-<li>Which test to perform to conduct the test to compare samples means. The default is 'ttest'.</li>
-<li><strong>vif</strong>: <code>bool</code>, default = True</li>
-<li>Calculate the Variance inflation factor or not. If False VIFs will not be calculated.</li>
-<li><strong>individual_accuracy</strong>: <code>str {'gini', 'auc', 'f1_score'}</code>, default = 'gini'</li>
-<li>Calculates individual accuracy in pairwise regression.</li>
-<li><strong>check_sample</strong>: <code>str {'test', 'train'}</code>, default = 'test'</li>
-<li>Data sample to perform individual accuracy test.</li>
+<li><strong>y_train</strong>: <code>pd.Series()</code><br />
+  The series of binary dependent variable of train set.</li>
+<li><strong>x_train</strong>: <code>pd.DataFrame()</code><br />
+  The dataframe of all independent variables of train set.</li>
+<li><strong>y_test</strong>: <code>pd.Series()</code><br />
+  The series of binary dependent variable of test set.</li>
+<li><strong>x_test</strong>: <code>pd.DataFrame()</code><br />
+  The dataframe of all independent variables of test set.</li>
+<li><strong>discriminatory</strong>: <code>str {'ttest', 'kruskal'}</code>, default = 'ttest'<br />
+  Which test to perform to conduct the test to compare samples means. The default is 'ttest'.</li>
+<li><strong>vif</strong>: <code>bool</code>, default = True<br />
+  Calculate the Variance inflation factor or not. If False VIFs will not be calculated.</li>
+<li><strong>individual_accuracy</strong>: <code>str {'gini', 'auc', 'f1_score'}</code>, default = 'gini'<br />
+  Calculates individual accuracy in pairwise regression.</li>
+<li><strong>check_sample</strong>: <code>str {'test', 'train'}</code>, default = 'test'<br />
+  Data sample to perform individual accuracy test.</li>
 </ul>
 <h3 id="outputs">Outputs:</h3>
 <ul>
-<li><strong>final_data</strong>: <code>pd.DataFrame()</code></li>
-<li>Pandas DataFrame with all variables analysis.</li>
+<li><strong>final_data</strong>: <code>pd.DataFrame()</code><br />
+  Pandas DataFrame with all variables analysis.</li>
 </ul>
 <h3 id="exceptions">Exceptions:</h3>
 <ul>
 <li>
-<p><strong>TypeError</strong>:</p>
+<p><strong>TypeError</strong>:
+  Raised if <code>x_train</code> parameter is not a pandas DataFrame object.<br />
+  Raised if <code>x_test</code> parameter is not a pandas DataFrame object.<br />
+  Raised if <code>y_train</code> parameter is not a pandas Series.<br />
+  Raised if <code>y_test</code> parameter is not a pandas Series.<br />
+  Raised if <code>vif</code> parameter is not logical.<br /></p>
 </li>
 <li>
-<p>Raised if <code>x_train</code> parameter is not a pandas DataFrame object.</p>
+<p><strong>ValueError</strong>:
+  Raised if <code>discriminatory</code> parameter is not in ('ttest', 'kruskal').<br />
+  Raised if <code>individual_accuracy</code> parameter is not in ('gini', 'auc', 'f1_score').<br />
+  Raised if <code>check_sample</code> parameter is not in ['train', 'test'].<br /></p>
 </li>
-<li>Raised if <code>x_test</code> parameter is not a pandas DataFrame object.</li>
-<li>Raised if <code>y_train</code> parameter is not a pandas Series.</li>
-<li>Raised if <code>y_test</code> parameter is not a pandas Series.</li>
-<li>
-<p>Raised if <code>vif</code> parameter is not logical.</p>
-</li>
-<li>
-<p><strong>ValueError</strong>:</p>
-</li>
-<li>Raised if <code>discriminatory</code> parameter is not in ('ttest', 'kruskal').</li>
-<li>Raised if <code>individual_accuracy</code> parameter is not in ('gini', 'auc', 'f1_score').</li>
-<li>Raised if <code>check_sample</code> parameter is not in ['train', 'test'].</li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">import pandas as pd

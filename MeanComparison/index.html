@@ -342,45 +342,37 @@
 It implies both parametric t-test and non-parametric Kruskal-Wallis H-test.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
-<li><strong>x_train_0</strong>: <code>pd.Series()</code></li>
-<li>A pd.Series of a feature of 0 group.</li>
-<li><strong>x_train_1</strong>: <code>pd.Series()</code></li>
-<li>A pd.Series of a feature of 2 group.</li>
-<li><strong>equal_var</strong>: <code>bool</code>, optional, default = False</li>
-<li>An indicator of the assumption of equal variance.</li>
-<li><strong>alternative</strong>: <code>str, {'two-sided', 'less', 'greater'}</code>, optional, default = 'two-sided'</li>
-<li>Type of alternative hypothesis.</li>
+<li><strong>x_train_0</strong>: <code>pd.Series()</code><br />
+  A pd.Series of a feature of 0 group.</li>
+<li><strong>x_train_1</strong>: <code>pd.Series()</code><br />
+  A pd.Series of a feature of 2 group.</li>
+<li><strong>equal_var</strong>: <code>bool</code>, optional, default = False<br />
+  An indicator of the assumption of equal variance.</li>
+<li><strong>alternative</strong>: <code>str, {'two-sided', 'less', 'greater'}</code>, optional, default = 'two-sided'<br />
+  Type of alternative hypothesis.</li>
 </ul>
 <h3 id="returns">Returns:</h3>
 <ul>
 <li><strong>final_data</strong>: <code>dict</code></li>
-<li>Keys:<ul>
-<li><code>ttest</code></li>
-<li><code>kruskal</code></li>
-</ul>
-</li>
-<li>Values:<ul>
-<li><code>tt</code>: tuple(statistic, pvalue) - results of conducted t-test.</li>
-<li><code>kruskal</code>: tuple(statistic, pvalue) - results of conducted Kruskal-Wallis H-test.</li>
-</ul>
-</li>
+<li>Keys:
+    <code>ttest</code><br />
+    <code>kruskal</code><br /></li>
+<li>Values:
+    <code>tt</code>: tuple(statistic, pvalue) - results of conducted t-test.<br />
+    <code>kruskal</code>: tuple(statistic, pvalue) - results of conducted Kruskal-Wallis H-test.<br /></li>
 </ul>
 <h3 id="exceptions">Exceptions:</h3>
 <ul>
 <li>
-<p><strong>TypeError</strong>:</p>
+<p><strong>TypeError</strong>:
+  Raised if <code>x_train_0</code> parameter is not a pd.Series.<br />
+  Raised if <code>x_train_1</code> parameter is not a pd.Series.<br />
+  Raised if <code>equal_var</code> parameter is not logical.<br /></p>
 </li>
 <li>
-<p>Raised if <code>x_train_0</code> parameter is not a pd.Series.</p>
+<p><strong>ValueError</strong>:
+  Raised if <code>alternative</code> parameter is not in ('two-sided', 'less', 'greater').<br /></p>
 </li>
-<li>Raised if <code>x_train_1</code> parameter is not a pd.Series.</li>
-<li>
-<p>Raised if <code>equal_var</code> parameter is not logical.</p>
-</li>
-<li>
-<p><strong>ValueError</strong>:</p>
-</li>
-<li>Raised if <code>alternative</code> parameter is not in ('two-sided', 'less', 'greater').</li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">import pandas as pd

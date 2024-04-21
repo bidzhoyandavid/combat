@@ -309,224 +309,154 @@
 <h2 id="parameters">Parameters:</h2>
 <ul>
 <li>
-<p><code>x</code>: pd.Series</p>
+<p><code>x</code>: pd.Series<br />
+  A pandas Series of the explanatory variable.</p>
 </li>
 <li>
-<p>A pandas Series of the explanatory variable.</p>
+<p><code>y</code>: pd.Series<br />
+  A pandas Series of the target binary variable.</p>
 </li>
 <li>
-<p><code>y</code>: pd.Series</p>
+<p><code>mon_constraint</code>: int {-1, 0, 1}<br />
+  Numeric type of monotonic constraint.</p>
 </li>
 <li>
-<p>A pandas Series of the target binary variable.</p>
+<p><code>special_codes</code>: list<br />
+  Special codes in the data.</p>
 </li>
 <li>
-<p><code>mon_constraint</code>: int {-1, 0, 1}</p>
+<p><code>var_name</code>: str<br />
+  A variable name.</p>
 </li>
 <li>
-<p>Numeric type of monotonic constraint.</p>
+<p><code>var_type</code>: str {'numerical', 'categorical'}<br />
+  A type of explanatory variable.</p>
 </li>
 <li>
-<p><code>special_codes</code>: list</p>
+<p><code>metric</code>: str, {'woe', 'event_rate'}, default = 'woe'<br />
+  A metric to perform transformation.</p>
 </li>
 <li>
-<p>Special codes in the data.</p>
+<p><code>prebinning_method</code>: str, {'cart', 'mdlp', 'quantile', 'uniform', None}, default="cart"<br />
+  The pre-binning method.</p>
 </li>
 <li>
-<p><code>var_name</code>: str</p>
+<p><code>solver</code>: str, {'cp', 'mip', 'ls'}, default="cp"<br />
+  The optimizer to solve the optimal binning problem.</p>
 </li>
 <li>
-<p>A variable name.</p>
+<p><code>divergence</code>: str, {'iv', 'js', 'hellinger', 'triangular'}, default="iv"<br />
+  The divergence measure in the objective function to be maximized.</p>
 </li>
 <li>
-<p><code>var_type</code>: str {'numerical', 'categorical'}</p>
+<p><code>max_n_prebins</code>: int, default=20<br />
+  The maximum number of bins after pre-binning (prebins).</p>
 </li>
 <li>
-<p>A type of explanatory variable.</p>
+<p><code>min_prebin_size</code>: float, default=0.05<br />
+  The fraction of the minimum number of records for each prebin.</p>
 </li>
 <li>
-<p><code>metric</code>: str, {'woe', 'event_rate'}, default = 'woe'</p>
+<p><code>min_n_bins</code>: int or None, optional, default=None<br />
+  The minimum number of bins.</p>
 </li>
 <li>
-<p>A metric to perform transformation.</p>
+<p><code>max_n_bins</code>: int or None, optional, default=None<br />
+  The maximum number of bins.</p>
 </li>
 <li>
-<p><code>prebinning_method</code>: str, {'cart', 'mdlp', 'quantile', 'uniform', None}, default="cart"</p>
+<p><code>min_bin_size</code>: float or None, optional, default=None<br />
+  The fraction of the minimum number of records for each bin.</p>
 </li>
 <li>
-<p>The pre-binning method.</p>
+<p><code>max_bin_size</code>: float or None, optional, default=None<br />
+  The fraction of the maximum number of records for each bin.</p>
 </li>
 <li>
-<p><code>solver</code>: str, {'cp', 'mip', 'ls'}, default="cp"</p>
+<p><code>min_bin_n_nonevent</code>: int or None, optional, default=None<br />
+  The minimum number of non-event records for each bin.</p>
 </li>
 <li>
-<p>The optimizer to solve the optimal binning problem.</p>
+<p><code>max_bin_n_nonevent</code>: int or None, optional, default=None<br />
+  The maximum number of non-event records for each bin.</p>
 </li>
 <li>
-<p><code>divergence</code>: str, {'iv', 'js', 'hellinger', 'triangular'}, default="iv"</p>
+<p><code>min_bin_n_event</code>: int or None, optional, default=None<br />
+  The minimum number of event records for each bin.</p>
 </li>
 <li>
-<p>The divergence measure in the objective function to be maximized.</p>
+<p><code>max_bin_n_event</code>: int or None, optional, default=None<br />
+  The maximum number of event records for each bin.</p>
 </li>
 <li>
-<p><code>max_n_prebins</code>: int, default=20</p>
+<p><code>min_event_rate_diff</code>: float, default=0<br />
+  The minimum event rate difference between consecutive bins.</p>
 </li>
 <li>
-<p>The maximum number of bins after pre-binning (prebins).</p>
+<p><code>max_pvalue</code>: float or None, optional, default=None<br />
+  The maximum p-value among bins.</p>
 </li>
 <li>
-<p><code>min_prebin_size</code>: float, default=0.05</p>
+<p><code>max_pvalue_policy</code>: str, default="consecutive"<br />
+  The method to determine bins not satisfying the p-value constraint.</p>
 </li>
 <li>
-<p>The fraction of the minimum number of records for each prebin.</p>
+<p><code>gamma</code>: float, default=0<br />
+  Regularization strength to reduce the number of dominating bins.</p>
 </li>
 <li>
-<p><code>min_n_bins</code>: int or None, optional, default=None</p>
+<p><code>outlier_detector</code>: str or None, optional, default=None<br />
+  The outlier detection method.</p>
 </li>
 <li>
-<p>The minimum number of bins.</p>
+<p><code>outlier_params</code>: dict or None, optional, default=None<br />
+  Dictionary of parameters to pass to the outlier detection method.</p>
 </li>
 <li>
-<p><code>max_n_bins</code>: int or None, optional, default=None</p>
+<p><code>class_weight</code>: dict, "balanced" or None, optional, default=None<br />
+  Weights associated with classes.</p>
 </li>
 <li>
-<p>The maximum number of bins.</p>
+<p><code>cat_cutoff</code>: float or None, optional, default=None<br />
+  Generate bin others with categories in which the fraction of occurrences is below the cutoff value.</p>
 </li>
 <li>
-<p><code>min_bin_size</code>: float or None, optional, default=None</p>
+<p><code>cat_unknown</code>: float, str or None, default=None<br />
+  The assigned value to the unobserved categories in training but occurring during transform.</p>
 </li>
 <li>
-<p>The fraction of the minimum number of records for each bin.</p>
+<p><code>user_splits</code>: array-like or None, optional, default=None<br />
+  The list of pre-binning split points.</p>
 </li>
 <li>
-<p><code>max_bin_size</code>: float or None, optional, default=None</p>
+<p><code>user_splits_fixed</code>: array-like or None, default=None<br />
+  The list of pre-binning split points that must be fixed.</p>
 </li>
 <li>
-<p>The fraction of the maximum number of records for each bin.</p>
+<p><code>special_codes</code>: array-like, dict or None, optional, default=None<br />
+  List of special codes.</p>
 </li>
 <li>
-<p><code>min_bin_n_nonevent</code>: int or None, optional, default=None</p>
+<p><code>split_digits</code>: int or None, optional, default=None<br />
+  The significant digits of the split points.</p>
 </li>
 <li>
-<p>The minimum number of non-event records for each bin.</p>
+<p><code>mip_solver</code>: str, {'bop', 'cbc'}, default="bop"<br />
+  The mixed-integer programming solver.</p>
 </li>
 <li>
-<p><code>max_bin_n_nonevent</code>: int or None, optional, default=None</p>
+<p><code>time_limit</code>: int, default=100<br />
+  The maximum time in seconds to run the optimization solver.</p>
 </li>
 <li>
-<p>The maximum number of non-event records for each bin.</p>
+<p><code>verbose</code>: bool, default=False<br />
+  Enable verbose output.</p>
 </li>
-<li>
-<p><code>min_bin_n_event</code>: int or None, optional, default=None</p>
-</li>
-<li>
-<p>The minimum number of event records for each bin.</p>
-</li>
-<li>
-<p><code>max_bin_n_event</code>: int or None, optional, default=None</p>
-</li>
-<li>
-<p>The maximum number of event records for each bin.</p>
-</li>
-<li>
-<p><code>min_event_rate_diff</code>: float, default=0</p>
-</li>
-<li>
-<p>The minimum event rate difference between consecutive bins.</p>
-</li>
-<li>
-<p><code>max_pvalue</code>: float or None, optional, default=None</p>
-</li>
-<li>
-<p>The maximum p-value among bins.</p>
-</li>
-<li>
-<p><code>max_pvalue_policy</code>: str, default="consecutive"</p>
-</li>
-<li>
-<p>The method to determine bins not satisfying the p-value constraint.</p>
-</li>
-<li>
-<p><code>gamma</code>: float, default=0</p>
-</li>
-<li>
-<p>Regularization strength to reduce the number of dominating bins.</p>
-</li>
-<li>
-<p><code>outlier_detector</code>: str or None, optional, default=None</p>
-</li>
-<li>
-<p>The outlier detection method.</p>
-</li>
-<li>
-<p><code>outlier_params</code>: dict or None, optional, default=None</p>
-</li>
-<li>
-<p>Dictionary of parameters to pass to the outlier detection method.</p>
-</li>
-<li>
-<p><code>class_weight</code>: dict, "balanced" or None, optional, default=None</p>
-</li>
-<li>
-<p>Weights associated with classes.</p>
-</li>
-<li>
-<p><code>cat_cutoff</code>: float or None, optional, default=None</p>
-</li>
-<li>
-<p>Generate bin others with categories in which the fraction of occurrences is below the cutoff value.</p>
-</li>
-<li>
-<p><code>cat_unknown</code>: float, str or None, default=None</p>
-</li>
-<li>
-<p>The assigned value to the unobserved categories in training but occurring during transform.</p>
-</li>
-<li>
-<p><code>user_splits</code>: array-like or None, optional, default=None</p>
-</li>
-<li>
-<p>The list of pre-binning split points.</p>
-</li>
-<li>
-<p><code>user_splits_fixed</code>: array-like or None, default=None</p>
-</li>
-<li>
-<p>The list of pre-binning split points that must be fixed.</p>
-</li>
-<li>
-<p><code>special_codes</code>: array-like, dict or None, optional, default=None</p>
-</li>
-<li>
-<p>List of special codes.</p>
-</li>
-<li>
-<p><code>split_digits</code>: int or None, optional, default=None</p>
-</li>
-<li>
-<p>The significant digits of the split points.</p>
-</li>
-<li>
-<p><code>mip_solver</code>: str, {'bop', 'cbc'}, default="bop"</p>
-</li>
-<li>
-<p>The mixed-integer programming solver.</p>
-</li>
-<li>
-<p><code>time_limit</code>: int, default=100</p>
-</li>
-<li>
-<p>The maximum time in seconds to run the optimization solver.</p>
-</li>
-<li>
-<p><code>verbose</code>: bool, default=False</p>
-</li>
-<li>Enable verbose output.</li>
 </ul>
 <h2 id="returns">Returns:</h2>
 <ul>
-<li><code>final_data</code>: dict</li>
-<li>A dictionary with transformed data, status, binning table, and WoE transformation.</li>
+<li><code>final_data</code>: dict<br />
+  A dictionary with transformed data, status, binning table, and WoE transformation.</li>
 </ul>
 <pre><code class="language-python">import pandas as pd
 from combat.transform import WoETransform

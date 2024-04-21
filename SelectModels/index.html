@@ -341,37 +341,33 @@
 <p>The function filters models from a dictionary of LogitModel instances.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
-<li><strong>models_dict</strong>: <code>dict</code></li>
-<li>A dictionary with LogitModel instances.</li>
-<li><strong>meta_data</strong>: <code>pd.DataFrame</code></li>
-<li>A pandas DataFrame with meta information of all models in the dictionary.</li>
-<li><strong>select_by</strong>: <code>str</code>, optional, {'gini_test', 'gini_train', 'auc_test', 'auc_train', 'Brier_test', 'Brier_train', 'F1_test', 'F1_train'}, default = 'gini_test'</li>
-<li>A metric to filter by models.</li>
-<li><strong>cutoff</strong>: <code>float</code>, optional, default = 0.5</li>
-<li>A cutoff value for the <code>select_by</code> metric.</li>
+<li><strong>models_dict</strong>: <code>dict</code><br />
+  A dictionary with LogitModel instances.</li>
+<li><strong>meta_data</strong>: <code>pd.DataFrame</code><br />
+  A pandas DataFrame with meta information of all models in the dictionary.</li>
+<li><strong>select_by</strong>: <code>str</code>, optional, {'gini_test', 'gini_train', 'auc_test', 'auc_train', 'Brier_test', 'Brier_train', 'F1_test', 'F1_train'}, default = 'gini_test'<br />
+  A metric to filter by models.</li>
+<li><strong>cutoff</strong>: <code>float</code>, optional, default = 0.5<br />
+  A cutoff value for the <code>select_by</code> metric.</li>
 </ul>
 <h3 id="returns">Returns:</h3>
 <ul>
-<li><strong>new_models_dict</strong>: <code>dict</code></li>
-<li>A dictionary with selected models.</li>
+<li><strong>new_models_dict</strong>: <code>dict</code><br />
+  A dictionary with selected models.</li>
 </ul>
 <h3 id="exceptions">Exceptions:</h3>
 <ul>
 <li>
-<p><strong>TypeError</strong>:</p>
+<p><strong>TypeError</strong>:
+  Raised if <code>models_dict</code> parameter is not a dictionary.
+  Raised if <code>meta_data</code> parameter is not a pandas DataFrame.</p>
 </li>
 <li>
-<p>Raised if <code>models_dict</code> parameter is not a dictionary.</p>
+<p><strong>ValueError</strong>:
+  Raised if the <code>select_by</code> parameter is not in ['gini_test', 'gini_train', 'auc_test', 'auc_train', 'Brier_test', 'Brier_train', 'F1_test', 'F1_train'].<br />
+  Raised if the lengths of <code>meta_data</code> and <code>models_dict</code> are not identical.<br />
+  Raised if the <code>cutoff</code> parameter is not a positive float from 0 to 1.<br /></p>
 </li>
-<li>
-<p>Raised if <code>meta_data</code> parameter is not a pandas DataFrame.</p>
-</li>
-<li>
-<p><strong>ValueError</strong>:</p>
-</li>
-<li>Raised if the <code>select_by</code> parameter is not in ['gini_test', 'gini_train', 'auc_test', 'auc_train', 'Brier_test', 'Brier_train', 'F1_test', 'F1_train'].</li>
-<li>Raised if the lengths of <code>meta_data</code> and <code>models_dict</code> are not identical.</li>
-<li>Raised if the <code>cutoff</code> parameter is not a positive float from 0 to 1.</li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">import pandas as pd

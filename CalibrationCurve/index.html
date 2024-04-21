@@ -332,22 +332,22 @@
 <p>The function plots the calibration curve.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
-<li><strong>y_data</strong>: <code>pd.Series</code></li>
-<li>A pandas Series with discrete dependent variable.</li>
-<li><strong>probabilities</strong>: <code>np.ndarray</code> or <code>pd.Series</code></li>
-<li>A numpy ndarray with estimated probabilities of default.</li>
-<li><strong>n_bins</strong>: <code>int</code></li>
-<li>Number of bins.</li>
-<li><strong>label</strong>: <code>str</code></li>
-<li>A label of the plot.</li>
+<li><strong>y_data</strong>: <code>pd.Series</code><br />
+  A pandas Series with discrete dependent variable.</li>
+<li><strong>probabilities</strong>: <code>np.ndarray</code> or <code>pd.Series</code><br />
+  A numpy ndarray with estimated probabilities of default.</li>
+<li><strong>n_bins</strong>: <code>int</code><br />
+  Number of bins.</li>
+<li><strong>label</strong>: <code>str</code> <br />
+  A label of the plot.</li>
 </ul>
 <h3 id="exceptions">Exceptions:</h3>
 <ul>
-<li><strong>TypeError</strong>:</li>
-<li>Raised if <code>y_data</code> parameter is not a pandas Series.</li>
-<li>Raised if <code>probabilities</code> parameter is not a np.ndarray.</li>
-<li>Raised if <code>n_bins</code> parameter is not a positive integer.</li>
-<li>Raised if <code>label</code> parameter is not a string.</li>
+<li><strong>TypeError</strong>:
+  Raised if <code>y_data</code> parameter is not a pandas Series.<br />
+  Raised if <code>probabilities</code> parameter is not a np.ndarray.<br />
+  Raised if <code>n_bins</code> parameter is not a positive integer.<br />
+  Raised if <code>label</code> parameter is not a string.<br /></li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">import pandas as pd

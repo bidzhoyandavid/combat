@@ -332,25 +332,25 @@
 <p>The function creates a logistic regression model using a stacking scheme.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
-<li><strong>models_dict</strong>: <code>dict</code></li>
-<li>A dictionary with LogitModel instances.</li>
-<li><strong>x_data</strong>: <code>pd.DataFrame</code></li>
-<li>A pandas DataFrame with explanatory variables.</li>
-<li><strong>y_data</strong>: <code>pd.Series</code></li>
-<li>A pandas Series with discrete dependent variable.</li>
-<li><strong>penalty</strong>: <code>Optional[str]</code>, default = <code>None</code></li>
-<li>A regularization for Logistic Regression model. It can be either <code>'None'</code>, <code>'l1'</code>, or <code>'l2'</code>.</li>
-<li><strong>alpha</strong>: <code>float</code>, default = <code>0.5</code></li>
-<li>A float variable for the regularization.</li>
-<li><strong>fit_intercept</strong>: <code>bool</code>, default = <code>True</code></li>
-<li>A boolean variable whether to fit intercept in the Logistic Regression or not.</li>
-<li><strong>logprob</strong>: <code>bool</code></li>
-<li>An indicator to calculate the logarithm of probabilities.</li>
+<li><strong>models_dict</strong>: <code>dict</code><br />
+  A dictionary with LogitModel instances.</li>
+<li><strong>x_data</strong>: <code>pd.DataFrame</code><br />
+  A pandas DataFrame with explanatory variables.</li>
+<li><strong>y_data</strong>: <code>pd.Series</code><br />
+  A pandas Series with discrete dependent variable.</li>
+<li><strong>penalty</strong>: <code>Optional[str]</code>, default = <code>None</code><br />
+  A regularization for Logistic Regression model. It can be either <code>'None'</code>, <code>'l1'</code>, or <code>'l2'</code>.</li>
+<li><strong>alpha</strong>: <code>float</code>, default = <code>0.5</code><br />
+  A float variable for the regularization.</li>
+<li><strong>fit_intercept</strong>: <code>bool</code>, default = <code>True</code><br />
+  A boolean variable whether to fit intercept in the Logistic Regression or not.</li>
+<li><strong>logprob</strong>: <code>bool</code><br />
+  An indicator to calculate the logarithm of probabilities.</li>
 </ul>
 <h3 id="returns">Returns:</h3>
 <ul>
-<li><strong>model</strong>: <code>LogisticRegression</code></li>
-<li>A LogisticRegression model from the sklearn package.</li>
+<li><strong>model</strong>: <code>LogisticRegression</code><br />
+  A LogisticRegression model from the sklearn package.</li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">from combat.combat import ModelStacking

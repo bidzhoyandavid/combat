@@ -332,17 +332,17 @@
 <p>The function calculates the weights of each model in the ensemble.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
-<li><strong>models_dict</strong>: <code>dict</code></li>
-<li>Dictionary of LogitModel() instances.</li>
-<li><strong>metric</strong>: <code>str</code>, {'gini', 'auc', 'f1', 'brier'}</li>
-<li>Metric for calculating weighted average.</li>
-<li><strong>check_sample</strong>: <code>str</code>, {'test', 'train'}</li>
-<li>Sample to calculate metrics for averaging.</li>
+<li><strong>models_dict</strong>: <code>dict</code><br />
+  Dictionary of LogitModel() instances.</li>
+<li><strong>metric</strong>: <code>str</code>, {'gini', 'auc', 'f1', 'brier'}<br />
+  Metric for calculating weighted average.</li>
+<li><strong>check_sample</strong>: <code>str</code>, {'test', 'train'}<br />
+  Sample to calculate metrics for averaging.</li>
 </ul>
 <h3 id="returns">Returns:</h3>
 <ul>
-<li><strong>weights_dict</strong>: <code>dict</code></li>
-<li>A dictionary with weights for each model in the ensemble.</li>
+<li><strong>weights_dict</strong>: <code>dict</code><br />
+  A dictionary with weights for each model in the ensemble.</li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">from combat.combat import ModelAggregation

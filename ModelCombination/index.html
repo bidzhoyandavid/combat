@@ -332,42 +332,42 @@
 <p>The function creates multiple models and checks whether they are accurate or not.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
-<li><strong>y_train</strong>: <code>pd.Series</code></li>
-<li>A series of binary dependent variable of the train sample.</li>
-<li><strong>x_train</strong>: <code>pd.DataFrame</code></li>
-<li>A dataframe with explanatory variables of the train sample.</li>
-<li><strong>y_test</strong>: <code>pd.Series</code></li>
-<li>A series of binary dependent variable of the test sample.</li>
-<li><strong>x_test</strong>: <code>pd.DataFrame</code></li>
-<li>A dataframe with explanatory variables of the test sample.</li>
-<li><strong>max_model_number</strong>: <code>int</code></li>
-<li>Maximum number of models to be created.</li>
-<li><strong>dependent_number</strong>: <code>int</code></li>
-<li>Quantity of dependent variable to input in the model. The number of coef_expectation must be less than the columns number of x_train.</li>
-<li><strong>coef_expectation</strong>: <code>pd.DataFrame</code></li>
-<li>A dataframe with variable names and their sign expectations. The name of variables must be the same as x_train and x_test column names.</li>
-<li><strong>intercept</strong>: <code>bool</code>, default = <code>True</code></li>
-<li>An indicator whether to include intercept into model or not.</li>
-<li><strong>penalty</strong>: <code>str</code>, {None, 'l1'}, default = None</li>
-<li>Regularization parameter. Only 'l1' regularization is available.</li>
-<li><strong>alpha</strong>: <code>float</code>, default = 0.5</li>
-<li>Regularization parameter from 0 to 1.</li>
-<li><strong>p_value</strong>: <code>float</code>, default = 0.05</li>
-<li>Maximum significance level.</li>
-<li><strong>check_sample</strong>: <code>str</code>, {'test', 'train'}, default = 'test'</li>
-<li>A sample to calculate key metrics.</li>
-<li><strong>metric</strong>: <code>str</code>, {'gini', 'auc'}, default = 'gini'</li>
-<li>Metric to calculate.</li>
-<li><strong>gini_cutoff</strong>: <code>float</code>, default = 0.5</li>
-<li>A cutoff value of Gini.</li>
-<li><strong>auc_cutoff</strong>: <code>float</code>, default = 0.7</li>
-<li>A cutoff value of AUC.</li>
+<li><strong>y_train</strong>: <code>pd.Series</code><br />
+  A series of binary dependent variable of the train sample.</li>
+<li><strong>x_train</strong>: <code>pd.DataFrame</code><br />
+  A dataframe with explanatory variables of the train sample.</li>
+<li><strong>y_test</strong>: <code>pd.Series</code><br />
+  A series of binary dependent variable of the test sample.</li>
+<li><strong>x_test</strong>: <code>pd.DataFrame</code><br />
+  A dataframe with explanatory variables of the test sample.</li>
+<li><strong>max_model_number</strong>: <code>int</code><br />
+  Maximum number of models to be created.</li>
+<li><strong>dependent_number</strong>: <code>int</code><br />
+  Quantity of dependent variable to input in the model. The number of coef_expectation must be less than the columns number of x_train.</li>
+<li><strong>coef_expectation</strong>: <code>pd.DataFrame</code><br />
+  A dataframe with variable names and their sign expectations. The name of variables must be the same as x_train and x_test column names.</li>
+<li><strong>intercept</strong>: <code>bool</code>, default = <code>True</code><br />
+  An indicator whether to include intercept into model or not.</li>
+<li><strong>penalty</strong>: <code>str</code>, {None, 'l1'}, default = None<br />
+  Regularization parameter. Only 'l1' regularization is available.</li>
+<li><strong>alpha</strong>: <code>float</code>, default = 0.5<br />
+  Regularization parameter from 0 to 1.</li>
+<li><strong>p_value</strong>: <code>float</code>, default = 0.05<br />
+  Maximum significance level.</li>
+<li><strong>check_sample</strong>: <code>str</code>, {'test', 'train'}, default = 'test'<br />
+  A sample to calculate key metrics.</li>
+<li><strong>metric</strong>: <code>str</code>, {'gini', 'auc'}, default = 'gini'<br />
+  Metric to calculate.</li>
+<li><strong>gini_cutoff</strong>: <code>float</code>, default = 0.5<br />
+  A cutoff value of Gini.</li>
+<li><strong>auc_cutoff</strong>: <code>float</code>, default = 0.7<br />
+  A cutoff value of AUC.</li>
 </ul>
 <h3 id="returns">Returns:</h3>
 <ul>
-<li><strong>final_data</strong>: <code>dict</code></li>
-<li>Key: the number of model</li>
-<li>Value: model</li>
+<li><strong>final_data</strong>: <code>dict</code><br />
+  <code>key</code>: the number of model<br />
+  <code>value</code>: model</li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">from combat.models import LogitModel

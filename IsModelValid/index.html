@@ -332,40 +332,36 @@
 <p>The function calculates whether the model meets prespecified requirements.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
-<li><strong>model</strong>: <code>LogitModel</code></li>
-<li>An object of LogitModel class.</li>
-<li><strong>coef_expectation</strong>: <code>pd.DataFrame</code></li>
-<li>A pandas DataFrame object containing variable names and their sign expectations.</li>
-<li><strong>p_value</strong>: <code>float</code>, default = 0.05</li>
-<li>Variable significance level.</li>
-<li><strong>check_sample</strong>: <code>str</code>, {'test', 'train'}, default = 'test'</li>
-<li>The sample to perform the test.</li>
-<li><strong>metric</strong>: <code>str</code>, {'gini', 'auc'}, default = 'gini'</li>
-<li>A metric used to measure the model accuracy.</li>
-<li><strong>gini_cutoff</strong>: <code>float</code>, default = 0.4</li>
-<li>A cutoff value for Gini.</li>
-<li><strong>auc_cutoff</strong>: <code>float</code>, default = 0.7</li>
-<li>A cutoff value for AUC.</li>
+<li><strong>model</strong>: <code>LogitModel</code><br />
+  An object of LogitModel class.</li>
+<li><strong>coef_expectation</strong>: <code>pd.DataFrame</code><br />
+  A pandas DataFrame object containing variable names and their sign expectations.</li>
+<li><strong>p_value</strong>: <code>float</code>, default = 0.05<br />
+  Variable significance level.</li>
+<li><strong>check_sample</strong>: <code>str</code>, {'test', 'train'}, default = 'test'<br />
+  The sample to perform the test.</li>
+<li><strong>metric</strong>: <code>str</code>, {'gini', 'auc'}, default = 'gini'<br />
+  A metric used to measure the model accuracy.</li>
+<li><strong>gini_cutoff</strong>: <code>float</code>, default = 0.4<br />
+  A cutoff value for Gini.</li>
+<li><strong>auc_cutoff</strong>: <code>float</code>, default = 0.7<br />
+  A cutoff value for AUC.</li>
 </ul>
 <h3 id="exceptions">Exceptions:</h3>
 <ul>
 <li>
-<p><strong>TypeError</strong>:</p>
+<p><strong>TypeError</strong>:
+  Raised if the <code>model</code> parameter is not of type LogitModel.<br />
+  Raised if the <code>coef_expectation</code> parameter is not a pandas DataFrame.<br /></p>
 </li>
 <li>
-<p>Raised if the <code>model</code> parameter is not of type LogitModel.</p>
+<p><strong>ValueError</strong>:
+  Raised if the <code>check_sample</code> parameter is not in ['train', 'test'].<br />
+  Raised if the <code>metric</code> parameter is not in ['gini', 'auc'].<br />
+  Raised if the <code>p_value</code> parameter is not a float from 0 to 0.5.<br />
+  Raised if the <code>gini_cutoff</code> parameter is not a float from 0 to 1.<br />
+  Raised if the <code>auc_cutoff</code> parameter is not a float from 0 to 1.<br /></p>
 </li>
-<li>
-<p>Raised if the <code>coef_expectation</code> parameter is not a pandas DataFrame.</p>
-</li>
-<li>
-<p><strong>ValueError</strong>:</p>
-</li>
-<li>Raised if the <code>check_sample</code> parameter is not in ['train', 'test'].</li>
-<li>Raised if the <code>metric</code> parameter is not in ['gini', 'auc'].</li>
-<li>Raised if the <code>p_value</code> parameter is not a float from 0 to 0.5.</li>
-<li>Raised if the <code>gini_cutoff</code> parameter is not a float from 0 to 1.</li>
-<li>Raised if the <code>auc_cutoff</code> parameter is not a float from 0 to 1.</li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">from combat.models import LogitModel

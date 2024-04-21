@@ -332,19 +332,19 @@
 <p>The function calculates the PD using an aggregation scheme. For each model in the ensemble, the corresponding weight is assigned.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
-<li><strong>models_dict</strong>: <code>dict</code></li>
-<li>A dictionary with LogitModel instances.</li>
-<li><strong>weights_dict</strong>: <code>dict</code></li>
-<li>A dictionary with weights for each model in the <code>models_dict</code> dictionary. The keys of both <code>models_dict</code> and <code>weights_dict</code> must be the same.</li>
-<li><strong>x_data</strong>: <code>pd.DataFrame</code></li>
-<li>A pandas DataFrame with the explanatory variables to predict the PD.</li>
-<li><strong>logprob</strong>: <code>bool</code>, default = <code>False</code></li>
-<li>An indicator of whether to calculate the logarithm of probabilities.</li>
+<li><strong>models_dict</strong>: <code>dict</code><br />
+  A dictionary with LogitModel instances.</li>
+<li><strong>weights_dict</strong>: <code>dict</code><br />
+  A dictionary with weights for each model in the <code>models_dict</code> dictionary. The keys of both <code>models_dict</code> and <code>weights_dict</code> must be the same.</li>
+<li><strong>x_data</strong>: <code>pd.DataFrame</code><br />
+  A pandas DataFrame with the explanatory variables to predict the PD.</li>
+<li><strong>logprob</strong>: <code>bool</code>, default = <code>False</code><br />
+  An indicator of whether to calculate the logarithm of probabilities.</li>
 </ul>
 <h3 id="output">Output:</h3>
 <ul>
-<li><strong>pred</strong>: <code>pd.DataFrame</code></li>
-<li>A pandas DataFrame with clients' PDs.</li>
+<li><strong>pred</strong>: <code>pd.DataFrame</code><br />
+  A pandas DataFrame with clients' PDs.</li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">from combat.combat import PredictionAggregation

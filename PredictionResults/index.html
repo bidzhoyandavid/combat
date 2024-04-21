@@ -332,21 +332,25 @@
 <p>The function prints the key metrics of the predicted scores against true labels.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
-<li><strong>y_data</strong>: <code>pd.Series</code></li>
-<li>A pandas Series with true labels.</li>
-<li><strong>probabilities</strong>: <code>pd.Series</code> or <code>np.ndarray</code></li>
-<li>A pandas Series with predicted probabilities.</li>
-<li><strong>cutoff</strong>: <code>float</code></li>
-<li>A cutoff value to classify objects.</li>
+<li><strong>y_data</strong>: <code>pd.Series</code><br />
+  A pandas Series with true labels.</li>
+<li><strong>probabilities</strong>: <code>pd.Series</code> or <code>np.ndarray</code><br />
+  A pandas Series with predicted probabilities.</li>
+<li><strong>cutoff</strong>: <code>float</code><br />
+  A cutoff value to classify objects.</li>
 </ul>
 <h3 id="exceptions">Exceptions:</h3>
 <ul>
-<li><strong>TypeError</strong>:</li>
-<li>Raised if <code>y_data</code> parameter is not a pandas Series.</li>
-<li>Raised if <code>probabilities</code> parameter is not a pandas Series or numpy ndarray.</li>
-<li><strong>ValueError</strong>:</li>
-<li>Raised if the length of <code>y_data</code> and <code>probabilities</code> parameters are not identical.</li>
-<li>Raised if the <code>cutoff</code> parameter is not a positive float from 0 to 1.</li>
+<li>
+<p><strong>TypeError</strong>:
+  Raised if <code>y_data</code> parameter is not a pandas Series.<br />
+  Raised if <code>probabilities</code> parameter is not a pandas Series or numpy ndarray.<br /></p>
+</li>
+<li>
+<p><strong>ValueError</strong>:
+  Raised if the length of <code>y_data</code> and <code>probabilities</code> parameters are not identical.<br />
+  Raised if the <code>cutoff</code> parameter is not a positive float from 0 to 1.<br /></p>
+</li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">import pandas as pd

@@ -341,23 +341,23 @@
 <p>The function predicts the probability based on the calibration model.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
-<li><strong>x_data</strong>: <code>pd.DataFrame</code></li>
-<li>A series of predictions of the raw models.</li>
-<li><strong>model</strong>: <code>LogisticRegression</code></li>
-<li>A Logistic Regression Model for calibration.</li>
-<li><strong>logprob</strong>: <code>bool</code></li>
-<li>A boolean variable whether to calculate a logarithm of probabilities.</li>
+<li><strong>x_data</strong>: <code>pd.DataFrame</code><br />
+  A series of predictions of the raw models.</li>
+<li><strong>model</strong>: <code>LogisticRegression</code><br />
+  A Logistic Regression Model for calibration.</li>
+<li><strong>logprob</strong>: <code>bool</code><br />
+  A boolean variable whether to calculate a logarithm of probabilities.</li>
 </ul>
 <h3 id="returns">Returns:</h3>
 <ul>
-<li><strong>pred</strong>: <code>np.ndarray</code></li>
-<li>A NumPy array of the calibrated probabilities.</li>
+<li><strong>pred</strong>: <code>np.ndarray</code><br />
+  A NumPy array of the calibrated probabilities.</li>
 </ul>
 <h3 id="exceptions">Exceptions:</h3>
 <ul>
-<li><strong>TypeError</strong>:</li>
-<li>Raised if <code>x_data</code> parameter is not a pandas DataFrame object.</li>
-<li>Raised if <code>logprob</code> parameter is not logical.</li>
+<li><strong>TypeError</strong>:
+  Raised if <code>x_data</code> parameter is not a pandas DataFrame object.<br />
+  Raised if <code>logprob</code> parameter is not logical.<br /></li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">import pandas as pd
