@@ -341,33 +341,27 @@
 <p>The function calculates the Expected Calibration Error.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
-<li><strong>y_data</strong>: <code>pd.Series</code></li>
-<li>True labels.</li>
-<li><strong>probabilities</strong>: <code>np.ndarray</code></li>
-<li>Probabilities of each object in the dataset.</li>
-<li><strong>n_bins</strong>: <code>int</code>, default = 20</li>
-<li>Number of bins.</li>
+<li><strong>y_data</strong>: <code>pd.Series</code>
+  True labels.</li>
+<li><strong>probabilities</strong>: <code>np.ndarray</code>
+  Probabilities of each object in the dataset.</li>
+<li><strong>n_bins</strong>: <code>int</code>, default = 20
+  Number of bins.</li>
 </ul>
 <h3 id="returns">Returns:</h3>
 <ul>
-<li><strong>ece</strong>: <code>float</code></li>
-<li>Expected calibration error.</li>
+<li><strong>ece</strong>: <code>float</code>
+  Expected calibration error.</li>
 </ul>
 <h3 id="exceptions">Exceptions:</h3>
 <ul>
-<li>
-<p><strong>TypeError</strong>:</p>
-</li>
-<li>
-<p>Raised if <code>y_data</code> parameter is not a pandas Series.</p>
-</li>
-<li>
-<p>Raised if <code>probabilities</code> parameter is not np.ndarray.</p>
-</li>
-<li>
-<p><strong>ValueError</strong>:</p>
-</li>
-<li>Raised if <code>n_bins</code> parameter is not a positive integer.</li>
+<li><strong>TypeError</strong>:</li>
+</ul>
+<p>Raised if <code>y_data</code> parameter is not a pandas Series.
+  Raised if <code>probabilities</code> parameter is not np.ndarray.</p>
+<ul>
+<li><strong>ValueError</strong>:
+  Raised if <code>n_bins</code> parameter is not a positive integer.</li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">import pandas as pd
