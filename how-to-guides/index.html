@@ -242,9 +242,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#how-to-explore-variables-explanational-power" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Explore Variables Explanational Power
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-to-perform-woe-tramsformation" class="md-nav__link">
     <span class="md-ellipsis">
       How To Perform WoE Tramsformation?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-create-a-logit-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Create a Logit Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-build-models-ensembles" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Build Models Ensembles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-calibrate-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Calibrate Models
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-transform-pd-to-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Transform PD To Score
     </span>
   </a>
   
@@ -325,9 +370,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#how-to-explore-variables-explanational-power" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Explore Variables Explanational Power
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-to-perform-woe-tramsformation" class="md-nav__link">
     <span class="md-ellipsis">
       How To Perform WoE Tramsformation?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-create-a-logit-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Create a Logit Model
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-build-models-ensembles" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Build Models Ensembles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-calibrate-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Calibrate Models
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-transform-pd-to-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Transform PD To Score
     </span>
   </a>
   
@@ -354,10 +444,14 @@ tasks that you might have, with the help of the code
 provided in this project.</p>
 <h1 id="table-of-contents">Table of Contents</h1>
 <ol>
+<li><a href="#how-to-Explore-Variables-Explanational-Power">How To Explore Variables Explanational Power</a></li>
 <li><a href="#how-to-perform-woe-tramsformation">How To Perform WoE Transformation</a></li>
 <li><a href="#how-to-create-a-logit-model">How To Create a Logit Model</a></li>
 <li><a href="#how-to-build-models-ensemble">How To Build Models Ensembles</a></li>
+<li><a href="#how-to-calibrate-models">How To Calibrate Models</a></li>
+<li><a href="#how-to-transform-pd-to-score">How To Transform PD To Score</a></li>
 </ol>
+<h2 id="how-to-explore-variables-explanational-power">How To Explore Variables Explanational Power <a name='how-to-Explore-Variables-Explanational-Power'></a></h2>
 <h2 id="how-to-perform-woe-tramsformation">How To Perform WoE Tramsformation? <a name='how-to-perform-woe-tramsformation'></a></h2>
 <p>To perform WoE transformation of all the dataset, you need to utilize <code>WoEDataPreparation</code> function within the <code>transform</code> module. For the demostration puprposes we used the <code>HELOC</code> dataset from the <a href="https://www.kaggle.com/datasets/averkiyoliabev/home-equity-line-of-creditheloc">kaggle</a>.</p>
 <p>We recommend to download data for further training.</p>
@@ -379,9 +473,9 @@ special_codes = [-9, -8, -7]
 </code></pre>
 <p>Before we move to WoE Transformation procedure we need prepare meta information about the data utilized first. That means prepare an <code>.xlsx</code> file with 3 columns:</p>
 <ol>
-<li>Variable - name of variables as in the <code>heloc</code> data</li>
-<li>dtype - either <code>numerical</code> or <code>categorical</code></li>
-<li>Expec - <code>-1</code> if you expect negative coefficient for the Variable, <code>+1</code> - if positive and <code>0</code> - if ambigious</li>
+<li><code>Variable</code> - name of variables as in the <code>heloc</code> data</li>
+<li><code>dtype</code> - either <code>numerical</code> or <code>categorical</code></li>
+<li><code>Expec</code> - <code>-1</code> if you expect negative coefficient for the Variable, <code>+1</code> - if positive and <code>0</code> - if ambigious</li>
 </ol>
 <p>Once the meta data is prepared, upload it.
 <strong>Specify <code>Variable</code> columns as <code>index_col</code></strong></p>
@@ -389,6 +483,10 @@ special_codes = [-9, -8, -7]
 
 </code></pre>
 <p>The <code>transform</code> module provides with a rich functionalilty for WoE transofrmation.</p>
+<h2 id="how-to-create-a-logit-model">How To Create a Logit Model <a name='how-to-create-a-logit-model'></a></h2>
+<h2 id="how-to-build-models-ensembles">How To Build Models Ensembles <a name='how-to-build-models-ensemble'></a></h2>
+<h2 id="how-to-calibrate-models">How To Calibrate Models <a name='how-to-calibrate-models'></a></h2>
+<h2 id="how-to-transform-pd-to-score">How To Transform PD To Score <a name='how-to-transform-pd-to-score'></a></h2>
 
 
 

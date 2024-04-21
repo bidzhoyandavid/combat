@@ -273,49 +273,13 @@
 
   <h1>Module models</h1>
 
-<p>The Models module within this COMBAT package encapsulates a versatile class designed to streamline the process of building predictive models and evaluating their performance across training and test datasets.
-This module serves as a comprehensive toolkit for model development, offering an array of functionalities for model training, evaluation, and metric computation.</p>
+<p>The <code>Models</code> module within this COMBAT package encapsulates a versatile class designed to streamline the process of building predictive models and evaluating their performance across training and test datasets.</p>
+<p>This module serves as a comprehensive toolkit for model development, offering an array of functionalities for model training, evaluation, and metric computation.</p>
 <ol>
-<li><a href="../LogitModel/"><code>LogitModel(x_train, y_train, x_test, y_test, intercept, penalty, alpha)</code></a> - generate a Logistic Regression Model with functionalities for evaluation and metric computation
-   LogitModel has the following methods:
-   1.1 <code>Model_SK</code> - build a Logistic Regression Model using <code>sklearn</code> package
-   1.2 <code>Model_SM</code> - build a Logistic Regression Model using <code>statsmodels</code> package</li>
+<li><a href="../LogitModel/"><code>LogitModel(x_train, y_train, x_test, y_test, intercept, penalty, alpha)</code></a> - generate a Logistic Regression Model with functionalities for evaluation and metric computation</li>
 </ol>
-<p>1.3 <code>Gini_Train</code> - calculate the Gini coefficient on the training set
-   1.4 <code>Accuracy_Train(cutoff)</code> - calculate the Accuracy Ratio on the training set given predefined <code>cutoff</code>
-   1.5 <code>AUC_Train</code> - calculate AUC on the training set
-   1.6 <code>Predict_Proba_Train</code> - calculate probabilities on the training set
-   1.7 <code>Predict_LogProba_Train</code> - calculate the logarithm of probabilities on the training set
-   1.8 <code>PredictLabel_Train(cutoff)</code> - calculate the labels (0, 1) on the training set given predefined <code>cutoff</code>
-   1.9 <code>Brier_Train</code> - calculate Brier Score on the training set
-   1.10 <code>F1_Train</code> - calculate F1 Score on the training set
-   1.11 <code>Recall_Train(cutoff)</code> - calculate Recall Score on the training set given predefined <code>cutoff</code>
-   1.12 <code>Precision_Train(cutoff)</code> - calculate Precision Score on the training set given predefined <code>cutoff</code>
-   1.13 <code>Confusion_Matrix_Train(cutoff)</code> - calculate Confusion Matrix on the training set given predefined <code>cutoff</code>
-   1.14 <code>FPR_Train</code> - calculate False Positive Ratio on the training set
-   1.15 <code>TPR_Train</code> - calculate True Positive Ratio on the training set
-   1.16 <code>ROC_Curve_Train</code> - plot the ROC Curve on the training set</p>
-<p>1.17 <code>Gini_Test</code> - calculate the Gini coefficient on the testing set
-   1.18 <code>Accuracy_Test(cutoff)</code> - calculate the Accuracy Ratio on the testing set given predefined <code>cutoff</code>
-   1.19 <code>AUC_Test</code> - calculate AUC on the testing set
-   1.20 <code>Predict_Proba_Test</code> - calculate probabilities on the testing set
-   1.21 <code>Predict_LogProba_Test</code> - calculate the logarithm of probabilities on the testing set
-   1.22 <code>PredictLabel_Test(cutoff)</code> - calculate the labels (0, 1) on the testing set given predefined <code>cutoff</code>
-   1.23 <code>Brier_Test</code> - calculate Brier Score on the testing set
-   1.24 <code>F1_Test</code> - calculate F1 Score on the testing set
-   1.25 <code>Recall_Test(cutoff)</code> - calculate Recall Score on the testing set given predefined <code>cutoff</code>
-   1.26 <code>Precision_Test(cutoff)</code> - calculate Precision Score on the testing set given predefined <code>cutoff</code>
-   1.27 <code>Confusion_Matrix_Test(cutoff)</code> - calculate Confusion Matrix on the testing set given predefined <code>cutoff</code>
-   1.28 <code>FPR_Test</code> - calculate False Positive Ratio on the testing set
-   1.29 <code>TPR_Test</code> - calculate True Positive Ratio on the testing set
-   1.30 <code>ROC_Curve_Test</code> - plot the ROC Curve on the testing set</p>
-<p>1.31 <code>GetCoefficients_SK</code> - return coefficients of <code>sklearn</code> model obtained
-   1.32 <code>GetIntercept_SK</code> - return intercept of <code>sklearn</code> model obtained
-   1.33 <code>Summary</code> - return summary of the model
-   1.34 <code>GetCoefficients_SM</code> - return coefficients of <code>statsmodel</code> model obtained
-   1.35 <code>Prediction(x_data, logprob)</code> - return probabilities (or logarithm of probabilities) given <code>x_data</code></p>
-<p>The Models module serves as a comprehensive toolkit for predictive modeling, providing users with the tools and functionalities needed to develop, evaluate, and interpret predictive models effectively.
-By encapsulating model-building logic and evaluation metrics within a single class, this module streamlines the model development process and empowers users to make informed decisions when designing and deploying predictive models in real-world applications.</p>
+<p>The <code>Models</code> module serves as a comprehensive toolkit for predictive modeling, providing users with the tools and functionalities needed to develop, evaluate, and interpret predictive models effectively.</p>
+<p>By encapsulating model-building logic and evaluation metrics within a single class, this module streamlines the model development process and empowers users to make informed decisions when designing and deploying predictive models in real-world applications.</p>
 
 
 
