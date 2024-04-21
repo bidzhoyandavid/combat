@@ -184,7 +184,7 @@ def PredictionCalibration(
             
     Returns:
     --------
-        pred: pd.Series
+        pred: np.ndarray
             a pandas Series of the calibrated probabilities
     """
     

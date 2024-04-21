@@ -17,14 +17,6 @@ import numpy as np
 from typing import Union
 
 from sklearn.metrics import (roc_auc_score
-                            # , precision_score
-                            # , recall_score
-                            # , f1_score
-                            # , auc
-                            # , roc_curve
-                            # , accuracy_score
-                            # , brier_score_loss
-                            # , confusion_matrix
                             , classification_report
                             )
 

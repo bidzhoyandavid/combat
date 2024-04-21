@@ -26,6 +26,7 @@ def WoETransform(
             , mon_constraint: int
             , var_name: str
             , var_type: str
+            , plot: bool = False
             , metric: str = 'woe'
             , solver: str = 'cp'
             , divergence: str = 'iv' 
@@ -79,6 +80,9 @@ def WoETransform(
             
         var_type: str {'numerical', 'categorical'}
             a type of explanatory variable
+
+        plot: bool
+            a logical parameter to plot the graph
             
         metric: str, {'woe', 'event_rate'}, default = 'woe'
             a metric to perform transformation
@@ -228,7 +232,10 @@ def WoETransform(
 
     if var_type not in ("categorical", "numerical"):
         raise ValueError("""The 'var_type' paramater must be in ("categorical", "numerical"): got {}""".format(var_type))
-        
+
+    if not isinstance(plot, bool):
+        raise TypeError("""The 'plot' parameter must be logical""")
+
     if metric not in('woe', 'event_rate'):
         raise ValueError("""The 'metric' parameter must be in ('woe', 'event_rate'); got {}""".format(metric))
 
@@ -414,15 +421,21 @@ def WoETransform(
     
     x_transform = optb.transform(x, metric = metric)
     x_transform = pd.DataFrame(x_transform)
-    # x_transform.columns = [metric+"_"+var_name]
     x_transform.columns = [var_name]
     
-    final_data = {
-        "status": optb.status
-        , 'binning_table': optb.binning_table.build()
-        # , "plot": optb.binning_table.plot(metric = metric)
-        , 'woe_transform': x_transform        
-        }
+    if plot:
+        final_data = {
+            "status": optb.status
+            , 'binning_table': optb.binning_table.build()
+            , "plot": optb.binning_table.plot(metric = metric)
+            , 'woe_transform': x_transform        
+            }
+    else:
+        final_data = {
+            "status": optb.status
+            , 'binning_table': optb.binning_table.build()
+            , 'woe_transform': x_transform        
+            }
     
     return final_data
 
@@ -432,6 +445,7 @@ def WoEDataPreparation(
         x_data: pd.DataFrame
         , y_data: pd.Series
         , df_sign: pd.DataFrame
+        , plot: bool = False
         , metric: str = 'woe'
         , divergence: str = 'iv' 
         , prebinning_method: str = 'cart'
@@ -476,6 +490,9 @@ def WoEDataPreparation(
         df_sign: pd.DataFrame
             a pandas DataFrame with sign expectations
                                                 
+        plot: bool
+            a logical parameter to plot the graph
+
         metric: str  {'woe', 'event_rate'}, default = 'woe'
             a metric to perform transformation
 
@@ -615,6 +632,9 @@ def WoEDataPreparation(
     
     if len(x_data) != len(y_data):
         raise ValueError("""The length of 'x_data' and 'y_data' must be identical""")
+    
+    if not isinstance(plot, bool):
+        raise TypeError("""The 'plot' parameter must be logical""")
                         
     if metric not in('woe', 'event_rate'):
         raise ValueError("""The 'metric' parameter must be in ('woe', 'event_rate'); got {}""".format(metric))
@@ -766,6 +786,7 @@ def WoEDataPreparation(
                 , var_name = col
                 , metric = metric
                 , var_type = df_sign.loc[col, 'dtype']
+                , plot = plot
                 , solver = 'cp'
                 , mon_constraint  = df_sign.loc[col, 'Expec']
                 , divergence = divergence
@@ -807,6 +828,7 @@ def WoEDataPreparation(
                           , var_name = col
                           , metric = metric
                           , var_type = df_sign.loc[col, 'dtype']
+                          , plot = plot
                           , solver = optimizer[k]
                           , mon_constraint  = df_sign.loc[col, 'Expec']
                           , divergence = divergence
