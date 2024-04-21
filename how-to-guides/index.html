@@ -242,18 +242,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-to-explore-variables-explanational-power" class="md-nav__link">
+  <a href="#how-to-perform-woe-tramsformation" class="md-nav__link">
     <span class="md-ellipsis">
-      How To Explore Variables Explanational Power
+      How To Perform WoE Tramsformation?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-perform-woe-tramsformation" class="md-nav__link">
+  <a href="#how-to-explore-variables-explanational-power" class="md-nav__link">
     <span class="md-ellipsis">
-      How To Perform WoE Tramsformation?
+      How To Explore Variables Explanational Power
     </span>
   </a>
   
@@ -272,6 +272,24 @@
   <a href="#how-to-build-models-ensembles" class="md-nav__link">
     <span class="md-ellipsis">
       How To Build Models Ensembles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-aggregate-with-bagging-scheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Aggregate With Bagging Scheme
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-aggregate-with-stacking-scheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Aggregate With Stacking Scheme
     </span>
   </a>
   
@@ -370,18 +388,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-to-explore-variables-explanational-power" class="md-nav__link">
+  <a href="#how-to-perform-woe-tramsformation" class="md-nav__link">
     <span class="md-ellipsis">
-      How To Explore Variables Explanational Power
+      How To Perform WoE Tramsformation?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-perform-woe-tramsformation" class="md-nav__link">
+  <a href="#how-to-explore-variables-explanational-power" class="md-nav__link">
     <span class="md-ellipsis">
-      How To Perform WoE Tramsformation?
+      How To Explore Variables Explanational Power
     </span>
   </a>
   
@@ -400,6 +418,24 @@
   <a href="#how-to-build-models-ensembles" class="md-nav__link">
     <span class="md-ellipsis">
       How To Build Models Ensembles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-aggregate-with-bagging-scheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Aggregate With Bagging Scheme
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-aggregate-with-stacking-scheme" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Aggregate With Stacking Scheme
     </span>
   </a>
   
@@ -444,14 +480,15 @@ tasks that you might have, with the help of the code
 provided in this project.</p>
 <h1 id="table-of-contents">Table of Contents</h1>
 <ol>
-<li><a href="#how-to-Explore-Variables-Explanational-Power">How To Explore Variables Explanational Power</a></li>
 <li><a href="#how-to-perform-woe-tramsformation">How To Perform WoE Transformation</a></li>
+<li><a href="#how-to-Explore-Variables-Explanational-Power">How To Explore Variables Explanational Power</a></li>
 <li><a href="#how-to-create-a-logit-model">How To Create a Logit Model</a></li>
 <li><a href="#how-to-build-models-ensemble">How To Build Models Ensembles</a></li>
+<li><a href="#how-to-aggregate-with-bagging-scheme">How To Aggregate With Bagging Scheme</a></li>
+<li><a href="#how-to-aggregate-with-stacking-scheme">How To Aggregate With Stacking Scheme</a></li>
 <li><a href="#how-to-calibrate-models">How To Calibrate Models</a></li>
 <li><a href="#how-to-transform-pd-to-score">How To Transform PD To Score</a></li>
 </ol>
-<h2 id="how-to-explore-variables-explanational-power">How To Explore Variables Explanational Power <a name='how-to-Explore-Variables-Explanational-Power'></a></h2>
 <h2 id="how-to-perform-woe-tramsformation">How To Perform WoE Tramsformation? <a name='how-to-perform-woe-tramsformation'></a></h2>
 <p>To perform WoE transformation of all the dataset, you need to utilize <code>WoEDataPreparation</code> function within the <code>transform</code> module. For the demostration puprposes we used the <code>HELOC</code> dataset from the <a href="https://www.kaggle.com/datasets/averkiyoliabev/home-equity-line-of-creditheloc">kaggle</a>.</p>
 <p>We recommend to download data for further training.</p>
@@ -477,16 +514,209 @@ special_codes = [-9, -8, -7]
 <li><code>dtype</code> - either <code>numerical</code> or <code>categorical</code></li>
 <li><code>Expec</code> - <code>-1</code> if you expect negative coefficient for the Variable, <code>+1</code> - if positive and <code>0</code> - if ambigious</li>
 </ol>
-<p>Once the meta data is prepared, upload it.
+<p>Once the meta data is prepared, upload it. <br />
 <strong>Specify <code>Variable</code> columns as <code>index_col</code></strong></p>
 <pre><code class="language-python">df_sign = pd.read_excel(&quot;Sign Expec.xlsx&quot;,  index_col='Variable')
 
+# Perform WoE Transformation for the whole data
+final_data = WoEDataPreparation(x_data = x
+                                , y_data = y
+                                , df_sign = df_sign
+                                , special_codes = special_codes
+                                , metric = 'woe'
+                                , min_n_bins=1
+                                )
+
+# split data into training and testing sets
+x_train, x_test, y_train, y_test = train_test_split(final_data['x_woe'], y, test_size=0.2, random_state=42, shuffle=True)
 </code></pre>
 <p>The <code>transform</code> module provides with a rich functionalilty for WoE transofrmation.</p>
+<h2 id="how-to-explore-variables-explanational-power">How To Explore Variables Explanational Power <a name='how-to-Explore-Variables-Explanational-Power'></a></h2>
+<pre><code class="language-python"># variable explanational power
+var_exp =VarExpPower(y_train = y_train
+                     , x_train = x_train
+                     , y_test = y_test
+                     , x_test = x_test
+                     )
+
+# print the dataframe containing the data of the WoE Transformation results
+print(final_data['status'])
+</code></pre>
+<p>Once most valuable variables are revealed, the analyst should remove the rest of variables from the datasets</p>
+<pre><code class="language-python">from combat.utilities import DeleteVars
+
+vars_to_remove = ['NumTrades60Ever2DerogPubRec', 'NumTrades90Ever2DerogPubRec', 'NumInqLast6M', 'NumInqLast6Mexcl7days']
+
+new_data = DeleteVars(x_train = x_train
+                        , x_test = x_test
+                        , df_sign = df_sign
+                        , vars_to_remove = vars_to_remove
+                        )
+
+# assign results of deletion to new items
+x_train_new = new_data['x_train_new']
+x_test_new = new_data['x_test_new']
+df_sign_new = new_data['df_sign_new']
+</code></pre>
 <h2 id="how-to-create-a-logit-model">How To Create a Logit Model <a name='how-to-create-a-logit-model'></a></h2>
+<pre><code class="language-python">from combat.combat import IsModelValid
+from combat.models import LogitModel
+
+model = LogitModel(x_train=x_train_new
+                   , y_train=y_train
+                   , x_test = x_test_new
+                   , y_test = y_test)
+
+# this commands Necessarily Must be run
+model.Model_SK()
+model.Model_SM()
+
+# Filgure out whether the model meet all the requirements simultaniously
+print(
+    IsModelValid(model = model
+             , coef_expectation = df_sign_new
+             , gini_cutoff=0.3
+             , p_value = 0.1
+             )
+)
+
+print(model.Gini_Test())
+print(model.Gini_Train())
+
+print(model.Brier_Train())
+print(model.Brier_Test())
+</code></pre>
+<p>To biuld model with the regularization specify the <code>penalty</code> and <code>alpha</code> arguments.
+Note, that <code>l1</code> regularization is available only.</p>
+<pre><code class="language-python">
+model = LogitModel(x_train=x_train_new
+                   , y_train=y_train
+                   , x_test = x_test_new
+                   , y_test = y_test
+                   , penalty = 'l1'
+                   , alpha = 0.2)
+
+# this commands Necessarily Must be run
+model.Model_SK()
+model.Model_SM()
+
+print(
+    IsModelValid(model = model
+             , coef_expectation = df_sign_new
+             , gini_cutoff=0.3
+             , p_value = 0.1
+             )
+)
+
+print(model.Gini_Test())
+print(model.Gini_Train())
+
+print(model.Brier_Train())
+print(model.Brier_Test())
+</code></pre>
 <h2 id="how-to-build-models-ensembles">How To Build Models Ensembles <a name='how-to-build-models-ensemble'></a></h2>
+<pre><code class="language-python">from combat.combat import *
+from combat.utilities import *
+
+
+# generate 1000 random models and select the models that met all requirements
+model_comb_1 = ModelCombination(y_train = y_train
+                              , x_train = x_train_new
+                              , y_test = y_test
+                              , x_test = x_test_new
+                              , max_model_number = 1000
+                              , dependent_number = 5
+                              , coef_expectation = df_sign_new
+                              , gini_cutoff=0.4
+                              , p_value = 0.1
+                              , intercept = True
+                              , penalty = None
+                              )
+
+# outlines the results of all the final models
+meta = ModelMetaInfo(models_dict = model_comb_1
+                     , sort_by = 'gini_test'
+                     )
+print(meta)
+
+# Select Models with Gini on testing sets are higher than 0.52
+new_model_comb = SelectModels(models_dict = model_comb_1
+                                , meta_data = meta
+                                , select_by = 'gini_test'
+                                , cutoff  = 0.52
+                                )
+
+</code></pre>
+<h2 id="how-to-aggregate-with-bagging-scheme">How To Aggregate With Bagging Scheme <a name='how-to-aggregate-with-bagging-scheme'></a></h2>
+<p>The <code>COMBAT</code> package enable users to aggregate models reuslts into single prediction with the scheme similar to bagging.</p>
+<pre><code class="language-python">from combat.combat import *
+
+# define weights for each model in the ensemble by Gini coefficients on testing set
+weight_aggr = ModelAggregation(models_dict = new_model_comb
+                              , metric = 'gini'
+                              , check_sample = 'test'
+                              )
+
+# once weights are defined calculate final prediction
+pred_aggr = PredictionAggregation(models_dict = new_model_comb
+                                  , weights_dict = weight_aggr
+                                  , x_data = x_test
+                                  , logprob=False
+                                  )
+</code></pre>
+<h2 id="how-to-aggregate-with-stacking-scheme">How To Aggregate With Stacking Scheme <a name='how-to-aggregate-with-stacking-scheme'></a></h2>
+<pre><code class="language-python">from combat.combat import *
+
+# create a final Logistic Regression Model
+model_st = ModelStacking(models_dict = new_model_comb_1
+                         , x_data = x_test
+                         , y_data = y_test
+                         )
+
+# predict using created Logistic Regression Model
+pred_stack = PredictionStacking(models_dict = new_model_comb
+                                , x_data = x_test
+                                , model = model_st
+                                )
+</code></pre>
 <h2 id="how-to-calibrate-models">How To Calibrate Models <a name='how-to-calibrate-models'></a></h2>
+<pre><code class="language-python">
+from combat.calibration import *
+
+# first calculate the Expected Calibration Error
+ece = ExpectedCalibrationError(
+    labels = np.array([1 if i &gt; y_test.mean() else 0 for i in pred_stack])
+    , probabilities = np.array(pred_stack_test)
+    , n_bins = 20
+    )
+
+# If ECE is low (&lt; 0.03 for example) no need to calibrate
+# If ECE is high, calibration needed to be performed
+cal_model = CalibrationModel(x_data = x_test, y_data = y_test)
+
+# Predict with created calibration model
+cal_prediction = PredictionCalibration(x_data = x_test, model = cal_model)
+
+# calculate ECE again for calibrated prediction
+ece_calibration = ExpectedCalibrationError(
+    labels = np.array([1 if i &gt; y_test.mean() else 0 for i in cal_prediction[:,1]])
+    , probabilities = np.array(cal_prediction)
+    , n_bins = 20
+    )
+
+# plot the calibration curve
+CalibrationCurve(y_data = y_test
+                 , probabilities = cal_prediction[:, 1]
+                 , n_bins = 20
+                 , label = 'Cailbrated line'
+                 )
+</code></pre>
 <h2 id="how-to-transform-pd-to-score">How To Transform PD To Score <a name='how-to-transform-pd-to-score'></a></h2>
+<pre><code class="language-python">from combat.scorecard import *
+
+scorecard = ScoreCard(y_proba = cal_prediction[:,1], log = False)
+print(scorecard)
+</code></pre>
 
 
 
