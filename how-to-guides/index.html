@@ -610,13 +610,13 @@ new_model_comb = SelectModels(models_dict = model_comb_1
 <pre><code class="language-python">from combat.combat import *
 
 # define weights for each model in the ensemble by Gini coefficients on testing set
-weight_aggr = ModelAggregation(models_dict = new_model_comb
+weight_aggr = WeightsBagging(models_dict = new_model_comb
                               , metric = 'gini'
                               , check_sample = 'test'
                               )
 
 # once weights are defined calculate final prediction
-pred_aggr = PredictionAggregation(models_dict = new_model_comb
+pred_aggr = PredictionBagging(models_dict = new_model_comb
                                   , weights_dict = weight_aggr
                                   , x_data = x_test
                                   , logprob=False
