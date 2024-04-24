@@ -298,6 +298,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exceptions:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
     <span class="md-ellipsis">
       Example:
@@ -368,6 +377,29 @@
 <li><strong>final_data</strong>: <code>dict</code><br />
   <code>key</code>: the number of model<br />
   <code>value</code>: model</li>
+</ul>
+<h3 id="exceptions">Exceptions:</h3>
+<ul>
+<li>
+<p><strong>ValuError:</strong><br />
+  Raised if the <code>x_train</code> columns are not identical with <code>coef_expectation</code> index <br />
+  Raised if the <code>dependent_number</code> is greater than <code>x_train</code> columns quantity <br />
+  Raised if <code>intercept</code> is not <code>bool</code><br />
+  Raised if <code>penalty</code> is not in [<code>None</code>, <code>l1</code>]<br />
+  Raised if <code>alpha</code> is not <code>float</code> or not in <code>(0, 1)</code><br />
+  Raised if <code>check_sample</code> is not in [<code>train</code>, <code>test</code>]<br />
+  Raised if <code>metric</code> is not in [<code>gini</code>, <code>auc</code>]<br />
+  Raised if <code>p_value</code> is not <code>float</code> or not in <code>(0, 0.5)</code><br />
+  Raised if <code>gini_cutoff</code> is not <code>float</code> or not in <code>(0, 1)</code><br />
+  Raised if <code>auc_cutoff</code> is not <code>float</code> or not in <code>(0, 1)</code><br /></p>
+</li>
+<li>
+<p><strong>TypeError</strong> <br />
+  Raised if <code>x_train</code> is not a pandas DataFrame object<br />
+  Raised if <code>x_test</code> is not a pandas DataFrame object<br />
+  Raised if <code>y_train</code> is not a pandas Series object<br />
+  Raised if <code>y_test</code> is not a pandas Series object<br /></p>
+</li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">from combat.models import LogitModel

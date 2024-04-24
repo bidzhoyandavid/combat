@@ -347,9 +347,9 @@
   A pandas Series with discrete dependent variable.</li>
 <li><strong>penalty</strong>: <code>str</code>, optional, {None, 'l1', 'l2'}, default = None <br />
   Regularization for Logistic Regression model.</li>
-<li><strong>alpha</strong>: <code>float</code>, optional, default = 0.5 <br />
+<li><strong>alpha</strong>: <code>float</code>, default = 0.5 <br />
   A float variable for regularization.</li>
-<li><strong>fit_intercept</strong>: <code>bool</code>, optional, {True, False}, default = True <br />
+<li><strong>fit_intercept</strong>: <code>bool</code>, {True, False}, default = True <br />
   Whether to fit intercept in the Logistic Regression or not.</li>
 </ul>
 <h3 id="returns">Returns:</h3>
@@ -359,13 +359,13 @@
 <h3 id="exceptions">Exceptions:</h3>
 <ul>
 <li>
-<p><strong>TypeError</strong>:
+<p><strong>TypeError</strong>:<br />
   Raised if <code>x_data</code> parameter is not a pandas DataFrame object. <br />
   Raised if <code>y_data</code> parameter is not a pandas Series. <br />
   Raised if <code>fit_intercept</code> parameter is not logical. <br /></p>
 </li>
 <li>
-<p><strong>ValueError</strong>:
+<p><strong>ValueError</strong>:<br />
   Raised if lengths of <code>x_data</code> and <code>y_data</code> are not identical. <br />
   Raised if <code>penalty</code> parameter is not in [None, 'l1', 'l2']. <br />
   Raised if <code>alpha</code> parameter is not a float from 0 to 1. <br /></p>

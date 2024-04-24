@@ -16,7 +16,7 @@
     
     
       
-        <title>ModelAggregation - COMBAT Docs</title>
+        <title>Project overview - COMBAT Docs</title>
       
     
     
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#modelaggregation" class="md-skip">
+        <a href="#project-overview" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ModelAggregation
+              Project overview
             
           </span>
         </div>
@@ -270,44 +270,11 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#modelaggregation" class="md-nav__link">
+  <a href="#project-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      ModelAggregation
+      Project Overview
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="ModelAggregation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      Parameters:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#returns" class="md-nav__link">
-    <span class="md-ellipsis">
-      Returns:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example:
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -326,39 +293,21 @@
                   
 
 
-  <h1>ModelAggregation</h1>
+  <h1>Project overview</h1>
 
-<h2 id="modelaggregation">ModelAggregation</h2>
-<p>The function calculates the weights of each model in the ensemble.</p>
-<h3 id="parameters">Parameters:</h3>
-<ul>
-<li><strong>models_dict</strong>: <code>dict</code><br />
-  Dictionary of LogitModel() instances.</li>
-<li><strong>metric</strong>: <code>str</code>, {'gini', 'auc', 'f1', 'brier'}<br />
-  Metric for calculating weighted average.</li>
-<li><strong>check_sample</strong>: <code>str</code>, {'test', 'train'}<br />
-  Sample to calculate metrics for averaging.</li>
-</ul>
-<h3 id="returns">Returns:</h3>
-<ul>
-<li><strong>weights_dict</strong>: <code>dict</code><br />
-  A dictionary with weights for each model in the ensemble.</li>
-</ul>
-<h3 id="example">Example:</h3>
-<pre><code class="language-python">from combat.combat import ModelAggregation
-
-# Sample input data
-models_dict = {1: model1 # LogitModel instance
-              , 2: model2 # LogitModel instance
-              , 3: model3 # LogitModel instance
-              }
-metric = 'auc'
-check_sample = 'test'
-
-# Calculate weights for model aggregation
-weights = ModelAggregation(models_dict, metric, check_sample)
-print(&quot;Model weights:&quot;, weights)
-</code></pre>
+<h2 id="project-overview">Project Overview</h2>
+<p>The COMBAT (Comprehensive Model Building and Aggregation Toolkit) package is a comprehensive suite of tools designed to address various challenges in predictive modeling, model aggregation, and ensemble learning.
+It integrates sophisticated algorithms with user-friendly interfaces to empower users in enhancing predictive accuracy, reliability, and interpretability across diverse applications and domains.</p>
+<p>Modules of COMBAT:</p>
+<ol>
+<li><a href="../module_calibration/"><code>calibration</code></a> - a module to calibrate the models obtained</li>
+<li><a href="../module_combat/"><code>combat</code></a> - a module facilitates the user to build models ensemble</li>
+<li><a href="../module_models/"><code>models</code></a> - a module of LogitModel class</li>
+<li><a href="../module_scorecard/"><code>scorecard</code></a> - a module to convert PD obtained to the score</li>
+<li><a href="../module_short_list/"><code>short_list</code></a> - a module to explore variables explanatory power</li>
+<li><a href="../module_transform/"><code>transform</code></a> - a module provied the functions for WoE transformation</li>
+<li><a href="../module_utilities/"><code>utilities</code></a> - a module with auxiliary functions</li>
+</ol>
 
 
 

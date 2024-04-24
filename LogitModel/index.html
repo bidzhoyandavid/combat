@@ -649,10 +649,10 @@
 <ul>
 <li><code>sk_model</code>: The trained scikit-learn logistic regression model.</li>
 <li><code>sm_model</code>: The trained statsmodels logistic regression model.</li>
-<li><code>x_train</code>: The training data features (DataFrame).</li>
-<li><code>y_train</code>: The training data labels (Series).</li>
-<li><code>x_test</code>: The test data features (DataFrame).</li>
-<li><code>y_test</code>: The test data labels (Series).</li>
+<li><code>x_train</code>: The training data features (pd.DataFrame).</li>
+<li><code>y_train</code>: The training data labels (pd.Series).</li>
+<li><code>x_test</code>: The test data features (pd.DataFrame).</li>
+<li><code>y_test</code>: The test data labels (pd.Series).</li>
 <li><code>intercept</code>: Whether to fit an intercept term (default True).</li>
 <li><code>penalty</code>: The penalty term for regularization (default None).</li>
 <li><code>alpha</code>: The regularization strength (default 0.1).</li>
@@ -730,6 +730,23 @@
 <p>Return a DataFrame of coefficients from the statsmodels model.</p>
 <h3 id="predictionself-x_data-pddataframe-logprob-bool-false-npndarray"><code>Prediction(self, x_data: pd.DataFrame, logprob: bool = False) -&gt; np.ndarray</code></h3>
 <p>Make predictions on external data.</p>
+<ul>
+<li>
+<p><strong>ValueError:</strong><br />
+  Raised if columns of <code>x_train</code> and <code>x_test</code> are not identical<br />
+  Raised if the length of <code>x_train</code> and <code>x_test</code> are not identical<br />
+  Raised if <code>penalty</code> not in [<code>None</code>, <code>l1</code>]<br />
+  Raised if <code>alpha</code> is not float or not from 0 to 1<br /></p>
+</li>
+<li>
+<p><strong>TypeError</strong> <br />
+  Raised if <code>x_train</code> is not a pandas DataFrame object<br />
+  Raised if <code>x_test</code> is not a pandas DataFrame object<br />
+  Raised if <code>y_train</code> is not a pandas Series object<br />
+  Raised if <code>y_test</code> is not a pandas Series object<br />
+  Raised if <code>intercept</code> is not <code>boolean</code><br /></p>
+</li>
+</ul>
 <h2 id="example-usage">Example Usage</h2>
 <pre><code class="language-python">from combat.models import LogitModel
 import pandas as pd

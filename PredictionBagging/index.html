@@ -16,7 +16,7 @@
     
     
       
-        <title>PredictionAggregation - COMBAT Docs</title>
+        <title>PredictionBagging - COMBAT Docs</title>
       
     
     
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              PredictionAggregation
+              PredictionBagging
             
           </span>
         </div>
@@ -298,6 +298,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#expcetions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expcetions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
     <span class="md-ellipsis">
       Example:
@@ -326,7 +335,7 @@
                   
 
 
-  <h1>PredictionAggregation</h1>
+  <h1>PredictionBagging</h1>
 
 <h2 id="predictionaggregation">PredictionAggregation</h2>
 <p>The function calculates the PD using an aggregation scheme. For each model in the ensemble, the corresponding weight is assigned.</p>
@@ -346,8 +355,20 @@
 <li><strong>pred</strong>: <code>pd.DataFrame</code><br />
   A pandas DataFrame with clients' PDs.</li>
 </ul>
+<h3 id="expcetions">Expcetions</h3>
+<ul>
+<li>
+<p><strong>ValueError:</strong><br />
+  Raised if the keys of <code>models_dict</code> and <code>weights_dict</code> are not the same</p>
+</li>
+<li>
+<p><strong>TypeError:</strong><br />
+  Raised if <code>models_dict</code> is not a dictionary</p>
+</li>
+</ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">from combat.combat import PredictionAggregation
+from combat.models import LogitModel
 
 # Sample input data
 models_dict = {1: model1 # LogitModel instance

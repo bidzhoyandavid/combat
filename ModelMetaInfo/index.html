@@ -298,6 +298,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exceptions:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
     <span class="md-ellipsis">
       Example:
@@ -342,8 +351,20 @@
 <li><strong>final_data</strong>: <code>pd.DataFrame</code><br />
   Dataframe containing meta information.</li>
 </ul>
+<h3 id="exceptions">Exceptions:</h3>
+<ul>
+<li>
+<p><strong>ValueError</strong><br />
+  Raised if <code>sort_by</code> parameter not in [<code>gini_test</code>, <code>gini_train</code>, <code>auc_test</code>, <code>auc_train</code>, <code>Brier_test</code>, <code>Brier_train</code>, <code>F1_test</code>, <code>F1_train</code>]</p>
+</li>
+<li>
+<p><strong>TypeError</strong><br />
+  Raised if <code>models_dict</code> is not a <code>dict</code></p>
+</li>
+</ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">from combat.combat import ModelMetaInfo
+from combat.models import LogitModel
 
 # Sample input data
 models_dict = {1: model1 # LogitModel instance

@@ -299,6 +299,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exceptions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#usage" class="md-nav__link">
     <span class="md-ellipsis">
       Usage
@@ -361,6 +370,57 @@
 <li><code>status</code>: DataFrame with status information for each variable.</li>
 <li><code>x_woe</code>: DataFrame with WOE-transformed data.</li>
 <li><code>binning_tables</code>: Dictionary containing binning tables for each variable.</li>
+</ul>
+<h2 id="exceptions">Exceptions</h2>
+<ul>
+<li><strong>ValueError</strong> <br /></li>
+</ul>
+<p>Raised if <code>x_data</code> is not a pandas DataFrame.<br />
+  Raised if <code>y_data</code> is not a pandas Series.<br />
+  Raised if Length of <code>x_data</code> and <code>y_data</code> differs.<br />
+  Raised if <code>plot</code> parameter is not a boolean.<br />
+  Raised if Invalid value for <code>metric</code>.<br />
+  Raised if Invalid value for <code>divergence</code>.<br />
+  Raised if Invalid value for <code>prebinning_method</code>.<br />
+  Raised if Invalid value for <code>max_n_prebins</code>.<br />
+  Raised if Invalid value for <code>min_prebin_size</code>.<br />
+  Raised if Invalid value for <code>min_n_bins</code> or <code>max_n_bins</code>.<br />
+  Raised if <code>min_n_bins</code> exceeds <code>max_n_bins</code>.<br />
+  Raised if Invalid value for <code>min_bin_size</code> or <code>max_bin_size</code>.<br />
+  Raised if <code>min_bin_size</code> exceeds <code>max_bin_size</code>.<br />
+  Raised if Invalid value for <code>min_bin_n_nonevent</code> or <code>max_bin_n_nonevent</code>.<br />
+  Raised if <code>min_bin_n_nonevent</code> exceeds <code>max_bin_n_nonevent</code>.<br />
+  Raised if Invalid value for <code>min_bin_n_event</code> or <code>max_bin_n_event</code>.<br />
+  Raised if <code>min_bin_n_event</code> exceeds <code>max_bin_n_event</code>.<br />
+  Raised if Invalid value for <code>min_event_rate_diff</code>.<br />
+  Raised if Invalid value for <code>max_pvalue</code>.<br />
+  Raised if Invalid value for <code>max_pvalue_policy</code>.<br />
+  Raised if Invalid value for <code>gamma</code>.<br />
+  Raised if Invalid value for <code>outlier_detector</code>.<br />
+  Raised if <code>outlier_params</code> is not a dictionary.<br />
+  Raised if Invalid value for <code>class_weight</code>.<br />
+  Raised if Invalid value for <code>cat_cutoff</code>.<br />
+  Raised if Invalid value for <code>cat_unknown</code>.<br />
+  Raised if <code>user_splits</code> is not a list or numpy.ndarray.<br />
+  Raised if <code>user_splits_fixed</code> is not a list or numpy.ndarray or its elements are not boolean.<br />
+  Raised if Length mismatch between <code>user_splits</code> and <code>user_splits_fixed</code>.<br />
+  Raised if Invalid value for <code>special_codes</code>.<br />
+  Raised if- Invalid value for <code>split_digits</code>.<br />
+  Raised if Invalid value for <code>mip_solver</code>.<br />
+  Raised if Invalid value for <code>time_limit</code>.<br />
+  Raised if <code>verbose</code> is not a boolean.<br /></p>
+<ul>
+<li>
+<p><strong>TypeError</strong><br />
+  Raised if <code>class_weight</code> is neither a dictionary, "balanced", nor None.<br />
+  Raised if <code>outlier_params</code> is not a dictionary.<br />
+  Raised if <code>cat_unknown</code> is neither a float nor a string.<br />
+  Raised if <code>special_codes</code> is neither a list, dictionary, nor numpy.ndarray.<br /></p>
+</li>
+<li>
+<p><strong>RuntimeError</strong><br />
+  Raised if the optimization solver does not converge within the specified time limit.<br /></p>
+</li>
 </ul>
 <h2 id="usage">Usage</h2>
 <pre><code class="language-python">from combat.transform import WoEDataPreparation

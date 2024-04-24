@@ -298,6 +298,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exceptions:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
     <span class="md-ellipsis">
       Example:
@@ -345,6 +354,14 @@
 <ul>
 <li><strong>pred</strong>: <code>pd.Series</code><br />
   A predicted PD for a client using <code>x_data</code> and the stacking model.</li>
+</ul>
+<h3 id="exceptions">Exceptions:</h3>
+<ul>
+<li><strong>TypeError:</strong><br />
+  Raised if <code>models_dict</code> is not a dictionary<br />
+  Raised if <code>x_data</code> is not a pandas DataFrame object<br />
+  Raised if the <code>model</code> parameter is not a Logistic Regression object<br />
+  Raised if <code>logprob</code> is not logical<br /></li>
 </ul>
 <h3 id="example">Example:</h3>
 <pre><code class="language-python">from combat.combat import PredictionStacking

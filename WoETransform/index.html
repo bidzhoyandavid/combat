@@ -287,6 +287,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Returns:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exceptions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -458,6 +473,80 @@
 <li><code>final_data</code>: dict<br />
   A dictionary with transformed data, status, binning table, and WoE transformation.</li>
 </ul>
+<h3 id="exceptions">Exceptions</h3>
+<ul>
+<li>
+<p><strong>TypeError</strong>:<br />
+  Raised if the parameter <code>x</code> is not a pandas Series.<br />
+  Raised if the parameter <code>y</code> is not a pandas Series.<br />
+  Raised if the parameter <code>var_name</code> is not a string.<br />
+  Raised if the parameter <code>plot</code> is not a boolean value.<br />
+  Raised if the parameter <code>solver</code> is not one of 'cp', 'ls', or 'mip'.<br />
+  Raised if the parameter <code>max_n_prebins</code> is not an integer greater than 1.<br />
+  Raised if the parameter <code>min_prebin_size</code> is not a float in the range (0, 0.5].<br />
+  Raised if the parameter <code>min_n_bins</code> is not a positive integer.<br />
+  Raised if the parameter <code>max_n_bins</code> is not a positive integer.<br />
+  Raised if the parameter <code>min_bin_size</code> is not a float in the range (0, 0.5].<br />
+  Raised if the parameter <code>max_bin_size</code> is not a float in the range (0, 1].<br />
+  Raised if the parameter <code>min_bin_n_nonevent</code> is not a positive integer.<br />
+  Raised if the parameter <code>max_bin_n_nonevent</code> is not a positive integer.<br />
+  Raised if the parameter <code>min_bin_n_event</code> is not a positive integer.<br />
+  Raised if the parameter <code>max_bin_n_event</code> is not a positive integer.<br />
+  Raised if the parameter <code>min_event_rate_diff</code> is not a float in the range [0, 1].<br />
+  Raised if the parameter <code>max_pvalue</code> is not a float in the range (0, 1].<br />
+  Raised if the parameter <code>max_pvalue_policy</code> is not one of 'all' or 'consecutive'.<br />
+  Raised if the parameter <code>gamma</code> is not a non-negative float.<br />
+  Raised if the parameter <code>outlier_detector</code> is provided and not one of 'range' or 'zscore'.<br />
+  Raised if the parameter <code>outlier_params</code> is provided and not a dictionary.<br />
+  Raised if the parameter <code>class_weight</code> is provided and not a dictionary or 'balanced'.<br />
+  Raised if the parameter <code>class_weight</code> is a string and not equal to 'balanced'.<br />
+  Raised if the parameter <code>cat_cutoff</code> is provided and not a float in the range (0, 1].<br />
+  Raised if the parameter <code>cat_unknown</code> is provided and not a float or a string.<br />
+  Raised if the parameter <code>user_splits</code> is provided and not a numpy.ndarray or a list.<br />
+  Raised if the parameter <code>user_splits_fixed</code> is provided and:<br /></p>
+</li>
+<li>
+<p><code>user_splits</code> is None.<br /></p>
+</li>
+<li>Not a numpy.ndarray or a list.<br /></li>
+<li>Not a list of booleans.<br /></li>
+<li>
+<p>Length mismatch with <code>user_splits</code>.<br />
+    Raised if the parameter <code>special_codes</code> is provided and not a numpy.ndarray, list, or dictionary.<br />
+    Raised if the parameter <code>outlier_params</code> is provided but not a dictionary.<br />
+    Raised if the parameter <code>cat_unknown</code> is provided but not a float or a string.<br /></p>
+</li>
+<li>
+<p><strong>ValueError</strong>:<br /></p>
+</li>
+</ul>
+<p>Raised if the parameter <code>mon_constraint</code> is not one of -1, 0, or 1.<br />
+  Raised if the parameter <code>var_type</code> is not one of 'categorical' or 'numerical'.<br />
+  Raised if the parameter <code>metric</code> is not one of 'woe' or 'event_rate'.<br />
+  Raised if the parameter <code>prebinning_method</code> is not one of 'cart', 'mdlp', 'quantile', 'uniform', or None.<br />
+  Raised if the lengths of <code>user_splits</code> and <code>user_splits_fixed</code> parameters are not equal.<br />
+  Raised if the parameter <code>divergence</code> is not one of 'iv', 'js', 'hellinger', 'triangular'<br />
+  Raised if the lengths of <code>user_splits</code> and <code>user_splits_fixed</code> parameters do not match.<br />
+  Raised if the parameter <code>var_type</code> is provided but not one of 'categorical' or 'numerical'.<br />
+  Raised if the parameter <code>metric</code> is provided but not one of 'woe' or 'event_rate'.<br />
+  Raised if the parameter <code>prebinning_method</code> is provided but not one of 'cart', 'mdlp', 'quantile', 'uniform', or None.<br />
+  Raised if the parameter <code>outlier_detector</code> is provided but not one of 'range' or 'zscore'.<br />
+  Raised if the parameter <code>split_digits</code> is provided but not an integer in the range [0, 8].<br />
+  Raised if the parameter <code>max_pvalue_policy</code> is provided but not one of 'all' or 'consecutive'.<br />
+  Raised if the parameter <code>mon_constraint</code> is provided but not one of -1, 0, or 1.<br />
+  Raised if the parameter <code>special_codes</code> is provided as a dictionary but it is empty. The <code>special_codes</code> dictionary must contain at least one special code.<br /></p>
+<ul>
+<li><strong>TypeError/ValueError (Special Cases)</strong>:<br /></li>
+</ul>
+<p>Raised if the parameter <code>class_weight</code> is provided as a string but not equal to 'balanced'.<br />
+  Raised if the parameter <code>user_splits_fixed</code> is provided without <code>user_splits</code>.<br />
+  Raised if the parameter <code>user_splits_fixed</code> is not a list of booleans.<br />
+  Raised if the lengths of <code>user_splits</code> and <code>user_splits_fixed</code> parameters do not match.<br /></p>
+<ul>
+<li><strong>ValueError (Inconsistent Parameters)</strong>:</li>
+</ul>
+<p>Raised if both <code>min_n_bins</code> and <code>max_n_bins</code> are provided, but <code>min_n_bins</code> is greater than <code>max_n_bins</code>.<br />
+  Raised if both <code>min_bin_size</code> and <code>max_bin_size</code> are provided, but <code>min_bin_size</code> is greater than <code>max_bin_size</code>.<br /></p>
 <pre><code class="language-python">import pandas as pd
 from combat.transform import WoETransform
 

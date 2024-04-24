@@ -16,7 +16,7 @@
     
     
       
-        <title>ModelStacking - COMBAT Docs</title>
+        <title>WeightsBagging - COMBAT Docs</title>
       
     
     
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#modelstacking" class="md-skip">
+        <a href="#modelaggregation" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ModelStacking
+              WeightsBagging
             
           </span>
         </div>
@@ -270,13 +270,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#modelstacking" class="md-nav__link">
+  <a href="#modelaggregation" class="md-nav__link">
     <span class="md-ellipsis">
-      ModelStacking
+      ModelAggregation
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="ModelStacking">
+    <nav class="md-nav" aria-label="ModelAggregation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -335,60 +335,51 @@
                   
 
 
-  <h1>ModelStacking</h1>
+  <h1>WeightsBagging</h1>
 
-<h2 id="modelstacking">ModelStacking</h2>
-<p>The function creates a logistic regression model using a stacking scheme.</p>
+<h2 id="modelaggregation">ModelAggregation</h2>
+<p>The function calculates the weights of each model in the ensemble.</p>
 <h3 id="parameters">Parameters:</h3>
 <ul>
 <li><strong>models_dict</strong>: <code>dict</code><br />
-  A dictionary with LogitModel instances.</li>
-<li><strong>x_data</strong>: <code>pd.DataFrame</code><br />
-  A pandas DataFrame with explanatory variables.</li>
-<li><strong>y_data</strong>: <code>pd.Series</code><br />
-  A pandas Series with discrete dependent variable.</li>
-<li><strong>penalty</strong>: <code>Optional[str]</code>, default = <code>None</code><br />
-  A regularization for Logistic Regression model. It can be either <code>'None'</code>, <code>'l1'</code>, or <code>'l2'</code>.</li>
-<li><strong>alpha</strong>: <code>float</code>, default = <code>0.5</code><br />
-  A float variable for the regularization.</li>
-<li><strong>fit_intercept</strong>: <code>bool</code>, default = <code>True</code><br />
-  A boolean variable whether to fit intercept in the Logistic Regression or not.</li>
-<li><strong>logprob</strong>: <code>bool</code><br />
-  An indicator to calculate the logarithm of probabilities.</li>
+  Dictionary of LogitModel() instances.</li>
+<li><strong>metric</strong>: <code>str</code>, {'gini', 'auc', 'f1', 'brier'}<br />
+  Metric for calculating weighted average.</li>
+<li><strong>check_sample</strong>: <code>str</code>, {'test', 'train'}<br />
+  Sample to calculate metrics for averaging.</li>
 </ul>
 <h3 id="returns">Returns:</h3>
 <ul>
-<li><strong>model</strong>: <code>LogisticRegression</code><br />
-  A LogisticRegression model from the sklearn package.</li>
+<li><strong>weights_dict</strong>: <code>dict</code><br />
+  A dictionary with weights for each model in the ensemble.</li>
 </ul>
 <h3 id="exceptions">Exceptions:</h3>
 <ul>
 <li>
 <p><strong>ValueError:</strong><br />
-  Raised if the length of <code>x_data</code> and <code>y_data</code> must be identical<br />
-  Raised if the <code>penalty</code> is not in [<code>None</code>, <code>l1</code>, <code>l2</code>]<br /></p>
+  Raised if <code>check_sample</code> is not in [<code>train</code>, <code>test</code>]
+  Raised if <code>metric</code> is not in [<code>gini</code>, <code>auc</code>, <code>f1</code>, <code>brier</code>]</p>
 </li>
 <li>
 <p><strong>TypeError:</strong><br />
-  Raised if <code>models_dict</code> is not a dictionary<br />
-  Raised if <code>x_data</code> is not a pandas DataFrame object<br />
-  Raised if <code>y_data</code> is not a pandas DataFrame object<br /></p>
+  Raised if <code>models_dict</code> is not a dictionary</p>
 </li>
 </ul>
 <h3 id="example">Example:</h3>
-<pre><code class="language-python">from combat.combat import ModelStacking
+<pre><code class="language-python">from combat.combat import ModelAggregation
+from combat.models import LogitModel
 
 # Sample input data
 models_dict = {1: model1 # LogitModel instance
               , 2: model2 # LogitModel instance
               , 3: model3 # LogitModel instance
               }
-x_data = your_data
-y_data = your_labels
+metric = 'auc'
+check_sample = 'test'
 
-# Create a stacked logistic regression model
-stacked_model = ModelStacking(models_dict, x_data, y_data, penalty='l1', alpha=0.5, fit_intercept=True, logprob=False)
-print(&quot;Stacked model:&quot;, stacked_model)
+# Calculate weights for model aggregation
+weights = ModelAggregation(models_dict, metric, check_sample)
+print(&quot;Model weights:&quot;, weights)
 </code></pre>
 
 
