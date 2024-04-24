@@ -78,9 +78,9 @@ model_comb_1 = ModelCombination(y_train = y_train
 
 
 
-aggr_weight = ModelAggregation(models_dict=model_comb_1, check_sample='test', metric='gini')
+aggr_weight = WeightsBagging(models_dict=model_comb_1, check_sample='test', metric='gini')
 
-aggr_pred = PredictionAggregation(models_dict=model_comb_1, weights_dict=aggr_weight, x_data = x_test)
+aggr_pred = PredictionBagging(models_dict=model_comb_1, weights_dict=aggr_weight, x_data = x_test)
 
 stack_model = ModelStacking(model_comb_1, x_test, y_test)
 x_train_1 = x_train[1:]
@@ -175,9 +175,9 @@ class Test_Combat():
                 , (model_comb_1, 'f1', 'teste', pytest.raises(ValueError))
             ]
     )
-    def test_ModelAggregation(self, model_dict, metric, check_sample, expectation):
+    def test_WeightsBagging(self, model_dict, metric, check_sample, expectation):
         with expectation:
-            assert isinstance(ModelAggregation(model_dict, metric, check_sample), dict)
+            assert isinstance(WeightsBagging(model_dict, metric, check_sample), dict)
 
     @pytest.mark.parametrize(
             "models_dict, weights_dict, x_data, expectation"
@@ -185,9 +185,9 @@ class Test_Combat():
                 (model_comb_1, aggr_weight, x_test, does_not_raise())
             ]
     )
-    def test_PredictionAggregation(self, models_dict, weights_dict, x_data, expectation):
+    def test_PredictionBagging(self, models_dict, weights_dict, x_data, expectation):
         with expectation:
-            assert isinstance(PredictionAggregation(models_dict, weights_dict, x_data), np.ndarray)
+            assert isinstance(PredictionBagging(models_dict, weights_dict, x_data), np.ndarray)
 
     @pytest.mark.parametrize(
             "models_dict, x_data, y_data, penalty, alpha, fit_intercept, expectation"

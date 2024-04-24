@@ -111,9 +111,9 @@ model_comb_1 = ModelCombination(y_train = y_train
 
 
 
-aggr_weight = ModelAggregation(models_dict=model_comb_1, check_sample='test', metric='gini')
+aggr_weight = WeightsBagging(models_dict=model_comb_1, check_sample='test', metric='gini')
 
-aggr_pred = PredictionAggregation(models_dict=model_comb_1, weights_dict=aggr_weight, x_data = x_test)
+aggr_pred = PredictionBagging(models_dict=model_comb_1, weights_dict=aggr_weight, x_data = x_test)
 
 stack_model = ModelStacking(model_comb_1, x_test, y_test)
 
