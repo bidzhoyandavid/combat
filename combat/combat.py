@@ -247,10 +247,10 @@ def ModelCombination(
     coef_expectation.columns = ['dtype', 'sign_expectation']
 
     if not set(x_train.columns) == set(coef_expectation.index): 
-        raise ValueError("""The 'x_train' columns are not identical with 'coef_expectation'""")
+        raise ValueError("""The 'x_train' columns are not identical with 'coef_expectation' index""")
       
     if len(x_train.columns) < dependent_number:
-        raise ValueError("The 'dependent_number' must be less then number of x_train columns quantity")
+        raise ValueError("The 'dependent_number' must be less than 'x_train' columns quantity")
     
     if not isinstance(x_train, pd.DataFrame):
         raise TypeError("""The 'x_train' parameter must be a pandas DataFrame object""")
@@ -644,7 +644,7 @@ def PredictionStacking(
         raise TypeError("""The 'x_data' parameter must be a pandas DataFrame object""")
 
     if not isinstance(model, LogisticRegression):
-        raise TypeError("""The 'model' parameter must be a Logistic object""")
+        raise TypeError("""The 'model' parameter must be a Logistic Regression object""")
     
     if not isinstance(logprob, bool):
         raise TypeError("""The 'logprob' must be logical""")

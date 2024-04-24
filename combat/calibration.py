@@ -47,7 +47,7 @@ def ExpectedCalibrationError(
         y_data: pd.Series
             true labels
             
-        probabilities: np.ndarray
+        probabilities: np.ndarray or pd.Series
             probabilities of each object in the dataset
             
         n_bins: int,  default = 20
@@ -62,10 +62,10 @@ def ExpectedCalibrationError(
     # Validating parameters
     # =============================================================================
     if not isinstance(y_data, pd.Series):
-        raise TypeError("The 'y_data' parameter must be a pandas Series")
+        raise TypeError("The 'y_data' parameter must be a pd.Series")
         
-    if not isinstance(probabilities, np.ndarray):
-        raise TypeError("""The 'probabilities' parameter must be np.ndarray""")
+    if not isinstance(probabilities, (np.ndarray, pd.Series)):
+        raise TypeError("""The 'probabilities' parameter must be np.ndarray or pd.Series""")
         
     if not isinstance(n_bins, int) or n_bins <= 0:
         raise ValueError("""The 'n_bins' parameter must be positive integer; got {}""".format(n_bins))
@@ -118,10 +118,10 @@ def CalibrationModel(
         penalty: str optional, {None, 'l1', 'l2'}, default = None
             a regularization for Logistic Regression model
             
-        alpha: float optional, default = 0.5
+        alpha: float, default = 0.5
             a float variable for regularization
             
-        fit_intercept: bool optional, {'True', 'False'}, default = 'True'
+        fit_intercept: bool, {True, False}, default = True
             a bool variable whether to fit intercept in the Logistic Regression or not         
 
     Returns:
@@ -185,7 +185,7 @@ def PredictionCalibration(
     Returns:
     --------
         pred: np.ndarray
-            a pandas Series of the calibrated probabilities
+            a np.ndarray object of the calibrated probabilities
     """
     
     # =============================================================================
@@ -222,7 +222,7 @@ def CalibrationCurve(
             a pandas Series with discrete dependent variable
          
         probabilities: np.ndarray or pd.Series
-            a numpy ndarray with estimated probabilities of default
+            a np.ndarray or pd.Series with estimated probabilities of default
             
         n_bins: int
             a numbeer ob bins
@@ -234,10 +234,10 @@ def CalibrationCurve(
     # Validating parameters    
     # =============================================================================
     if not isinstance(y_data, pd.Series):
-        raise TypeError("""The 'y_data' parameter must be a pandas Series""")
+        raise TypeError("""The 'y_data' parameter must be a pd.Series""")
     
     if not isinstance(probabilities, (np.ndarray, pd.Series)):
-        raise TypeError("""The 'probabilities' parameter must be a np.ndarray""")
+        raise TypeError("""The 'probabilities' parameter must be a np.ndarray or a pd.Series""")
 
     if isinstance(probabilities, np.ndarray) and len(probabilities.shape) != 1:
         raise ValueError("""The 'probabilities' parameter must have 1 column; got {}""".format(probabilities.shape))

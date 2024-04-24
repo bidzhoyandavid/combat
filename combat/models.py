@@ -115,7 +115,7 @@ class LogitModel:
             raise ValueError("""The length of 'x_test' and 'y_test' must be identical""")
             
         if not isinstance(intercept, bool):
-            raise ValueError("""The 'intercept' parameter must be logical""")
+            raise TypeError("""The 'intercept' parameter must be logical""")
             
         if penalty not in [None, 'l1']:
             raise ValueError("""The 'penalty' parameter must be iether None or 'l1'; got {}""".format(penalty))

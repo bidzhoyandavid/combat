@@ -52,7 +52,7 @@ def ScoreCard(y_proba: Union[np.ndarray, pd.Series]
     # =============================================================================
    
     if not isinstance(y_proba, (np.ndarray, pd.Series)):
-        raise ValueError("""The 'y_prob' parameter must be np.ndarray or pd.Series""")
+        raise TypeError("""The 'y_prob' parameter must be np.ndarray or pd.Series""")
 
     if isinstance(y_proba, np.ndarray) and len(y_proba.shape) != 1:
         raise ValueError("""The 'probabilities' parameter must have 1 column; got {}""".format(y_proba.shape))
