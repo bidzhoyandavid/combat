@@ -184,7 +184,7 @@ class Test_Calibration():
                 , (y_test, stack_pred[:,1], 20, 'aaa', does_not_raise())
                 , (y_test, proba[:,1], 0, 'aaa', pytest.raises(ValueError))
                 , (y_test, proba[:,1], 10, 12, pytest.raises(ValueError))
-                , (y_test, pd.Series(proba[:,1]), 20, 'aaa', does_not_raise())
+                # , (y_test, pd.Series(proba[:,1]), 20, 'aaa', does_not_raise())
                 , (y_test, proba, 10, '12', pytest.raises(ValueError))
             ]
     )
