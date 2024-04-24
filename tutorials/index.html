@@ -63,11 +63,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#caution" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -183,17 +178,6 @@
       
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Tutorials
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -203,32 +187,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#caution" class="md-nav__link">
-    <span class="md-ellipsis">
-      Caution:
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -272,23 +230,6 @@
   
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#caution" class="md-nav__link">
-    <span class="md-ellipsis">
-      Caution:
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -307,23 +248,8 @@
 <p>This part of the project documentation focuses on a
 <strong>learning-oriented</strong> approach. You'll learn how to
 get started with the code in this project.</p>
-<blockquote>
-<p><strong>Note:</strong> Expand this section by considering the
-following points:</p>
-</blockquote>
-<ul>
-<li>Help newcomers with getting started</li>
-<li>Teach readers about your library by making them
-  write code</li>
-<li>Inspire confidence through examples that work for
-  everyone, repeatably</li>
-<li>Give readers an immediate sense of achievement</li>
-<li>Show concrete examples, no abstractions</li>
-<li>Provide the minimum necessary explanation</li>
-<li>Avoid any distractions</li>
-</ul>
 <p>Install <code>combat</code> if it not installed yet</p>
-<pre><code class="language-python">pip install combat
+<pre><code class="language-python">!pip install combat
 </code></pre>
 <p>Import all necessary packages</p>
 <pre><code class="language-python">from combat.models import LogitModel
@@ -353,17 +279,17 @@ x = data.drop(columns = ['target'])
 </code></pre>
 <pre><code class="language-python">
 # upload data with coefficients sign expectations
-df_sign = pd.read_excel('df_sign.xlsx', index_col = 'variable')
+df_sign = pd.read_excel('df_sign.xlsx'
+                        , index_col = 'variable' # it's  crucial to select `variable` column as `index_col`.
+                        )
 
 </code></pre>
 <p><code>df_sign.xlsx</code> must contain 3 columns:</p>
 <ul>
 <li><code>variable</code> - exact the same names as columns of <code>x.columns</code></li>
 <li><code>dtype</code> - type of the columns (either <code>numerical</code> or <code>categorical</code>)</li>
-<li><code>expec</code> - coefficinets sign expectations ('-1' - in case of negative sign expectation, '1' - positive sign expectation, '0' - ambigious).</li>
+<li><code>expec</code> - coefficinets sign expectations (<code>-1</code> - in case of negative sign expectation, <code>+1</code> - positive sign expectation, <code>0</code> - ambigious).</li>
 </ul>
-<h5 id="caution">Caution:</h5>
-<p>It is crucial to select <code>variable</code> column as <code>index_col</code>.</p>
 <p>Perform WoE Transformation.
 Split data into training and testing sets.</p>
 <pre><code class="language-python">final_data = WoEDataPreparation(
@@ -373,6 +299,12 @@ Split data into training and testing sets.</p>
   , special_codes = None
   , metric = 'woe'
 )
+
+# review the transformation results
+print(final_data['status'])
+
+# review binning tables
+print(final_data['bining_tables'])
 
 # split data into training and testing set
 x_train, x_test, y_train, y_test = train_test_split(final_data['x_woe'], y, test_size=0.2, random_state=42, shuffle=True)
