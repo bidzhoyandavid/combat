@@ -167,8 +167,6 @@ def ModelCombination(
             , dependent_number: int
             , coef_expectation: pd.DataFrame
             , intercept: bool = True
-            , penalty: Optional[str] = None
-            , alpha: float = 0.5
             , p_value: float = 0.05
             , check_sample: str = 'test'
             , metric: str = 'gini'
@@ -206,12 +204,6 @@ def ModelCombination(
          
         intercept: bool
             an indicator whether to include intercept into model or not 
-
-        penalty: str {None, 'l1'}, default = None
-            regularization parameter. Only 'l1' regularization is available   
-
-        alpha: float
-            regularization parameter from 0 to 1
             
         p_value: float, default = 0.05
             max significance level
@@ -267,12 +259,6 @@ def ModelCombination(
     if not isinstance(intercept, bool):
         raise ValueError("""The 'intercept' parameter must be logical""")
             
-    if penalty not in [None, 'l1']:
-        raise ValueError("""The 'penalty' parameter must be iether None or 'l1'; got {}""".format(penalty))
-        
-    if not isinstance(alpha, float) or not 0 < alpha < 1:
-        raise ValueError("""The 'alpha' parameter must be float from 0 to 1; got {}""".format(alpha))
-
     if check_sample not in ['train', 'test']:
         raise ValueError("""The 'check_sample' parameter must be in ['train', 'test']; got {}""". format(check_sample))
         
@@ -308,8 +294,6 @@ def ModelCombination(
                                , x_test = x_test_temp
                                , y_test = y_test
                                , intercept = intercept
-                               , penalty = penalty
-                               , alpha = alpha
                                )
             model.Model_SK()
             model.Model_SM()

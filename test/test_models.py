@@ -72,25 +72,21 @@ y_test_1 = pd.Series([1, 0, 1])
 
 class TestLogitModel:
     @pytest.mark.parametrize(
-            "x_train, y_train, x_test, y_test, intercept, penalty, alpha, expectation"
+            "x_train, y_train, x_test, y_test, intercept,expectation" 
             , [
-                (x_train, y_train, x_test, y_test, True, None, 0.5, does_not_raise())
-                , (x_train, y_train, x_test, y_test, False, None, 0.5, does_not_raise())
-                , (x_train, y_train, x_test, y_test, True, 'l1', 0.5, does_not_raise())
-                , (x_train, y_train, x_test, y_test, 'True', 'l1', 0.5, pytest.raises(TypeError))
-                , (x_train, y_train, x_test, y_test, True, 'l2', 0.5, pytest.raises(ValueError))
-                , (x_train, y_train, x_test, y_test, True, 'l1', '0.5', pytest.raises(ValueError))
-                , (x_train, y_train, x_test, y_test, True, 0.8, 0.5, pytest.raises(ValueError))
-                , (x_train, y_train, x_test, y_test, True, None, 1.5, pytest.raises(ValueError))
-                , (x_train_1, y_train, x_test, y_test, True, None, 0.5, pytest.raises(ValueError))
-                , (x_train, y_train, x_test_1, y_test, True, None, 0.5, pytest.raises(ValueError))
-                , (x_train, y_train_1, x_test_1, y_test, True, None, 0.5, pytest.raises(TypeError))
-                , (x_train, y_train, x_test, y_test, [True], 'l1', 0.5,  pytest.raises(TypeError))
+                (x_train, y_train, x_test, y_test, True,  does_not_raise())
+                , (x_train, y_train, x_test, y_test, False,  does_not_raise())
+                , (x_train, y_train, x_test, y_test, True,  does_not_raise())
+                , (x_train, y_train, x_test, y_test, 'True', pytest.raises(TypeError))
+                , (x_train_1, y_train, x_test, y_test, True, pytest.raises(ValueError))
+                , (x_train, y_train, x_test_1, y_test, True,  pytest.raises(ValueError))
+                , (x_train, y_train_1, x_test_1, y_test, True,  pytest.raises(TypeError))
+                , (x_train, y_train, x_test, y_test, [True], pytest.raises(TypeError))
             ]
     )
-    def test_logit_model_all_models(self, x_train, y_train, x_test, y_test, intercept, penalty, alpha, expectation):
+    def test_logit_model_all_models(self, x_train, y_train, x_test, y_test, intercept, expectation):
         with expectation:
-            model = LogitModel(x_train, y_train, x_test, y_test, intercept, penalty, alpha)
+            model = LogitModel(x_train, y_train, x_test, y_test, intercept,)
             assert model.Model_SK() is not None
             assert model.Model_SM() is not None
 

@@ -3,7 +3,7 @@
 The Models module within this COMBAT package encapsulates a versatile class designed to streamline the process of building predictive models and evaluating their performance across training and test datasets. 
 This module serves as a comprehensive toolkit for model development, offering an array of functionalities for model training, evaluation, and metric computation.
 
-1. `LogitModel(x_train, y_train, x_test, y_test, intercept, penalty, alpha)` - generate a Logistic Regression Model with functionalities for evaluation and metric computation
+1. `LogitModel(x_train, y_train, x_test, y_test, intercept)` - generate a Logistic Regression Model with functionalities for evaluation and metric computation
     LogitModel has the following methods:
     1.1 `Model_SK` - build a Logistic Regression Model using `sklearn` package
     1.2 `Model_SM` - build a Logistic Regression Model using `statsmodels` package
@@ -85,8 +85,6 @@ class LogitModel:
                 , x_test: pd.DataFrame
                 , y_test: pd.Series
                 , intercept: bool = True
-                , penalty: Optional[str] = None
-                , alpha: float = 0.1
                 ):
         
         # =============================================================================
@@ -116,13 +114,7 @@ class LogitModel:
             
         if not isinstance(intercept, bool):
             raise TypeError("""The 'intercept' parameter must be logical""")
-            
-        if penalty not in [None, 'l1']:
-            raise ValueError("""The 'penalty' parameter must be iether None or 'l1'; got {}""".format(penalty))
-            
-        if not isinstance(alpha, float) or not 0 < alpha < 1:
-            raise ValueError("""The 'alpha' parameter must be float from 0 to 1; got {}""".format(alpha))
-                        
+                                    
         # =============================================================================
         # initializing    
         # =============================================================================
@@ -130,18 +122,16 @@ class LogitModel:
         self.y_train = y_train
         self.x_test = x_test
         self.y_test = y_test
-        self.penalty = penalty
         self.intercept = intercept
-        self.alpha = alpha       
     
     def Model_SK(self):
         if self.sk_model is None:
             model = LogisticRegression(
-                          penalty = self.penalty
+                          penalty = None
                         , fit_intercept = self.intercept
                         # , l1_ratio = self.l1_ratio
                         , solver = 'saga'
-                        , C = self.alpha
+                        , C = 0.5
                     ).fit(self.x_train, self.y_train)
             self.sk_model = model
         
@@ -154,16 +144,10 @@ class LogitModel:
             if self.intercept:
                 x_train_sm = add_constant(self.x_train)
             else: 
-                x_train_sm = self.x_train
-                
-            if self.penalty == 'l1':
-                model  = sm.Logit(self.y_train, x_train_sm).fit_regularized(method = self.penalty
-                                                                            , alpha=self.alpha
-                                                                            , disp=False
-                                                                            )
-            else:
-                model = sm.Logit(self.y_train, x_train_sm).fit(disp = False
-                                                               , method = 'newton')
+                x_train_sm = self.x_train                
+            
+            model = sm.Logit(self.y_train, x_train_sm).fit(disp = False
+                                                        , method = 'newton')
             
             self.sm_model = model
             
