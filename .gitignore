@@ -8,3 +8,5 @@ mkdocs.yml
 /site/*
 ignorefreeze.txt
 requirements_final.txt
+setup.py
+Readme.md
