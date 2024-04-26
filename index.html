@@ -14,7 +14,7 @@
       
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.bcfcd587.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.66ac8b77.min.css">
       
       
 
@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#table-of-contents" class="md-skip">
+        <a href="#combat-project-documentation" class="md-skip">
           Skip to content
         </a>
       
@@ -160,6 +160,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -188,6 +190,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -199,6 +203,51 @@
   <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
       Table Of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Motivation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-solved" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem Solved
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tech-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tech Stack
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-run-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Run the Project
     </span>
   </a>
   
@@ -269,6 +318,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -280,6 +331,51 @@
   <a href="#table-of-contents" class="md-nav__link">
     <span class="md-ellipsis">
       Table Of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Motivation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#problem-solved" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem Solved
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tech-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tech Stack
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-run-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Run the Project
     </span>
   </a>
   
@@ -300,20 +396,49 @@
                   
 
 
-  <h1>COMBAT Docs</h1>
-
-<p>This site contains the project documentation for the
-<code>COMBAT</code> project that is a toy module used in the</p>
+<h1 id="combat-project-documentation"><code>COMBAT</code> Project Documentation</h1>
+<p>Welcome to the project documentation for <code>COMBAT</code>, a toy module designed to facilitate the PD (Probability of Default) development process.</p>
 <h2 id="table-of-contents">Table Of Contents</h2>
-<p>The documentation follows the best practice for
-project documentation and consists of four separate parts:</p>
+<ol>
+<li><a href="#motivation">Motivation</a></li>
+<li><a href="#problem-solved">Problem Solved</a></li>
+<li><a href="#tech-stack">Tech Stack</a></li>
+<li><a href="#design">Design</a></li>
+<li><a href="#how-to-run-project">How to Run the Project</a></li>
+</ol>
+<h2 id="motivation">Motivation <a name="motivation"></a></h2>
+<p>Building a PD model is typically a resource- and time-intensive process, often taking approximately 2 weeks to complete, including model building, testing, and calibration.</p>
+<h2 id="problem-solved">Problem Solved <a name="problem-solved"></a></h2>
+<p>The <code>COMBAT</code> Python package is designed to streamline the PD development process, potentially reducing it to just 1-2 days.</p>
+<h2 id="tech-stack">Tech Stack <a name="tech-stack"></a></h2>
+<p><code>COMBAT</code> leverages several key Python libraries essential for ML modeling, including:</p>
+<ol>
+<li>sklearn</li>
+<li>statsmodels</li>
+<li>scipy</li>
+<li>pandas</li>
+<li>numpy</li>
+<li>matplotlib</li>
+</ol>
+<h2 id="design">Design <a name="design"></a></h2>
+<p>The <code>COMBAT</code> framework comprises 6 modules:</p>
+<ol>
+<li><code>models</code>: Includes the <code>LogitModel</code> class containing all necessary Logistic Regression features.</li>
+<li><code>combat</code>: Contains functions for model building, testing, and aggregating into ensembles.</li>
+<li><code>calibration</code>: Designed for performing calibration of the final PDs.</li>
+<li><code>short_list</code>: Created to investigate the explanatory power of variables.</li>
+<li><code>transform</code>: Built for WoE (Weight of Evidence) transformation of explanatory variables.</li>
+<li><code>scorecard</code>: Designed to transform the final PD into a more convenient value.</li>
+<li><code>utilities</code>: A set of utility functions.</li>
+</ol>
+<h2 id="how-to-run-the-project">How to Run the Project <a name="how-to-run-project"></a></h2>
+<p>The documentation adheres to best practices for project documentation and consists of four separate parts:</p>
 <ol>
 <li><a href="project-overview/">Project Overview</a></li>
 <li><a href="tutorials/">Tutorials</a></li>
 <li><a href="how-to-guides/">How-To Guides</a></li>
 </ol>
-<p>Quickly find what you're looking for depending on
-your use case by looking at the different pages.</p>
+<p>Quickly find what you're looking for depending on your use case by referencing the different pages.</p>
 
 
 
@@ -363,7 +488,7 @@ your use case by looking at the different pages.</p>
     <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="assets/javascripts/bundle.1e8ae164.min.js"></script>
+      <script src="assets/javascripts/bundle.3220b9d7.min.js"></script>
       
     
   </body>

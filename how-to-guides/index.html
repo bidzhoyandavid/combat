@@ -14,7 +14,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.bcfcd587.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
       
       
 
@@ -448,8 +448,8 @@ provided in this project.</p>
 <li><a href="#how-to-transform-pd-to-score">How To Transform PD To Score</a></li>
 </ol>
 <h2 id="how-to-perform-woe-tramsformation">How To Perform WoE Tramsformation? <a name='how-to-perform-woe-tramsformation'></a></h2>
-<p>To perform WoE transformation of all the dataset, you need to utilize <code>WoEDataPreparation</code> function within the <code>transform</code> module. For the demostration puprposes we used the <code>HELOC</code> dataset from the <a href="https://www.kaggle.com/datasets/averkiyoliabev/home-equity-line-of-creditheloc">kaggle</a>.</p>
-<p>We recommend to download data for further training.</p>
+<p>To perform the Weight of Evidence (WoE) transformation on the entire dataset, you'll need to use the <a href="../WoEDataPreparation/"><code>WoEDataPreparation</code></a> function within the transform module. For demonstration purposes, we utilized the HELOC dataset sourced from [Kaggle].(https://www.kaggle.com/datasets/averkiyoliabev/home-equity-line-of-creditheloc).</p>
+<p>We recommend downloading the data for further training purposes.</p>
 <pre><code class="language-python">from combat.transform import *
 
 import pandas as pd
@@ -466,15 +466,18 @@ x = data.drop(columns = ['default'])
 # specify special codes if necessary
 special_codes = [-9, -8, -7]
 </code></pre>
-<p>Before we move to WoE Transformation procedure we need prepare meta information about the data utilized first. That means prepare an <code>.xlsx</code> file with 3 columns:</p>
+<p>Before proceeding with the WoE Transformation procedure, it's necessary to prepare meta-information about the data being utilized. This involves creating an <code>.xlsx</code> file with three columns:</p>
 <ol>
-<li><code>Variable</code> - name of variables as in the <code>heloc</code> data</li>
-<li><code>dtype</code> - either <code>numerical</code> or <code>categorical</code></li>
-<li><code>Expec</code> - <code>-1</code> if you expect negative coefficient for the Variable, <code>+1</code> - if positive and <code>0</code> - if ambigious</li>
+<li><code>Variable</code> - the names of variables as found in the HELOC dataset.</li>
+<li><code>dtype</code> - indicating whether each variable is numerical or categorical.</li>
+<li><code>Expec</code> - specifying expectations for coefficients: <code>-1</code> for a negative coefficient, <code>+1</code> for a positive coefficient, and <code>0</code> for ambiguity.</li>
 </ol>
-<p>Once the meta data is prepared, upload it. <br />
-<strong>Specify <code>Variable</code> columns as <code>index_col</code></strong></p>
-<pre><code class="language-python">df_sign = pd.read_excel(&quot;Sign Expec.xlsx&quot;,  index_col='Variable')
+<p>Once the metadata is prepared, upload it.<br />
+Specify the <code>Variable</code> column as the <code>index_col</code>"</p>
+<p>The <a href="../module_transform/"><code>transform</code></a> module offers rich functionality for Weight of Evidence (WoE) transformation.</p>
+<pre><code class="language-python">df_sign = pd.read_excel(&quot;Sign Expec.xlsx&quot;
+                        ,  index_col='Variable' # specify Variable as an index col
+                        )
 
 # Perform WoE Transformation for the whole data
 final_data = WoEDataPreparation(x_data = x
@@ -485,22 +488,22 @@ final_data = WoEDataPreparation(x_data = x
                                 , min_n_bins=1
                                 )
 
+# print the dataframe containing the data of the WoE Transformation results
+print(final_data['status'])
+
 # split data into training and testing sets
 x_train, x_test, y_train, y_test = train_test_split(final_data['x_woe'], y, test_size=0.2, random_state=42, shuffle=True)
 </code></pre>
-<p>The <code>transform</code> module provides with a rich functionalilty for WoE transofrmation.</p>
 <h2 id="how-to-explore-variables-explanational-power">How To Explore Variables Explanational Power <a name='how-to-Explore-Variables-Explanational-Power'></a></h2>
+<p>To select features, utilize <a href="../VarExpPower/"><code>VarExpPower</code></a> of <a href="../module_short_list/"><code>Short_list</code></a>, which allows you to calculate individual accuracy ratios, perform mean comparison tests (both parametric and nonparametric), and calculate the Variance Inflation Factor.</p>
 <pre><code class="language-python"># variable explanational power
 var_exp =VarExpPower(y_train = y_train
                      , x_train = x_train
                      , y_test = y_test
                      , x_test = x_test
                      )
-
-# print the dataframe containing the data of the WoE Transformation results
-print(final_data['status'])
 </code></pre>
-<p>Once most valuable variables are revealed, the analyst should remove the rest of variables from the datasets</p>
+<p>After identifying the most valuable variables, the analyst should proceed to remove the remaining variables from the datasets using <a href="../DeleteVars/"><code>DeleteVars</code></a>. The function removed variables from <code>x_train</code>, <code>x_test</code> and <code>df_sign</code> dataframes.</p>
 <pre><code class="language-python">from combat.utilities import DeleteVars
 
 vars_to_remove = ['NumTrades60Ever2DerogPubRec', 'NumTrades90Ever2DerogPubRec', 'NumInqLast6M', 'NumInqLast6Mexcl7days']
@@ -517,6 +520,7 @@ x_test_new = new_data['x_test_new']
 df_sign_new = new_data['df_sign_new']
 </code></pre>
 <h2 id="how-to-create-a-logit-model">How To Create a Logit Model <a name='how-to-create-a-logit-model'></a></h2>
+<p>The <a href="../LogitModel/"><code>LogitModel</code></a> of <a href="../module_models/"><code>models</code></a> module is a core feature of the <code>COMBAT</code> package. Upon initialization, this class facilitates the calculation of various useful metrics on both training and testing sets, as well as enables predictions on external data. It seamlessly integrates features from both <code>sklearn</code> and <code>statsmodels</code>, providing users with a comprehensive set of metrics.</p>
 <pre><code class="language-python">from combat.combat import IsModelValid
 from combat.models import LogitModel
 
@@ -544,8 +548,7 @@ print(model.Gini_Train())
 print(model.Brier_Train())
 print(model.Brier_Test())
 </code></pre>
-<p>To biuld model with the regularization specify the <code>penalty</code> and <code>alpha</code> arguments.
-Note, that <code>l1</code> regularization is available only.</p>
+<p>The <a href="../LogitModel/"><code>LogitModel</code></a> also offers the opportunity to build a regularized model. However, it's important to note that only <code>l1</code> regularization is available. To construct a model with regularization, specify the <code>penalty</code> and <code>alpha</code> arguments accordingly.</p>
 <pre><code class="language-python">
 model = LogitModel(x_train=x_train_new
                    , y_train=y_train
@@ -573,6 +576,9 @@ print(model.Brier_Train())
 print(model.Brier_Test())
 </code></pre>
 <h2 id="how-to-build-models-ensembles">How To Build Models Ensembles <a name='how-to-build-models-ensemble'></a></h2>
+<p><a href="../ModelCombination/"><code>ModelCombination</code></a> function of <a href="../module_combat/"><code>Combat</code></a> module enables users to build models ensemble, validate the models in accordance with the prespecified values like <code>p_value</code>, <code>gini_cutoff</code>, and correspondence with <code>df_sign</code> dataframe.</p>
+<p>To obtain meta information about all models in the ensemble, you should utilize the <a href="../ModelMetaInfo/"><code>ModelMetaInfo</code></a> function.</p>
+<p>The <a href="../SelectModels/"><code>SelectModels</code></a> function filters an ensemble based on a user-specified metric, such as <code>gini_test</code>.</p>
 <pre><code class="language-python">from combat.combat import *
 from combat.utilities import *
 
@@ -606,7 +612,7 @@ new_model_comb = SelectModels(models_dict = model_comb_1
 
 </code></pre>
 <h2 id="how-to-aggregate-with-bagging-scheme">How To Aggregate With Bagging Scheme <a name='how-to-aggregate-with-bagging-scheme'></a></h2>
-<p>The <code>COMBAT</code> package enable users to aggregate models reuslts into single prediction with the scheme similar to bagging.</p>
+<p>The <a href="../module_combat/"><code>Combat</code></a> module enables users to aggregate model results into a single prediction using a scheme similar to bagging. In the first step, determining the weights of each model prediction in the final predictions is achieved by applying <a href="../WeightsBagging/"><code>WeightsBagging</code></a>. Once the weights are obtained, you can utilize <a href="../PredictionBagging/"><code>PredictionBagging</code></a> to generate the final predictions.</p>
 <pre><code class="language-python">from combat.combat import *
 
 # define weights for each model in the ensemble by Gini coefficients on testing set
@@ -623,6 +629,7 @@ pred_aggr = PredictionBagging(models_dict = new_model_comb
                                   )
 </code></pre>
 <h2 id="how-to-aggregate-with-stacking-scheme">How To Aggregate With Stacking Scheme <a name='how-to-aggregate-with-stacking-scheme'></a></h2>
+<p>The <a href="../module_combat/"><code>Combat</code></a> module enables users to aggregate model results into a single prediction using a stacking scheme. First, create a stacking logistic regression model using <a href="../ModelStacking/"><code>ModelStacking</code></a>, then obtain final predictions using <a href="../PredictionStacking/"><code>PredictionStacking</code></a>.</p>
 <pre><code class="language-python">from combat.combat import *
 
 # create a final Logistic Regression Model
@@ -638,6 +645,7 @@ pred_stack = PredictionStacking(models_dict = new_model_comb
                                 )
 </code></pre>
 <h2 id="how-to-calibrate-models">How To Calibrate Models <a name='how-to-calibrate-models'></a></h2>
+<p>The <a href="../module_calibration/"><code>Calibration</code></a> module provides comprehensive tools for calibration. First, apply <a href="../ExpectedCalibrationError/"><code>ExpectedCalibrationError</code></a> to calculate the expected calibration error (ECE). If the ECE is too high, then calibration must be applied. To do this, create a calibration model with <a href="../CalibrationModel/"><code>CalibrationModel</code></a> first. Then obtain final predictions with <a href="../PredictionCalibration/"><code>PredictionCalibration</code></a>. Finally, <a href="../CalibrationCurve/"><code>CalibrationCurve</code></a> plots the calibration curve.</p>
 <pre><code class="language-python">
 from combat.calibration import *
 
@@ -670,6 +678,7 @@ CalibrationCurve(y_data = y_test
                  )
 </code></pre>
 <h2 id="how-to-transform-pd-to-score">How To Transform PD To Score <a name='how-to-transform-pd-to-score'></a></h2>
+<p>Last but not least is to transform the final Probability of Default (PD) to the most convenient Score Range. By default, the target score is set to 600. To perform this transformation, utilize the <a href="../Scorecard/"><code>Scorecard</code></a> function of <a href="../module_scorecard/"><code>Scorecard</code></a> package.</p>
 <pre><code class="language-python">from combat.scorecard import *
 
 scorecard = ScoreCard(y_proba = cal_prediction[:,1], log = False)
@@ -724,7 +733,7 @@ print(scorecard)
     <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      <script src="../assets/javascripts/bundle.3220b9d7.min.js"></script>
       
     
   </body>
