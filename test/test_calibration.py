@@ -106,7 +106,6 @@ model_comb_1 = ModelCombination(y_train = y_train
                               , gini_cutoff=0.4
                               , p_value = 0.1
                               , intercept = True
-                              , penalty = None
                               )
 
 
