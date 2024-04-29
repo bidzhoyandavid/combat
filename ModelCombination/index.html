@@ -317,10 +317,6 @@
   A dataframe with variable names and their sign expectations. The name of variables must be the same as x_train and x_test column names.</li>
 <li><strong>intercept</strong>: <code>bool</code>, default = <code>True</code><br />
   An indicator whether to include intercept into model or not.</li>
-<li><strong>penalty</strong>: <code>str</code>, {None, 'l1'}, default = None<br />
-  Regularization parameter. Only 'l1' regularization is available.</li>
-<li><strong>alpha</strong>: <code>float</code>, default = 0.5<br />
-  Regularization parameter from 0 to 1.</li>
 <li><strong>p_value</strong>: <code>float</code>, default = 0.05<br />
   Maximum significance level.</li>
 <li><strong>check_sample</strong>: <code>str</code>, {'test', 'train'}, default = 'test'<br />
@@ -345,8 +341,6 @@
   Raised if the <code>x_train</code> columns are not identical with <code>coef_expectation</code> index <br />
   Raised if the <code>dependent_number</code> is greater than <code>x_train</code> columns quantity <br />
   Raised if <code>intercept</code> is not <code>bool</code><br />
-  Raised if <code>penalty</code> is not in [<code>None</code>, <code>l1</code>]<br />
-  Raised if <code>alpha</code> is not <code>float</code> or not in <code>(0, 1)</code><br />
   Raised if <code>check_sample</code> is not in [<code>train</code>, <code>test</code>]<br />
   Raised if <code>metric</code> is not in [<code>gini</code>, <code>auc</code>]<br />
   Raised if <code>p_value</code> is not <code>float</code> or not in <code>(0, 0.5)</code><br />
@@ -375,8 +369,6 @@ max_model_number = 5
 dependent_number = 2
 coef_expectation = pd.DataFrame({'dtype': ['int', 'int'], 'sign_expectation': [1, -1, 0]})
 intercept = True
-penalty = None
-alpha = 0.5
 p_value = 0.05
 check_sample = 'test'
 metric = 'gini'
@@ -392,8 +384,6 @@ final_models = ModelCombination(y_train
                                 , dependent_number
                                 , coef_expectation
                                 , intercept
-                                , penalty
-                                , alpha
                                 , p_value
                                 , check_sample
                                 , metric

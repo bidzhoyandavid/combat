@@ -251,9 +251,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#__init__self-x_train-y_train-x_test-y_test-intercepttrue-penaltynone-alpha01" class="md-nav__link">
+  <a href="#__init__self-x_train-y_train-x_test-y_test-intercepttrue" class="md-nav__link">
     <span class="md-ellipsis">
-      __init__(self, x_train, y_train, x_test, y_test, intercept=True, penalty=None, alpha=0.1)
+      __init__(self, x_train, y_train, x_test, y_test, intercept=True)
     </span>
   </a>
   
@@ -614,11 +614,9 @@
 <li><code>x_test</code>: The test data features (pd.DataFrame).</li>
 <li><code>y_test</code>: The test data labels (pd.Series).</li>
 <li><code>intercept</code>: Whether to fit an intercept term (default True).</li>
-<li><code>penalty</code>: The penalty term for regularization (default None).</li>
-<li><code>alpha</code>: The regularization strength (default 0.1).</li>
 </ul>
 <h2 id="methods">Methods</h2>
-<h3 id="__init__self-x_train-y_train-x_test-y_test-intercepttrue-penaltynone-alpha01"><code>__init__(self, x_train, y_train, x_test, y_test, intercept=True, penalty=None, alpha=0.1)</code></h3>
+<h3 id="__init__self-x_train-y_train-x_test-y_test-intercepttrue"><code>__init__(self, x_train, y_train, x_test, y_test, intercept=True)</code></h3>
 <p>Initialize the logistic regression model with training and test data.</p>
 <h3 id="model_skself"><code>Model_SK(self)</code></h3>
 <p>Train and return the scikit-learn logistic regression model.</p>
@@ -694,9 +692,7 @@
 <li>
 <p><strong>ValueError:</strong><br />
   Raised if columns of <code>x_train</code> and <code>x_test</code> are not identical<br />
-  Raised if the length of <code>x_train</code> and <code>x_test</code> are not identical<br />
-  Raised if <code>penalty</code> not in [<code>None</code>, <code>l1</code>]<br />
-  Raised if <code>alpha</code> is not float or not from 0 to 1<br /></p>
+  Raised if the length of <code>x_train</code> and <code>x_test</code> are not identical<br /></p>
 </li>
 <li>
 <p><strong>TypeError</strong> <br />
